@@ -1,6 +1,7 @@
 .game-board{
   width: 300px;
   height: 300px;
+  margin: 10px;
 }
 
 .game-options{
@@ -34,4 +35,16 @@
 
 .justify-center{
   justify-content: center;
+}
+
+.block{
+  display: block;
+}
+
+.col{
+  flex-direction: column;
+}
+
+.space-between{
+  justify-content: space-between;
 }

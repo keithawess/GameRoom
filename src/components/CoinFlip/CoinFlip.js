@@ -12,7 +12,7 @@ export default function CoinFlip({ experienceUp, level }) {
     if (!result) {
       setImg(unknownImg);
     } else {
-       (flip) ? setImg(headsImg) : setImg(tailsImg);
+      flip ? setImg(headsImg) : setImg(tailsImg);
     }
   }, [flip, result]);
 
@@ -20,12 +20,13 @@ export default function CoinFlip({ experienceUp, level }) {
     <div>
       CoinFlip
       <h1 className="text-center">Heads or Tails?</h1>
-      <div className="game-board border margin-center">
-        {flip >= 0 && !result && <img src={img} alt="Coin" />}
-        {result && <img src={img} alt="Coin" />}
-        {result && <div>{result}</div>}
+      <div className="game-board margin-center flex col space-between">
+      {flip >= 0 && <img className="block margin-center" src={img} alt="Coin" />}
+        {/* {flip >= 0 && !result && <img className="block margin-center" src={img} alt="Coin" />}
+        {result && <img src={img} alt="Coin" />} */}
+        {result && <div className="text-center">They chose {flip ? "heads": "tails"}.<h3 className="text-center">Result: {result}</h3></div>}
         <div>
-          <button
+          <button className="margin-center block"
             onClick={() => {
               setResult(null);
               setFlipped(Math.floor(Math.random() * 2));
@@ -39,10 +40,12 @@ export default function CoinFlip({ experienceUp, level }) {
         <button
           className="margin-center option-button"
           onClick={() => {
-            if (!result && flip) {
-              setResult("win");
-              experienceUp(10);
-            } else setResult("loss");
+            if (!result) {
+              if (!result && flip) {
+                setResult("Win");
+                experienceUp(10);
+              } else setResult("Loss");
+            }
           }}
         >
           Heads
@@ -50,10 +53,12 @@ export default function CoinFlip({ experienceUp, level }) {
         <button
           className="margin-center option-button"
           onClick={() => {
-            if (!result && !flip) {
-              setResult("win");
-              experienceUp(10);
-            } else setResult("loss");
+            if (!result) {
+              if (!flip) {
+                setResult("win");
+                experienceUp(10);
+              } else setResult("loss");
+            }
           }}
         >
           Tails
