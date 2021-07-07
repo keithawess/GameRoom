@@ -18,10 +18,14 @@ useEffect(()=>{
   }
 },[experience]);
 
+const experienceUp = useCallback((exp) => {
+  setExperience((curr)=> curr + exp);
+},[])
+
 
   return (
     <Router>
-      <header>GameRoom</header>
+      <header>GameRoom Level: {level} Exp: {experience}</header>
       <nav>
         <NavLink
           activeClassName="active"
@@ -46,7 +50,7 @@ useEffect(()=>{
             reqLevel={0}
             level={level}
           >
-            <CoinFlip />
+            <CoinFlip experienceUp={experienceUp} level={level}/>
           </ProtectedRoute>
           <ProtectedRoute
             path="/rockpaperscissors"
