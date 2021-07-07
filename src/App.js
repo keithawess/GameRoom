@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './shared/ProtectedRoute';
 import CoinFlip from './components/CoinFlip';
@@ -8,6 +8,15 @@ import './App.css';
 
 function App() {
 const [level, setLevel] = useState(0);
+const [experience, setExperience] = useState(0);
+
+useEffect(()=>{
+  if(experience >= 100)
+  {
+    setLevel(level + 1);
+    setExperience(experience - 100);
+  }
+},[experience]);
 
 
   return (
