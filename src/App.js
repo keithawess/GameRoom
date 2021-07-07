@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink, Switch } from 'react-router-dom';
 import ProtectedRoute from './shared/ProtectedRoute';
 import CoinFlip from './components/CoinFlip/CoinFlip';
 import RockPaperScissors from './components/RockPaperScissors';
@@ -7,7 +7,7 @@ import './App.css';
 
 
 function App() {
-const [level, setLevel] = useState(0);
+const [level, setLevel] = useState(1);
 const [experience, setExperience] = useState(0);
 
 useEffect(()=>{
@@ -16,7 +16,7 @@ useEffect(()=>{
     setLevel(level + 1);
     setExperience(experience - 100);
   }
-},[experience]);
+},[experience, level]);
 
 const experienceUp = useCallback((exp) => {
   setExperience((curr)=> curr + exp);
