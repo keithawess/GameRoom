@@ -48,3 +48,15 @@
 .space-between{
   justify-content: space-between;
 }
+
+.coin{
+  animation: Flip 2s ease-in-out;
+}
+
+@keyframes Flip {
+  0% { transform: scale(1,1); }
+  25% { transform: scale(0,1); }
+  50% { transform: scale(1,1); }
+  75% { transform: scale(0,1); }
+ 100% { transform: scale(1,1); }
+}

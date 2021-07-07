@@ -4,9 +4,10 @@ import tailsImg from "./images/tails.png";
 import unknownImg from "./images/unknown.png";
 
 export default function CoinFlip({ experienceUp, level }) {
-  const [flip, setFlipped] = useState(-1);
+  const [flip, setFlip] = useState(-1);
   const [img, setImg] = useState(unknownImg);
   const [result, setResult] = useState(null);
+  const [animationReload, setAnimationReload] = useState(1);
 
   useEffect(() => {
     if (!result) {
@@ -21,7 +22,7 @@ export default function CoinFlip({ experienceUp, level }) {
       CoinFlip
       <h1 className="text-center">Heads or Tails?</h1>
       <div className="game-board margin-center flex col space-between">
-      {flip >= 0 && <img className="block margin-center" src={img} alt="Coin" />}
+      {flip >= 0 && <img key={animationReload} className="block margin-center coin" src={img} alt="Coin" />}
         {/* {flip >= 0 && !result && <img className="block margin-center" src={img} alt="Coin" />}
         {result && <img src={img} alt="Coin" />} */}
         {result && <div className="text-center">They chose {flip ? "heads": "tails"}.<h3 className="text-center">Result: {result}</h3></div>}
@@ -29,7 +30,8 @@ export default function CoinFlip({ experienceUp, level }) {
           <button className="margin-center block"
             onClick={() => {
               setResult(null);
-              setFlipped(Math.floor(Math.random() * 2));
+              setAnimationReload(Math.random());
+              setFlip(Math.floor(Math.random() * 2));
             }}
           >
             Flip
