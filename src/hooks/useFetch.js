@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const baseUrl = "api.toys/api/"
+const baseUrl = ""
 
 export default function useFetch(url) {
     const [data,setData] = useState(null);

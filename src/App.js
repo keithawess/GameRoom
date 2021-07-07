@@ -56,7 +56,7 @@ const experienceUp = useCallback((exp) => {
             path="/rockpaperscissors"
             reqLevel={1}
             level={level}>
-            <RockPaperScissors />
+            <RockPaperScissors experienceUp={experienceUp} level={level}/>
           </ProtectedRoute>
         </Switch>
       </main>
