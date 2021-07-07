@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './shared/ProtectedRoute';
-import CoinFlip from './components/CoinFlip';
+import CoinFlip from './components/CoinFlip/CoinFlip';
 import RockPaperScissors from './components/RockPaperScissors';
 import './App.css';
 
