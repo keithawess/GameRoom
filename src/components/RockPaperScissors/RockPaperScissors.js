@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import rock from "./rock.png";
+import scissors from "./scissors.png";
+import paper from "./paper.png";
 
 export default function RockPaperScissors({ experienceUp, level }) {
   const [playerGuess, setPlayerGuess] = useState(null);
-  const [playerImage, setPlayerImage] = useState();
+  const [playerImage, setPlayerImage] = useState(null);
   const [computerGuess, setComputerGuess] = useState(null);
-  const [computerImage, setComputerImage] = useState();
+  const [computerImage, setComputerImage] = useState(null);
   const [result, setResult] = useState(null);
 
   let options = ["rock", "paper", "scissors"];
@@ -15,6 +18,22 @@ export default function RockPaperScissors({ experienceUp, level }) {
     }
   }, [playerGuess]);
 
+  useEffect(() => {
+    switch (computerGuess) {
+      case "rock":
+        setComputerImage(rock);
+        break;
+      case "paper":
+        setComputerImage(paper);
+        break;
+      case "scissors":
+        setComputerImage(scissors);
+        break;
+      default:
+        break;
+    }
+  });
+
   return (
     <div>
       CoinFlip
@@ -22,12 +41,16 @@ export default function RockPaperScissors({ experienceUp, level }) {
       {/* Game Board */}
       <div className="game-board margin-center flex space-between border">
         <div className="rps-player">
-          {result && <div>You chose {playerGuess}
-          <div className="choice"></div></div>}
+          {result && (
+            <div>
+              You chose {playerGuess}
+              <img src={playerImage} alt={playerGuess} />
+            </div>
+          )}
         </div>
         <button
           onClick={() => {
-            if (!result) {
+            if (!result && playerGuess) {
               if (playerGuess === computerGuess) {
                 setResult("draw");
               } else if (
@@ -48,8 +71,12 @@ export default function RockPaperScissors({ experienceUp, level }) {
           Shoot
         </button>
         <div className="rps-computer">
-          {result && <div>Computer chose {computerGuess}
-          <div className="choice"></div></div>}
+          {result && (
+            <div>
+              Computer chose {computerGuess}
+              <img src={computerImage} alt={computerGuess} />
+            </div>
+          )}
         </div>
       </div>
       <div>{result}</div>
@@ -59,6 +86,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           className="margin-center option-button"
           onClick={() => {
             setPlayerGuess("rock");
+            setPlayerImage(rock);
             setResult(null);
           }}
         >
@@ -68,6 +96,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           className="margin-center option-button"
           onClick={() => {
             setPlayerGuess("paper");
+            setPlayerImage(paper);
             setResult(null);
           }}
         >
@@ -77,6 +106,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           className="margin-center option-button"
           onClick={() => {
             setPlayerGuess("scissors");
+            setPlayerImage(scissors);
             setResult(null);
           }}
         >
