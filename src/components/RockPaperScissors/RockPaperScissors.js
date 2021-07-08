@@ -39,16 +39,18 @@ export default function RockPaperScissors({ experienceUp, level }) {
       CoinFlip
       <h1 className="text-center">Rock Paper Scissors</h1>
       {/* Game Board */}
-      <div className="game-board margin-center flex space-between border">
-        <div className="rps-player">
+      <div className="game-board margin-center flex space-evenly border align-items-center">
+        <div className="rps-player text-center third">
           {result && (
             <div>
-              You chose {playerGuess}
+              <div>
+                Player:
+              </div>
               <img src={playerImage} alt={playerGuess} />
             </div>
           )}
         </div>
-        <button
+        <button className="rps-shoot "
           onClick={() => {
             if (!result && playerGuess) {
               if (playerGuess === computerGuess) {
@@ -70,16 +72,18 @@ export default function RockPaperScissors({ experienceUp, level }) {
         >
           Shoot
         </button>
-        <div className="rps-computer">
+        <div className="rps-computer text-center third">
           {result && (
             <div>
-              Computer chose {computerGuess}
+              <div>
+                              Computer:
+              </div>
               <img src={computerImage} alt={computerGuess} />
             </div>
           )}
         </div>
       </div>
-      <div>{result}</div>
+
       {/* Player Choices */}
       <div className="margin-center flex game-options">
         <button
@@ -113,6 +117,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           Scissors
         </button>
       </div>
+      <div>{result}</div>
     </div>
   );
 }
