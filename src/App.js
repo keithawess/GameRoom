@@ -3,11 +3,13 @@ import { BrowserRouter as Router, NavLink, Switch } from "react-router-dom";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
+import RequestBuddy from "./components/RequestBuddy";
 import "./App.css";
 
 function App() {
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(10);
   const [experience, setExperience] = useState(0);
+  const [buddy, setBuddy] = useState(null);
 
   useEffect(() => {
     if (experience >= 100) {
@@ -32,6 +34,9 @@ function App() {
         <NavLink activeClassName="active" className="" to="/rockpaperscissors">
           Rock Paper Scissors
         </NavLink>
+        <NavLink activeClassName="active" className="" to="/requestbuddy">
+          Request Buddy
+        </NavLink>
       </nav>
 
       <main>
@@ -41,6 +46,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/rockpaperscissors" reqLevel={1} level={level}>
             <RockPaperScissors experienceUp={experienceUp} level={level} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/requestbuddy" reqLevel={2} level={level}>
+            <RequestBuddy setBuddy={setBuddy} />
           </ProtectedRoute>
         </Switch>
       </main>

@@ -8,6 +8,10 @@
   width: 300px;
 }
 
+.buddy-form{
+  width: 500px;
+}
+
 .option-button {
   flex-basis: calc(40%);
 }
@@ -25,6 +29,10 @@
   margin-right: auto;
 }
 
+.margin-10{
+  margin: 10px;
+}
+
 .width-90 {
   width: 90%;
 }
@@ -33,12 +41,28 @@
   background-color: blue;
 }
 
+.border-red{
+  border: solid 1px red;
+}
+
 .text-white {
   color: white;
 }
 
+.font-small{
+  font-size: small;
+}
+
+.text-red{
+  color: red;
+}
+
 .flex {
   display: flex;
+}
+
+.half{
+  flex-basis: calc(100% / 2 - 10px);
 }
 
 .third {
@@ -80,6 +104,10 @@
   background-color: black;
 }
 
+.rps-img{
+  animation: Drop .5s ease-in;
+}
+
 @keyframes Flip {
   0% {
     transform: scale(1, 1);
@@ -95,5 +123,24 @@
   }
   100% {
     transform: scale(1, 1);
+  }
+}
+
+@keyframes Drop {
+  0% {
+    transform: scale(3,3);
+  }
+  
+  90%{
+    transform: scale(1,1)
+  }
+  93%{
+    transform: rotate(5deg);
+  }
+  96%{
+    transform: rotate(-5deg);
+  }
+  100%{
+    transform: rotate(0deg);
   }
 }

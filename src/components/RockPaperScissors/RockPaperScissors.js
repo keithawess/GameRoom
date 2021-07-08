@@ -36,7 +36,6 @@ export default function RockPaperScissors({ experienceUp, level }) {
 
   return (
     <div>
-      CoinFlip
       <h1 className="text-center">Rock Paper Scissors</h1>
       {/* Game Board */}
       <div className="game-board margin-center flex space-evenly align-items-center">
@@ -44,7 +43,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           {result && (
             <div>
               <div>Player:</div>
-              <img src={playerImage} alt={playerGuess} />
+              <img className="rps-img" src={playerImage} alt={playerGuess} />
             </div>
           )}
         </div>
@@ -75,7 +74,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           {result && (
             <div>
               <div>Computer:</div>
-              <img src={computerImage} alt={computerGuess} />
+              <img className="rps-img" src={computerImage} alt={computerGuess} />
             </div>
           )}
         </div>
