@@ -3,7 +3,7 @@ import { BrowserRouter as Router, NavLink, Switch } from "react-router-dom";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
-import RequestBuddy from "./components/RequestBuddy";
+import RequestBuddy from "./components/Buddy/Buddy";
 import "./App.css";
 
 function App() {
@@ -34,8 +34,8 @@ function App() {
         <NavLink activeClassName="active" className="" to="/rockpaperscissors">
           Rock Paper Scissors
         </NavLink>
-        <NavLink activeClassName="active" className="" to="/requestbuddy">
-          Request Buddy
+        <NavLink activeClassName="active" className="" to="/buddy">
+          Buddy
         </NavLink>
       </nav>
 
@@ -47,8 +47,8 @@ function App() {
           <ProtectedRoute path="/rockpaperscissors" reqLevel={1} level={level}>
             <RockPaperScissors experienceUp={experienceUp} level={level} />
           </ProtectedRoute>
-          <ProtectedRoute path="/requestbuddy" reqLevel={2} level={level}>
-            <RequestBuddy setBuddy={setBuddy} />
+          <ProtectedRoute path="/buddy" reqLevel={2} level={level}>
+            <RequestBuddy buddy={buddy} setBuddy={setBuddy} />
           </ProtectedRoute>
         </Switch>
       </main>

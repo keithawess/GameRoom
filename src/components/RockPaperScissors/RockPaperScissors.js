@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import rock from "./rock.png";
-import scissors from "./scissors.png";
-import paper from "./paper.png";
+import rock from "./images/rock.png";
+import scissors from "./images/scissors.png";
+import paper from "./images/paper.png";
 
 export default function RockPaperScissors({ experienceUp, level }) {
   const [playerGuess, setPlayerGuess] = useState(null);
