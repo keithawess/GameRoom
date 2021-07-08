@@ -39,18 +39,17 @@ export default function RockPaperScissors({ experienceUp, level }) {
       CoinFlip
       <h1 className="text-center">Rock Paper Scissors</h1>
       {/* Game Board */}
-      <div className="game-board margin-center flex space-evenly border align-items-center">
+      <div className="game-board margin-center flex space-evenly align-items-center">
         <div className="rps-player text-center third">
           {result && (
             <div>
-              <div>
-                Player:
-              </div>
+              <div>Player:</div>
               <img src={playerImage} alt={playerGuess} />
             </div>
           )}
         </div>
-        <button className="rps-shoot "
+        <button
+          className="rps-shoot text-white"
           onClick={() => {
             if (!result && playerGuess) {
               if (playerGuess === computerGuess) {
@@ -70,24 +69,23 @@ export default function RockPaperScissors({ experienceUp, level }) {
             }
           }}
         >
-          Shoot
+          {!result ? "Shoot" : result}
         </button>
         <div className="rps-computer text-center third">
           {result && (
             <div>
-              <div>
-                              Computer:
-              </div>
+              <div>Computer:</div>
               <img src={computerImage} alt={computerGuess} />
             </div>
           )}
         </div>
       </div>
-
       {/* Player Choices */}
       <div className="margin-center flex game-options">
         <button
-          className="margin-center option-button"
+          className={`margin-center option-button ${
+            playerGuess === "rock" && !result ? "bg-blue text-white" : ""
+          }`}
           onClick={() => {
             setPlayerGuess("rock");
             setPlayerImage(rock);
@@ -97,7 +95,9 @@ export default function RockPaperScissors({ experienceUp, level }) {
           Rock
         </button>
         <button
-          className="margin-center option-button"
+          className={`margin-center option-button ${
+            playerGuess === "paper" && !result ? "bg-blue text-white" : ""
+          }`}
           onClick={() => {
             setPlayerGuess("paper");
             setPlayerImage(paper);
@@ -107,7 +107,9 @@ export default function RockPaperScissors({ experienceUp, level }) {
           Paper
         </button>
         <button
-          className="margin-center option-button"
+          className={`margin-center option-button ${
+            playerGuess === "scissors" && !result ? "bg-blue text-white" : ""
+          }`}
           onClick={() => {
             setPlayerGuess("scissors");
             setPlayerImage(scissors);
@@ -117,7 +119,6 @@ export default function RockPaperScissors({ experienceUp, level }) {
           Scissors
         </button>
       </div>
-      <div>{result}</div>
     </div>
   );
 }
