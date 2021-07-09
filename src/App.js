@@ -27,7 +27,7 @@ function App() {
       <nav className="flex width-100 space-evenly bg-white text-black text-center border-rad-10">
         <NavLink
           activeClassName="active bg-blue-9 text-white"
-          className="border-blue grow nav-start"
+          className="border-blue grow nav-start nav-option"
           to="/coinflip"
         >
           Coin Flip
@@ -35,7 +35,7 @@ function App() {
         {level > 0 && (
           <NavLink
             activeClassName="active bg-blue-9 text-white"
-            className="border-blue grow"
+            className="border-blue grow nav-option"
             to="/rockpaperscissors"
           >
             Rock Paper Scissors
@@ -43,7 +43,7 @@ function App() {
         )}
         <NavLink
           activeClassName="active bg-blue-9 text-white"
-          className="border-blue grow nav-end"
+          className="border-blue grow nav-end nav-option"
           to="/buddy"
         >
           Buddy
@@ -51,11 +51,20 @@ function App() {
       </nav>
       <header>
         <div className="text-center">Level: {level} </div>
-        <div className="flex align-items-center space-around">
+        <div className="flex align-items-center justify-center">
           {" "}
-          Exp:{" "}
+          <div className="margin-10 line-height-0">Exp:</div>
           <div className="exp-bar text-center border">
-            <div className="exp-filler" style={{flexBasis: `calc(${experience}% - 4px)`}}> &nbsp;</div>
+            <div className="font-10 exp-text z1 line-height-10">
+              {experience} / 100
+            </div>
+            <div
+              className="exp-filler"
+              style={{ width: `calc(${experience}% - 4px)` }}
+            >
+              {" "}
+              &nbsp;
+            </div>
           </div>
         </div>
       </header>
@@ -67,7 +76,7 @@ function App() {
           <ProtectedRoute path="/rockpaperscissors" reqLevel={1} level={level}>
             <RockPaperScissors experienceUp={experienceUp} level={level} />
           </ProtectedRoute>
-          <ProtectedRoute path="/buddy" reqLevel={2} level={level}>
+          <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
             <RequestBuddy buddy={buddy} setBuddy={setBuddy} />
           </ProtectedRoute>
         </Switch>
