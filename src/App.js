@@ -9,7 +9,7 @@ import "./App.css";
 
 function App() {
   const [username, setUsername] = useState("");
-  const [level, setLevel] = useState(10);
+  const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
 
@@ -81,7 +81,7 @@ function App() {
       <main>
         <Switch>
           <ProtectedRoute exact path="/" reqLevel={0} level={level}>
-            <Home username={username} setUsername={setUsername}/>
+            <Home level={level} username={username} setUsername={setUsername}/>
           </ProtectedRoute>
           <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
             <CoinFlip experienceUp={experienceUp} level={level} />
