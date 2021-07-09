@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import placeholder from "./images/placeholder.png"
+import placeholder from "./images/placeholder.png";
+import BuddyDisplay from "./components/BuddyDisplay";
 
 export default function Buddy({ buddy, setBuddy }) {
   const [appNameInput, setAppNameInput] = useState("");
@@ -9,8 +10,10 @@ export default function Buddy({ buddy, setBuddy }) {
   const [reasonValid, setReasonValid] = useState(true);
   const [buddyNameInput, setBuddyNameInput] = useState("");
   const [buddyColor, setBuddyColor] = useState("#000000");
-  const {data: name, error} = useFetch("https://randomuser.me/api/");
-  const {data: buddyImg, imgError} = useFetch("https://thatcopy.pw/catapi/rest/")
+  const { data: name, error } = useFetch("https://randomuser.me/api/");
+  const { data: buddyImg, imgError } = useFetch(
+    "https://thatcopy.pw/catapi/rest/"
+  );
 
   return (
     <>
@@ -68,7 +71,9 @@ export default function Buddy({ buddy, setBuddy }) {
               <br></br>
               <input
                 id="buddyname"
-                placeholder={`${!error ? "Random name if blank" : "Must enter buddy name"}`}
+                placeholder={`${
+                  !error ? "Random name if blank" : "Must enter buddy name"
+                }`}
                 onChange={(e) => setBuddyNameInput(e.target.value)}
               />
             </div>
@@ -83,27 +88,42 @@ export default function Buddy({ buddy, setBuddy }) {
               />
             </div>
 
-            <button className="margin-10" type="button"
-            onClick={()=>{
-              if (nameValid && reasonValid)
-              {
-                if(buddyNameInput.length === 0 && !error)
-                {
-                  setBuddy({name: name.results[0].name.first, color: buddyColor, img: (!imgError? buddyImg : placeholder)})
+            <button
+              className="margin-10"
+              type="button"
+              onClick={() => {
+                if (nameValid && reasonValid) {
+                  if (buddyNameInput.length === 0 && !error) {
+                    setBuddy({
+                      name: name.results[0].name.first,
+                      color: buddyColor,
+                      img: !imgError ? buddyImg.url : placeholder,
+                    });
+                  } else if (buddyNameInput.length > 0) {
+                    setBuddy({
+                      name: buddyNameInput,
+                      color: buddyColor,
+                      img: !imgError ? buddyImg.url : placeholder,
+                    });
+                  }
                 }
-                else if (buddyNameInput.length > 0) {
-                  setBuddy({name: buddyNameInput, color: buddyColor, img: (!imgError? buddyImg : placeholder)})
-                }
-                
-              }
-            }}>
+              }}
+            >
               Request Buddy
             </button>
           </div>
         </div>
       )}
 
-      {buddy && <div>I'm a buddy {buddy.name} {console.log(buddy.color)}</div>}
+      {buddy && (
+        <div className="text-center">
+          Here is your government issued buddy! You cannot trade them in for
+          another, cus that's not what buddies do.
+          <div className="margin-center">
+            <BuddyDisplay buddy={buddy} />
+          </div>
+        </div>
+      )}
     </>
   );
 }

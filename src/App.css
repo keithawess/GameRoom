@@ -105,8 +105,22 @@
 }
 
 .rps-img{
-  animation: Drop .5s ease-in;
+    animation: Drop .5s ease-in;
 }
+
+.buddy-img{
+  max-height: 100px;
+  max-width: 100px;
+
+}
+
+.buddy-display-container{
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
 
 @keyframes Flip {
   0% {
