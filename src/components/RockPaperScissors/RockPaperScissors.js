@@ -13,12 +13,6 @@ export default function RockPaperScissors({ experienceUp, level }) {
   let options = ["rock", "paper", "scissors"];
 
   useEffect(() => {
-    if (playerGuess) {
-      setComputerGuess(options[Math.floor(Math.random() * 3)]);
-    }
-  }, [playerGuess]);
-
-  useEffect(() => {
     switch (computerGuess) {
       case "rock":
         setComputerImage(rock);
@@ -87,6 +81,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           }`}
           onClick={() => {
             setPlayerGuess("rock");
+            setComputerGuess(options[Math.floor(Math.random() * 3)]);
             setPlayerImage(rock);
             setResult(null);
           }}
@@ -99,6 +94,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           }`}
           onClick={() => {
             setPlayerGuess("paper");
+            setComputerGuess(options[Math.floor(Math.random() * 3)]);
             setPlayerImage(paper);
             setResult(null);
           }}
@@ -111,6 +107,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
           }`}
           onClick={() => {
             setPlayerGuess("scissors");
+            setComputerGuess(options[Math.floor(Math.random() * 3)]);
             setPlayerImage(scissors);
             setResult(null);
           }}
