@@ -25,18 +25,39 @@ function App() {
   return (
     <Router>
       <nav className="flex width-100 space-evenly bg-white text-black text-center border-rad-10">
-        <NavLink activeClassName="active bg-blue-9 text-white" className="border-blue grow nav-start" to="/coinflip">
+        <NavLink
+          activeClassName="active bg-blue-9 text-white"
+          className="border-blue grow nav-start"
+          to="/coinflip"
+        >
           Coin Flip
         </NavLink>
-        {level > 0 && <NavLink activeClassName="active bg-blue-9 text-white" className="border-blue grow" to="/rockpaperscissors">
-          Rock Paper Scissors
-        </NavLink>}
-        <NavLink activeClassName="active bg-blue-9 text-white" className="border-blue grow nav-end" to="/buddy">
+        {level > 0 && (
+          <NavLink
+            activeClassName="active bg-blue-9 text-white"
+            className="border-blue grow"
+            to="/rockpaperscissors"
+          >
+            Rock Paper Scissors
+          </NavLink>
+        )}
+        <NavLink
+          activeClassName="active bg-blue-9 text-white"
+          className="border-blue grow nav-end"
+          to="/buddy"
+        >
           Buddy
         </NavLink>
       </nav>
       <header>
-        GameRoom Level: {level} Exp: {experience}
+        <div className="text-center">Level: {level} </div>
+        <div className="flex align-items-center space-around">
+          {" "}
+          Exp:{" "}
+          <div className="exp-bar text-center border">
+            <div className="exp-filler" style={{flexBasis: `calc(${experience}% - 4px)`}}> &nbsp;</div>
+          </div>
+        </div>
       </header>
       <main>
         <Switch>
