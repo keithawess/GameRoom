@@ -13,7 +13,13 @@
 }
 
 .exp-text{
-  margin-left: 240px;
+  margin-left: 230px;
+}
+
+.username-box{
+  width: 260px;
+  height: 60px;
+  border-radius: 10px;
 }
 
 .game-board {
@@ -94,6 +100,10 @@
   margin: 10px;
 }
 
+.margin-top-5{
+  margin-top: 5px;
+}
+
 .width-100{
   width: 100%;
 }
@@ -156,6 +166,10 @@
 
 .text-red{
   color: red;
+}
+
+.inline-block{
+  display: inline-block;
 }
 
 .flex {
