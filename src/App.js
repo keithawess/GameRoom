@@ -7,7 +7,7 @@ import RequestBuddy from "./components/Buddy/Buddy";
 import "./App.css";
 
 function App() {
-  const [level, setLevel] = useState(10);
+  const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
 
@@ -24,21 +24,20 @@ function App() {
 
   return (
     <Router>
-      <header>
-        GameRoom Level: {level} Exp: {experience}
-      </header>
-      <nav>
-        <NavLink activeClassName="active" className="" to="/coinflip">
+      <nav className="flex width-100 space-evenly bg-white text-black text-center border-rad-10">
+        <NavLink activeClassName="active bg-blue-9 text-white" className="border-blue grow nav-start" to="/coinflip">
           Coin Flip
         </NavLink>
-        <NavLink activeClassName="active" className="" to="/rockpaperscissors">
+        {level > 0 && <NavLink activeClassName="active bg-blue-9 text-white" className="border-blue grow" to="/rockpaperscissors">
           Rock Paper Scissors
-        </NavLink>
-        <NavLink activeClassName="active" className="" to="/buddy">
+        </NavLink>}
+        <NavLink activeClassName="active bg-blue-9 text-white" className="border-blue grow nav-end" to="/buddy">
           Buddy
         </NavLink>
       </nav>
-
+      <header>
+        GameRoom Level: {level} Exp: {experience}
+      </header>
       <main>
         <Switch>
           <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
