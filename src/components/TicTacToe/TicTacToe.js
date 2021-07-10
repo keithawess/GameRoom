@@ -7,6 +7,7 @@ export default function TicTacToe() {
   const [computerToken, setComputerToken] = useState("");
   const [gameRunning, setGameRunning] = useState(false);
   const [gameGrid, setGameGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [result, setResult] = useState("");
 
   useEffect(() => {
     console.log(gameGrid);
@@ -14,33 +15,32 @@ export default function TicTacToe() {
 
   const winner = useCallback(() => {
     for (let i = 0; i < 3; i++) {
-
       if (gameGrid[i] + gameGrid[i + 3] + gameGrid[i + 6] === 3) {
-        return "player";
+        return "Player";
       } else if (gameGrid[i] + gameGrid[i + 3] + gameGrid[i + 6] === -3) {
-        return "computer";
+        return "Computer";
       } else if (
         gameGrid[i * 3] + gameGrid[i * 3 + 1] + gameGrid[i * 3 + 2] ===
         3
       ) {
-        return "player";
+        return "Player";
       } else if (
         gameGrid[i * 3] + gameGrid[i * 3 + 1] + gameGrid[i * 3 + 2] ===
         -3
       ) {
-        return "computer";
+        return "Computer";
       }
     }
     if (
       gameGrid[0] + gameGrid[4] + gameGrid[8] === 3 ||
       gameGrid[2] + gameGrid[4] + gameGrid[6] === 3
     ) {
-      return "player";
+      return "Player";
     } else if (
       gameGrid[0] + gameGrid[4] + gameGrid[8] === -3 ||
       gameGrid[2] + gameGrid[4] + gameGrid[6] === -3
     ) {
-      return "computer";
+      return "Computer";
     } else {
       return "none";
     }
@@ -48,11 +48,10 @@ export default function TicTacToe() {
 
   const endGame = useCallback(() => {
     setGameRunning(false);
-  }, []);
+    setResult(winner());
+  }, [winner]);
 
-
-
-  const availableMove = useCallback(()=>{
+  const availableMove = useCallback(() => {
     let moveAvailable = false;
     for (let i = 0; i < 9; i++) {
       if (gameGrid[i] === 0) {
@@ -60,7 +59,7 @@ export default function TicTacToe() {
       }
     }
     return moveAvailable;
-  }, [gameGrid])
+  }, [gameGrid]);
 
   const computerMove = useCallback(() => {
     if (availableMove()) {
@@ -96,12 +95,9 @@ export default function TicTacToe() {
     [gameGrid, winner, endGame, computerMove]
   );
 
-
-
   return (
     <div>
       <h1 className="text-center">Tic Tac Toe</h1>
-
       {!playerToken && (
         <div className="text-center">
           {" "}
@@ -131,9 +127,12 @@ export default function TicTacToe() {
           </div>
         </div>
       )}
-
       {playerToken && (
-        <div className="game-board margin-center flex border wrap">
+        <div
+          className={`game-board margin-center flex border wrap ${
+            result ? "ttt-endgame" : ""
+          }`}
+        >
           <div
             onClick={() => {
               if (gameGrid[0] === 0 && gameRunning) {
@@ -304,6 +303,21 @@ export default function TicTacToe() {
                 alt={computerToken}
               />
             )}
+          </div>
+        </div>
+      )}
+
+      {result && (
+        <div className="flex justify-center align-items-center absolute z1">
+          <div className="ttt-modal z1 text-center border-blue border-rad-10 bg-white">
+            {result === "none" ? "Cat Game" : result + " wins!"}{" "}
+            <div className="margin-center">
+              <button onClick={()=>{
+                setResult("");
+                setPlayerToken("");
+                setGameGrid([0,0,0,0,0,0,0,0,0]);
+              }}>Play Again</button>
+            </div>
           </div>
         </div>
       )}
