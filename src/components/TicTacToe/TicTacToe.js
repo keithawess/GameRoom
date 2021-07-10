@@ -87,58 +87,139 @@ export default function TicTacToe() {
         <div className="game-board margin-center flex border wrap">
           <div
             onClick={() => {
-              playerMove(0);
+              if (gameGrid[0] === 0 && gameRunning) {
+                playerMove(0);
+              }
             }}
             className="ttt-spot border-right border-bottom flex align-items-center justify-center"
-          >{gameGrid[0] === 1 && <img className="ttt-token " src={playerToken}/>}{gameGrid[0] === -1 && <img src={computerToken} />}</div>
+          >
+            {gameGrid[0] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[0] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(1);
+              if (gameGrid[1] === 0 && gameRunning) {
+                playerMove(1);
+              }
             }}
             className="ttt-spot border-left border-right border-bottom flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[1] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[1] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(2);
+              if (gameGrid[2] === 0 && gameRunning) {
+                playerMove(2);
+              }
             }}
             className="ttt-spot border-left border-bottom flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[2] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[2] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(3);
+              if (gameGrid[3] === 0 && gameRunning) {
+                playerMove(3);
+              }
             }}
             className="ttt-spot border-right border-top border-bottom flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[3] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[3] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(4);
+              if (gameGrid[4] === 0 && gameRunning) {
+                playerMove(4);
+              }
             }}
             className="ttt-spot border flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[4] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[4] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(5);
+              if (gameGrid[5] === 0 && gameRunning) {
+                playerMove(5);
+              }
             }}
             className="ttt-spot border-top border-bottom border-left flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[5] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[5] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(6);
+              if (gameGrid[6] === 0 && gameRunning) {
+                playerMove(6);
+              }
             }}
             className="ttt-spot border-top border-right flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[6] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[6] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(7);
+              if (gameGrid[7] === 0 && gameRunning) {
+                playerMove(7);
+              }
             }}
             className="ttt-spot border-left border-top border-right flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[7] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[7] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
           <div
             onClick={() => {
-              playerMove(8);
+              if (gameGrid[8] === 0 && gameRunning) {
+                playerMove(8);
+              }
             }}
             className="ttt-spot border-left border-top flex align-items-center justify-center"
-          ></div>
+          >
+            {gameGrid[8] === 1 && (
+              <img className="ttt-token " src={playerToken} />
+            )}
+            {gameGrid[8] === -1 && (
+              <img className="ttt-token " src={computerToken} />
+            )}
+          </div>
         </div>
       )}
     </div>
