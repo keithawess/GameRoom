@@ -276,6 +276,11 @@
   flex-basis: calc(100% / 3 - 3px);
 }
 
+.ttt-token {
+  height: 90px;
+  width: 90px;
+}
+
 .buddy-img {
   max-height: 100px;
   max-width: 100px;

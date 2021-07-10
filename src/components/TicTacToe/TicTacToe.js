@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import xToken from "./x.png";
+import oToken from "./o.png";
 
 export default function TicTacToe() {
   const [playerToken, setPlayerToken] = useState("");
@@ -7,14 +9,31 @@ export default function TicTacToe() {
     <div>
       <h1 className="text-center">Tic Tac Toe</h1>
 
-      {!playerToken && 
-      <div className="margin-center">
-        <img />
-        <div>
-
+      {!playerToken && (
+        <div className="text-center">
+          {" "}
+          <h3>Pick One:</h3>
+          <div className="flex space-evenly margin-center">
+            <img
+              onClick={() => {
+                setPlayerToken("x");
+              }}
+              className="ttt-token"
+              src={xToken}
+              alt="X token"
+            />
+            <div></div>
+            <img
+              onClick={() => {
+                setPlayerToken("o");
+              }}
+              className="ttt-token"
+              src={oToken}
+              alt="O Token"
+            />
           </div>
-        <img />
-      </div>}
+        </div>
+      )}
 
       {playerToken && (
         <div className="game-board margin-center flex border wrap">
