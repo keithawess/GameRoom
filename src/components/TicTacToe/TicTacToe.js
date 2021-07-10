@@ -12,11 +12,55 @@ export default function TicTacToe() {
     console.log(gameGrid);
   }, [gameGrid]);
 
-  const playerMove = useCallback((spot) => {
-    gameGrid[spot] = 1;
-    setGameGrid((curr) => [...curr]);
-    computerMove();
-  });
+  const winner = useCallback(() => {
+    for (let i = 0; i < 3; i++) {
+
+      if (gameGrid[i] + gameGrid[i + 3] + gameGrid[i + 6] === 3) {
+        return "player";
+      } else if (gameGrid[i] + gameGrid[i + 3] + gameGrid[i + 6] === -3) {
+        return "computer";
+      } else if (
+        gameGrid[i * 3] + gameGrid[i * 3 + 1] + gameGrid[i * 3 + 2] ===
+        3
+      ) {
+        return "player";
+      } else if (
+        gameGrid[i * 3] + gameGrid[i * 3 + 1] + gameGrid[i * 3 + 2] ===
+        -3
+      ) {
+        return "computer";
+      }
+    }
+    if (
+      gameGrid[0] + gameGrid[4] + gameGrid[8] === 3 ||
+      gameGrid[2] + gameGrid[4] + gameGrid[6] === 3
+    ) {
+      return "player";
+    } else if (
+      gameGrid[0] + gameGrid[4] + gameGrid[8] === -3 ||
+      gameGrid[2] + gameGrid[4] + gameGrid[6] === -3
+    ) {
+      return "computer";
+    } else {
+      return "none";
+    }
+  }, [gameGrid]);
+
+  const endGame = useCallback(() => {
+    setGameRunning(false);
+  }, []);
+
+
+
+  const availableMove = useCallback(()=>{
+    let moveAvailable = false;
+    for (let i = 0; i < 9; i++) {
+      if (gameGrid[i] === 0) {
+        return true;
+      }
+    }
+    return moveAvailable;
+  }, [gameGrid])
 
   const computerMove = useCallback(() => {
     if (availableMove()) {
@@ -33,21 +77,26 @@ export default function TicTacToe() {
     } else {
       endGame();
     }
-  });
 
-  function availableMove() {
-    let moveAvailable = false;
-    for (let i = 0; i < 9; i++) {
-      if (gameGrid[i] === 0) {
-        return true;
-      }
+    if (winner() !== "none") {
+      endGame();
     }
-    return moveAvailable;
-  }
+  }, [gameGrid, endGame, winner, availableMove]);
 
-  const endGame = useCallback(() => {
-    setGameRunning(false);
-  });
+  const playerMove = useCallback(
+    (spot) => {
+      gameGrid[spot] = 1;
+      setGameGrid((curr) => [...curr]);
+      if (winner() === "none") {
+        computerMove();
+      } else {
+        endGame();
+      }
+    },
+    [gameGrid, winner, endGame, computerMove]
+  );
+
+
 
   return (
     <div>
@@ -94,10 +143,14 @@ export default function TicTacToe() {
             className="ttt-spot border-right border-bottom flex align-items-center justify-center"
           >
             {gameGrid[0] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[0] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -109,10 +162,14 @@ export default function TicTacToe() {
             className="ttt-spot border-left border-right border-bottom flex align-items-center justify-center"
           >
             {gameGrid[1] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[1] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -124,10 +181,14 @@ export default function TicTacToe() {
             className="ttt-spot border-left border-bottom flex align-items-center justify-center"
           >
             {gameGrid[2] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[2] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -139,10 +200,14 @@ export default function TicTacToe() {
             className="ttt-spot border-right border-top border-bottom flex align-items-center justify-center"
           >
             {gameGrid[3] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[3] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -154,10 +219,14 @@ export default function TicTacToe() {
             className="ttt-spot border flex align-items-center justify-center"
           >
             {gameGrid[4] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[4] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -169,10 +238,14 @@ export default function TicTacToe() {
             className="ttt-spot border-top border-bottom border-left flex align-items-center justify-center"
           >
             {gameGrid[5] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[5] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -184,10 +257,14 @@ export default function TicTacToe() {
             className="ttt-spot border-top border-right flex align-items-center justify-center"
           >
             {gameGrid[6] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[6] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -199,10 +276,14 @@ export default function TicTacToe() {
             className="ttt-spot border-left border-top border-right flex align-items-center justify-center"
           >
             {gameGrid[7] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[7] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
           <div
@@ -214,10 +295,14 @@ export default function TicTacToe() {
             className="ttt-spot border-left border-top flex align-items-center justify-center"
           >
             {gameGrid[8] === 1 && (
-              <img className="ttt-token " src={playerToken} />
+              <img className="ttt-token " src={playerToken} alt={playerToken} />
             )}
             {gameGrid[8] === -1 && (
-              <img className="ttt-token " src={computerToken} />
+              <img
+                className="ttt-token "
+                src={computerToken}
+                alt={computerToken}
+              />
             )}
           </div>
         </div>
