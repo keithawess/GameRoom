@@ -44,7 +44,7 @@ export default function CoinFlip({ experienceUp, level }) {
         </div>
       </div>
       <div className="margin-center flex justify-center game-options">
-        <button
+        {flip >= 0 && <button
           className="margin-center option-button"
           onClick={() => {
             if (!result && flip >= 0) {
@@ -58,7 +58,7 @@ export default function CoinFlip({ experienceUp, level }) {
           }}
         >
           Heads
-        </button>
+        </button>}
 
         <button
           className="margin-center block"
@@ -71,7 +71,7 @@ export default function CoinFlip({ experienceUp, level }) {
           Flip
         </button>
 
-        <button
+        {flip >= 0 && <button
           className="margin-center option-button"
           onClick={() => {
             if (!result && flip >= 0) {
@@ -85,7 +85,7 @@ export default function CoinFlip({ experienceUp, level }) {
           }}
         >
           Tails
-        </button>
+        </button>}
       </div>
     </div>
   );
