@@ -43,7 +43,7 @@
 }
 
 .ttt-endgame {
-  opacity: 50%
+  opacity: 50%;
 }
 
 .game-board {
@@ -58,6 +58,9 @@
 
 .absolute {
   position: absolute;
+}
+
+.absolute-center {
   top: 30px;
   bottom: 0;
   left: 0;
@@ -292,12 +295,15 @@
   width: 90px;
 }
 
-.ttt-modal{
-  
+.ttt-modal {
   height: 53px;
   width: 150px;
   top: 275px;
   left: 42%;
+}
+
+.ttt-loss {
+  background-color: red;
 }
 
 .buddy-img {
@@ -349,9 +355,12 @@
   }
 }
 
-
 @media (max-width: 380px) {
   .absolute {
     top: 70px;
-  }  
+  }
+
+  .line-height-10 {
+    line-height: 17px;
+  }
 }

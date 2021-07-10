@@ -1,45 +1,96 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback} from "react";
 import x from "./x.png";
 import o from "./o.png";
 
-export default function TicTacToe() {
+export default function TicTacToe({ experienceUp, level }) {
   const [playerToken, setPlayerToken] = useState("");
   const [computerToken, setComputerToken] = useState("");
   const [gameRunning, setGameRunning] = useState(false);
   const [gameGrid, setGameGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [result, setResult] = useState("");
-
-  useEffect(() => {
-    console.log(gameGrid);
-  }, [gameGrid]);
+  const [winningSet, setWinningSet] = useState("");
 
   const winner = useCallback(() => {
     for (let i = 0; i < 3; i++) {
       if (gameGrid[i] + gameGrid[i + 3] + gameGrid[i + 6] === 3) {
+        switch (i) {
+          case 0:
+            setWinningSet("set4");
+            break;
+          case 1:
+            setWinningSet("set5");
+            break;
+          case 2:
+            setWinningSet("set6");
+            break;
+          default:
+            break;
+        }
         return "Player";
       } else if (gameGrid[i] + gameGrid[i + 3] + gameGrid[i + 6] === -3) {
+        switch (i) {
+          case 0:
+            setWinningSet("set4");
+            break;
+          case 1:
+            setWinningSet("set5");
+            break;
+          case 2:
+            setWinningSet("set6");
+            break;
+          default:
+            break;
+        }
         return "Computer";
       } else if (
         gameGrid[i * 3] + gameGrid[i * 3 + 1] + gameGrid[i * 3 + 2] ===
         3
       ) {
+        switch (i) {
+          case 0:
+            setWinningSet("set1");
+            break;
+          case 1:
+            setWinningSet("set2");
+            break;
+          case 2:
+            setWinningSet("set3");
+            break;
+          default:
+            break;
+        }
         return "Player";
       } else if (
         gameGrid[i * 3] + gameGrid[i * 3 + 1] + gameGrid[i * 3 + 2] ===
         -3
       ) {
+        switch (i) {
+          case 0:
+            setWinningSet("set1");
+            break;
+          case 1:
+            setWinningSet("set2");
+            break;
+          case 2:
+            setWinningSet("set3");
+            break;
+          default:
+            break;
+        }
         return "Computer";
       }
     }
-    if (
-      gameGrid[0] + gameGrid[4] + gameGrid[8] === 3 ||
-      gameGrid[2] + gameGrid[4] + gameGrid[6] === 3
-    ) {
+    if (gameGrid[0] + gameGrid[4] + gameGrid[8] === 3) {
+      setWinningSet("set7");
       return "Player";
-    } else if (
-      gameGrid[0] + gameGrid[4] + gameGrid[8] === -3 ||
-      gameGrid[2] + gameGrid[4] + gameGrid[6] === -3
-    ) {
+    } else if (gameGrid[0] + gameGrid[4] + gameGrid[8] === -3) {
+      setWinningSet("set7");
+      return "Computer";
+    } else if (gameGrid[2] + gameGrid[4] + gameGrid[6] === 3) {
+      setWinningSet("set8");
+      return "Player";
+    } else if (gameGrid[2] + gameGrid[4] + gameGrid[6] === -3) {
+      setWinningSet("set8");
       return "Computer";
     } else {
       return "none";
@@ -90,17 +141,19 @@ export default function TicTacToe() {
         computerMove();
       } else {
         endGame();
+        if (level < 3) {
+          experienceUp(10);
+        }
       }
     },
-    [gameGrid, winner, endGame, computerMove]
+    [gameGrid, winner, endGame, computerMove, level, experienceUp]
   );
 
   return (
     <div>
       <h1 className="text-center">Tic Tac Toe</h1>
       {!playerToken && (
-        <div className="text-center">
-          {" "}
+        <div className="text-center game-board margin-center">
           <h3>Pick One:</h3>
           <div className="flex space-evenly margin-center">
             <img
@@ -109,7 +162,7 @@ export default function TicTacToe() {
                 setComputerToken(o);
                 setGameRunning(true);
               }}
-              className="ttt-token"
+              className="ttt-token unlocked"
               src={x}
               alt="X token"
             />
@@ -120,7 +173,7 @@ export default function TicTacToe() {
                 setComputerToken(x);
                 setGameRunning(true);
               }}
-              className="ttt-token"
+              className="ttt-token unlocked"
               src={o}
               alt="O Token"
             />
@@ -129,7 +182,7 @@ export default function TicTacToe() {
       )}
       {playerToken && (
         <div
-          className={`game-board margin-center flex border wrap ${
+          className={`game-board margin-center flex wrap ${
             result ? "ttt-endgame" : ""
           }`}
         >
@@ -139,7 +192,15 @@ export default function TicTacToe() {
                 playerMove(0);
               }
             }}
-            className="ttt-spot border-right border-bottom flex align-items-center justify-center"
+            className={`ttt-spot border-right border-bottom flex align-items-center justify-center ${
+              winningSet === "set1" ||
+              winningSet === "set4" ||
+              winningSet === "set7"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[0] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -158,7 +219,13 @@ export default function TicTacToe() {
                 playerMove(1);
               }
             }}
-            className="ttt-spot border-left border-right border-bottom flex align-items-center justify-center"
+            className={`ttt-spot border-left border-right border-bottom flex align-items-center justify-center ${
+              winningSet === "set1" || winningSet === "set5"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[1] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -177,7 +244,15 @@ export default function TicTacToe() {
                 playerMove(2);
               }
             }}
-            className="ttt-spot border-left border-bottom flex align-items-center justify-center"
+            className={`ttt-spot border-left border-bottom flex align-items-center justify-center ${
+              winningSet === "set1" ||
+              winningSet === "set6" ||
+              winningSet === "set8"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[2] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -196,7 +271,13 @@ export default function TicTacToe() {
                 playerMove(3);
               }
             }}
-            className="ttt-spot border-right border-top border-bottom flex align-items-center justify-center"
+            className={`ttt-spot border-right border-top border-bottom flex align-items-center justify-center ${
+              winningSet === "set2" || winningSet === "set4"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[3] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -215,7 +296,16 @@ export default function TicTacToe() {
                 playerMove(4);
               }
             }}
-            className="ttt-spot border flex align-items-center justify-center"
+            className={`ttt-spot border flex align-items-center justify-center ${
+              winningSet === "set2" ||
+              winningSet === "set5" ||
+              winningSet === "set7" ||
+              winningSet === "set8"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[4] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -234,7 +324,13 @@ export default function TicTacToe() {
                 playerMove(5);
               }
             }}
-            className="ttt-spot border-top border-bottom border-left flex align-items-center justify-center"
+            className={`ttt-spot border-top border-bottom border-left flex align-items-center justify-center ${
+              winningSet === "set2" || winningSet === "set6"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[5] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -253,7 +349,15 @@ export default function TicTacToe() {
                 playerMove(6);
               }
             }}
-            className="ttt-spot border-top border-right flex align-items-center justify-center"
+            className={`ttt-spot border-top border-right flex align-items-center justify-center ${
+              winningSet === "set3" ||
+              winningSet === "set4" ||
+              winningSet === "set8"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[6] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -272,7 +376,13 @@ export default function TicTacToe() {
                 playerMove(7);
               }
             }}
-            className="ttt-spot border-left border-top border-right flex align-items-center justify-center"
+            className={`ttt-spot border-left border-top border-right flex align-items-center justify-center ${
+              winningSet === "set3" || winningSet === "set5"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[7] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -291,7 +401,15 @@ export default function TicTacToe() {
                 playerMove(8);
               }
             }}
-            className="ttt-spot border-left border-top flex align-items-center justify-center"
+            className={`ttt-spot border-left border-top flex align-items-center justify-center ${
+              winningSet === "set3" ||
+              winningSet === "set6" ||
+              winningSet === "set7"
+                ? result === "Player"
+                  ? "bg-blue-6"
+                  : "ttt-loss"
+                : ""
+            }`}
           >
             {gameGrid[8] === 1 && (
               <img className="ttt-token " src={playerToken} alt={playerToken} />
@@ -308,15 +426,20 @@ export default function TicTacToe() {
       )}
 
       {result && (
-        <div className="flex justify-center align-items-center absolute z1">
+        <div className="flex justify-center align-items-center absolute absolute-center z1">
           <div className="ttt-modal z1 text-center border-blue border-rad-10 bg-white">
             {result === "none" ? "Cat Game" : result + " wins!"}{" "}
             <div className="margin-center">
-              <button onClick={()=>{
-                setResult("");
-                setPlayerToken("");
-                setGameGrid([0,0,0,0,0,0,0,0,0]);
-              }}>Play Again</button>
+              <button
+                onClick={() => {
+                  setResult("");
+                  setPlayerToken("");
+                  setGameGrid([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                  setWinningSet("");
+                }}
+              >
+                Play Again
+              </button>
             </div>
           </div>
         </div>

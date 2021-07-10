@@ -10,7 +10,7 @@ import "./App.css";
 
 function App() {
   const [username, setUsername] = useState("");
-  const [level, setLevel] = useState(10);
+  const [level, setLevel] = useState(2);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
 
@@ -75,7 +75,7 @@ function App() {
           {" "}
           <div className="margin-10 line-height-0">Exp:</div>
           <div className="exp-bar text-center border">
-            <div className="font-10 exp-text z1 line-height-10">
+            <div className="font-10 exp-text z1 absolute line-height-10">
               {experience} / 100
             </div>
             <div
