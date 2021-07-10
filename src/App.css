@@ -1,6 +1,6 @@
 .exp-bar {
   display: inline;
-  width: 280px;
+  width: 250px;
   height: 10px;
   border-radius: 10px;
   overflow: hidden;
@@ -13,7 +13,7 @@
 }
 
 .exp-text {
-  margin-left: 230px;
+  margin-left: 215px;
 }
 
 .username-box {
@@ -290,6 +290,10 @@
   flex-basis: calc(100% / 3 - 3px);
 }
 
+.ttt-spot:hover {
+  background-color: #a4cefc;
+}
+
 .ttt-token {
   height: 90px;
   width: 90px;
@@ -304,6 +308,14 @@
 
 .ttt-loss {
   background-color: red;
+}
+
+.ttt-player {
+  animation: Drop-Player .5s ease-in;
+}
+
+.ttt-computer {
+  animation: Drop-Comp 1s ease-in;
 }
 
 .buddy-img {
@@ -349,6 +361,55 @@
   }
   96% {
     transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes Drop-Player {
+  0% {
+    
+    transform:translate(0px, -50px);
+    opacity: 0%;
+  }
+
+  90% {
+    transform: translate(0px, 0px);
+    opacity: 100%;
+    }
+  93% {
+    transform: rotate(7deg);
+  }
+  96% {
+    transform: rotate(-7deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes Drop-Comp {
+  0% {
+    
+    transform:translate(0px, -50px);
+    opacity: 0%;
+  }
+
+  10% {
+    transfrom: translate(0px, -50px);
+    opacity: 0%;
+  }
+
+  90% {
+    transform: translate(0px, 0px);
+    opacity: 100%;
+  }
+  93% {
+    transform: rotate(7deg);
+  }
+  96% {
+    transform: rotate(-7deg);
   }
   100% {
     transform: rotate(0deg);

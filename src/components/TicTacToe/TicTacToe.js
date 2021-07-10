@@ -203,11 +203,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[0] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[0] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -228,11 +228,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[1] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[1] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -255,11 +255,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[2] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[2] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -280,11 +280,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[3] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[3] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -308,11 +308,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[4] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[4] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -333,11 +333,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[5] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[5] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -360,11 +360,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[6] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[6] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -385,11 +385,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[7] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[7] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
@@ -412,11 +412,11 @@ export default function TicTacToe({ experienceUp, level }) {
             }`}
           >
             {gameGrid[8] === 1 && (
-              <img className="ttt-token " src={playerToken} alt={playerToken} />
+              <img className="ttt-token ttt-player" src={playerToken} alt={playerToken} />
             )}
             {gameGrid[8] === -1 && (
               <img
-                className="ttt-token "
+                className="ttt-token ttt-computer"
                 src={computerToken}
                 alt={computerToken}
               />
