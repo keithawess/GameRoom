@@ -3,13 +3,14 @@ import { BrowserRouter as Router, NavLink, Switch } from "react-router-dom";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
+import TicTacToe from "./components/TicTacToe/TicTacToe";
 import RequestBuddy from "./components/Buddy/Buddy";
 import Home from "./components/Home";
 import "./App.css";
 
 function App() {
   const [username, setUsername] = useState("");
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(10);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
 
@@ -51,6 +52,15 @@ function App() {
             Rock Paper Scissors
           </NavLink>
         )}
+        {level > 1 && (
+          <NavLink
+            activeClassName="active bg-blue-9 text-white"
+            className="border-blue grow nav-option"
+            to="/tictactoe"
+          >
+            Tic Tac Toe
+          </NavLink>
+        )}
         <NavLink
           activeClassName="active bg-blue-9 text-white"
           className="border-blue grow nav-end nav-option"
@@ -81,13 +91,16 @@ function App() {
       <main>
         <Switch>
           <ProtectedRoute exact path="/" reqLevel={0} level={level}>
-            <Home level={level} username={username} setUsername={setUsername}/>
+            <Home level={level} username={username} setUsername={setUsername} />
           </ProtectedRoute>
           <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
             <CoinFlip experienceUp={experienceUp} level={level} />
           </ProtectedRoute>
           <ProtectedRoute path="/rockpaperscissors" reqLevel={1} level={level}>
             <RockPaperScissors experienceUp={experienceUp} level={level} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/tictactoe" reqLevel={2} level={level}>
+            <TicTacToe experienceUp={experienceUp} level={level} />
           </ProtectedRoute>
           <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
             <RequestBuddy buddy={buddy} setBuddy={setBuddy} />

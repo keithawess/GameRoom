@@ -73,6 +73,22 @@
   border: black solid 2px;
 }
 
+.border-top {
+  border-top: black solid 2px;
+}
+
+.border-bottom {
+  border-bottom: black solid 2px;
+}
+
+.border-left {
+  border-left: black solid 2px;
+}
+
+.border-right {
+  border-right: black solid 2px;
+}
+
 .border-blue {
   border: solid 2px #0f3375;
 }
@@ -253,6 +269,11 @@
 
 .rps-img {
   animation: Drop 0.5s ease-in;
+}
+
+.ttt-spot {
+  height: 98px;
+  flex-basis: calc(100% / 3 - 3px);
 }
 
 .buddy-img {
