@@ -91,7 +91,7 @@ function App() {
       <main>
         <Switch>
           <ProtectedRoute exact path="/" reqLevel={0} level={level}>
-            <Home level={level} username={username} setUsername={setUsername} />
+            <Home level={level} setLevel={setLevel} username={username} setUsername={setUsername} />
           </ProtectedRoute>
           <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
             <CoinFlip experienceUp={experienceUp} level={level} />
