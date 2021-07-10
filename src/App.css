@@ -34,6 +34,10 @@
   height: 80px;
 }
 
+.x-thumb {
+  height: 70px;
+}
+
 .locked {
   opacity: 40%;
 }
@@ -319,7 +323,7 @@
 }
 
 .buddy-img {
-  max-height: 100px;
+  max-height: 80px;
   max-width: 100px;
 }
 

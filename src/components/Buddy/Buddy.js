@@ -3,7 +3,7 @@ import useFetch from "../../hooks/useFetch";
 import placeholder from "./images/placeholder.png";
 import BuddyDisplay from "./components/BuddyDisplay";
 
-export default function Buddy({ buddy, setBuddy }) {
+export default function Buddy({ username, buddy, setBuddy }) {
   const [appNameInput, setAppNameInput] = useState("");
   const [nameValid, setNameValid] = useState(true);
   const [reasonInput, setReasonInput] = useState("");
@@ -19,9 +19,9 @@ export default function Buddy({ buddy, setBuddy }) {
     <>
       {!buddy && (
         <div>
-          <div>Request Buddy</div>
+          <h1 className="text-center">Request Buddy</h1>
 
-          <div className="buddy-form border margin-center">
+          <div className="buddy-form border-blue border-rad-10 margin-center">
             <div className="margin-10">
               <label htmlFor="name">Applicant Name: </label>
               <br></br>
@@ -29,18 +29,26 @@ export default function Buddy({ buddy, setBuddy }) {
                 id="name"
                 value={appNameInput}
                 onChange={(e) => setAppNameInput(e.target.value)}
-                onBlur={(e) =>
-                  appNameInput.length < 3
-                    ? setNameValid(false)
-                    : setNameValid(true)
-                }
+                onBlur={() =>{
+                  if (appNameInput.length < 3 || (username && appNameInput.toLowerCase() !== username.toLowerCase()))
+                  {
+                    setNameValid(false)
+                  } else{
+                    setNameValid(true)
+                  }
+                }}
               />
               {!nameValid && appNameInput.length < 3 && (
                 <div className="text-red font-small">
-                  {" "}
                   Must be at least 3 characters long
                 </div>
               )}
+              {!nameValid && appNameInput.length > 2 &&
+                username.toLowerCase() !== appNameInput.toLowerCase() && (
+                  <div className="text-red font-small">
+                    Identity theft is not joke, {username}!
+                  </div>
+                )}
             </div>
             <div></div>
             <div className="margin-10">
@@ -92,7 +100,7 @@ export default function Buddy({ buddy, setBuddy }) {
               className="margin-10"
               type="button"
               onClick={() => {
-                if (nameValid && reasonValid) {
+                if (nameValid && reasonValid && appNameInput.length > 2) {
                   if (buddyNameInput.length === 0 && !error) {
                     setBuddy({
                       name: name.results[0].name.first,

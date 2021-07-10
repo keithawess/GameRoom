@@ -26,7 +26,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
       default:
         break;
     }
-  });
+  },[computerGuess]);
 
   return (
     <div>

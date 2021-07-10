@@ -10,7 +10,7 @@ import "./App.css";
 
 function App() {
   const [username, setUsername] = useState("");
-  const [level, setLevel] = useState(2);
+  const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
 
@@ -103,7 +103,7 @@ function App() {
             <TicTacToe experienceUp={experienceUp} level={level} />
           </ProtectedRoute>
           <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
-            <RequestBuddy buddy={buddy} setBuddy={setBuddy} />
+            <RequestBuddy username={username} buddy={buddy} setBuddy={setBuddy} />
           </ProtectedRoute>
         </Switch>
       </main>

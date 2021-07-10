@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import coin from "./CoinFlip/images/heads.png";
 import rock from "./RockPaperScissors/images/rock.png";
+import x from "./TicTacToe/x.png"
 import comingSoon from "./help-sing.png";
 
 export default function Home({ username, setUsername, level }) {
@@ -59,10 +60,18 @@ export default function Home({ username, setUsername, level }) {
               level < 1 ? "locked" : "unlocked"
             }`}
           >
-            <img className="rock-thumb" src={rock} alt="Coin Flip" />
+            <img className="rock-thumb" src={rock} alt="Rock Paper Scissors" />
+          </div>
+
+          <div
+            className={`home-option border flex align-items-center circle justify-center ${
+              level < 2 ? "locked" : "unlocked"
+            }`}
+          >
+            <img className="x-thumb" src={x} alt="Tic Tac Toe" />
           </div>
           <div className="home-option border flex align-items-center circle justify-center locked">
-            <img className="rock-thumb" src={comingSoon} alt="Coin Flip" />
+            <img className="rock-thumb" src={comingSoon} alt="Coin Flip" title="Coming Soon"/>
           </div>
         </div>
       )}
