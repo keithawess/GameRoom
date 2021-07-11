@@ -4,8 +4,10 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
 import TicTacToe from "./components/TicTacToe/TicTacToe";
-import RequestBuddy from "./components/Buddy/Buddy";
+import Buddy from "./components/Buddy/Buddy";
+import BuddyDisplay from "./components/Buddy/components/BuddyDisplay";
 import Home from "./components/Home";
+import heart from "./heart.png"
 import "./App.css";
 
 function App() {
@@ -69,44 +71,71 @@ function App() {
           Buddy
         </NavLink>
       </nav>
-      <header>
-        <div className="text-center">Level: {level} </div>
-        <div className="flex align-items-center justify-center">
-          {" "}
-          <div className="margin-10 line-height-0">Exp:</div>
-          <div className="exp-bar text-center border">
-            <div className="font-10 exp-text z1 absolute line-height-10">
-              {experience} / 100
-            </div>
-            <div
-              className="exp-filler"
-              style={{ width: `calc(${experience}% - 4px)` }}
-            >
+
+      <div className="flex justify-center">
+        {true && (
+          <aside className="aside third flex align-items-center justify-center col">
+            <h3>Stats:</h3>
+          </aside>
+        )}
+
+        <div className="third middle-container">
+          <header>
+            <div className="text-center">Level: {level} </div>
+            <div className="flex align-items-center justify-center">
               {" "}
-              &nbsp;
+              <div className="margin-10 line-height-0">Exp:</div>
+              <div className="exp-bar text-center border">
+                <div className="font-10 exp-text z1 absolute line-height-10">
+                  {experience} / 100
+                </div>
+                <div
+                  className="exp-filler"
+                  style={{ width: `calc(${experience}% - 4px)` }}
+                >
+                  &nbsp;
+                </div>
+              </div>
             </div>
-          </div>
+          </header>
+          <main>
+            <Switch>
+              <ProtectedRoute exact path="/" reqLevel={0} level={level}>
+                <Home
+                  level={level}
+                  setLevel={setLevel}
+                  username={username}
+                  setUsername={setUsername}
+                />
+              </ProtectedRoute>
+              <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
+                <CoinFlip experienceUp={experienceUp} level={level} />
+              </ProtectedRoute>
+              <ProtectedRoute
+                path="/rockpaperscissors"
+                reqLevel={1}
+                level={level}
+              >
+                <RockPaperScissors experienceUp={experienceUp} level={level} />
+              </ProtectedRoute>
+              <ProtectedRoute path="/tictactoe" reqLevel={2} level={level}>
+                <TicTacToe experienceUp={experienceUp} level={level} />
+              </ProtectedRoute>
+              <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
+                <Buddy username={username} buddy={buddy} setBuddy={setBuddy} />
+              </ProtectedRoute>
+            </Switch>
+          </main>
         </div>
-      </header>
-      <main>
-        <Switch>
-          <ProtectedRoute exact path="/" reqLevel={0} level={level}>
-            <Home level={level} setLevel={setLevel} username={username} setUsername={setUsername} />
-          </ProtectedRoute>
-          <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
-            <CoinFlip experienceUp={experienceUp} level={level} />
-          </ProtectedRoute>
-          <ProtectedRoute path="/rockpaperscissors" reqLevel={1} level={level}>
-            <RockPaperScissors experienceUp={experienceUp} level={level} />
-          </ProtectedRoute>
-          <ProtectedRoute path="/tictactoe" reqLevel={2} level={level}>
-            <TicTacToe experienceUp={experienceUp} level={level} />
-          </ProtectedRoute>
-          <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
-            <RequestBuddy username={username} buddy={buddy} setBuddy={setBuddy} />
-          </ProtectedRoute>
-        </Switch>
-      </main>
+
+        {buddy && (
+          <aside className="aside third flex align-items-center justify-center col">
+            <img className="z1 absolute heart" key={experience} src={heart} alt="Heart"/>
+            <h3>Buddy:</h3>
+            <BuddyDisplay experience={experience} buddy={buddy} />
+          </aside>
+        )}
+      </div>
     </Router>
   );
 }

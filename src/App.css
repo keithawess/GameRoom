@@ -29,6 +29,10 @@
   margin: 5px;
 }
 
+.middle-container {
+  height: 400px;
+}
+
 .rock-thumb {
   width: 80px;
   height: 80px;
@@ -156,6 +160,10 @@
 
 .margin-top-5 {
   margin-top: 5px;
+}
+
+.margin-top-130 {
+  margin-top: 130px;
 }
 
 .width-100 {
@@ -315,7 +323,7 @@
 }
 
 .ttt-player {
-  animation: Drop-Player .5s ease-in;
+  animation: Drop-Player 0.5s ease-in;
 }
 
 .ttt-computer {
@@ -332,6 +340,11 @@
   max-width: 100px;
   border-radius: 25px;
   overflow: hidden;
+}
+
+.heart {
+  opacity: 0%;
+  animation: Float 3s linear;
 }
 
 @keyframes Flip {
@@ -373,15 +386,14 @@
 
 @keyframes Drop-Player {
   0% {
-    
-    transform:translate(0px, -50px);
+    transform: translate(0px, -50px);
     opacity: 0%;
   }
 
   90% {
     transform: translate(0px, 0px);
     opacity: 100%;
-    }
+  }
   93% {
     transform: rotate(7deg);
   }
@@ -395,8 +407,7 @@
 
 @keyframes Drop-Comp {
   0% {
-    
-    transform:translate(0px, -50px);
+    transform: translate(0px, -50px);
     opacity: 0%;
   }
 
@@ -420,6 +431,68 @@
   }
 }
 
+@keyframes Float {
+  10% {
+    opacity: 10%;
+    transform: translate(-5px, -10px);
+  }
+
+  20% {
+    opacity: 100%;
+    transform: translate(-20px, -20px);
+  }
+
+  30% {
+    opacity: 100%;
+    transform: translate(0px, -30px);
+  }
+
+  40% {
+    opacity: 100%;
+    transform: translate(20px, -40px);
+  }
+
+  50% {
+    opacity: 100%;
+    transform: translate(0px, -50px);
+  }
+
+  55% {
+    opacity: 100%;
+    transform: scale(50%);
+  }
+
+  58% {
+    opacity: 100%;
+    transform: scale(150%);
+  }
+
+  60% {
+    opacity: 100%;
+    transform: scale(100%);
+  }
+
+  62% {
+    opacity: 100%;
+    transform: scale(150%);
+  }
+
+  64% {
+    opacity: 100%;
+    transform: scale(100%);
+  }
+
+  90% {
+    opacity: 100%;
+    transform: scale(100%);
+  }
+
+  98% {
+    transform: scale(200%);
+    opacity: 0%;
+  }
+}
+
 @media (max-width: 380px) {
   .absolute {
     top: 70px;
@@ -427,5 +500,11 @@
 
   .line-height-10 {
     line-height: 17px;
+  }
+}
+
+@media (max-width: 550px) {
+  .aside {
+    display: none;
   }
 }

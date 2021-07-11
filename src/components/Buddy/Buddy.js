@@ -125,10 +125,9 @@ export default function Buddy({ username, buddy, setBuddy }) {
 
       {buddy && (
         <div className="text-center">
-          Here is your government issued buddy! You cannot trade them in for
-          another, cus that's not what buddies do.
-          <div className="margin-center">
-            <BuddyDisplay buddy={buddy} />
+          <div className="margin-center margin-top-130" title="Here is your buddy! You cannot trade them in for
+          another, cus that's not what buddies do.">
+            <BuddyDisplay buddy={buddy}/>
           </div>
         </div>
       )}
