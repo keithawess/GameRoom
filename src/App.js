@@ -7,7 +7,7 @@ import TicTacToe from "./components/TicTacToe/TicTacToe";
 import Buddy from "./components/Buddy/Buddy";
 import BuddyDisplay from "./components/Buddy/components/BuddyDisplay";
 import Home from "./components/Home";
-import heart from "./heart.png"
+import heart from "./heart.png";
 import "./App.css";
 
 function App() {
@@ -73,11 +73,14 @@ function App() {
       </nav>
 
       <div className="flex justify-center">
-        {true && (
+        {username && (
           <aside className="aside third flex align-items-center justify-center col">
             <h3>Stats:</h3>
+            <div>You're Awesome</div>
           </aside>
         )}
+
+        {!username && <div className="aside third">&nbsp;</div>}
 
         <div className="third middle-container">
           <header>
@@ -130,11 +133,17 @@ function App() {
 
         {buddy && (
           <aside className="aside third flex align-items-center justify-center col">
-            <img className="z1 absolute heart" key={experience} src={heart} alt="Heart"/>
+            <img
+              className="z1 absolute heart"
+              key={experience}
+              src={heart}
+              alt="Heart"
+            />
             <h3>Buddy:</h3>
             <BuddyDisplay experience={experience} buddy={buddy} />
           </aside>
         )}
+        {!buddy && <div className="aside third">&nbsp;</div>}
       </div>
     </Router>
   );

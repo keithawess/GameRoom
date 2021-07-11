@@ -44,21 +44,23 @@ export default function CoinFlip({ experienceUp, level }) {
         </div>
       </div>
       <div className="margin-center flex justify-center game-options">
-        {flip >= 0 && <button
-          className="margin-center option-button"
-          onClick={() => {
-            if (!result && flip >= 0) {
-              if (!result && flip) {
-                setResult("Win");
-                if (level < 1) {
-                  experienceUp(10);
-                }
-              } else setResult("Loss");
-            }
-          }}
-        >
-          Heads
-        </button>}
+        {flip >= 0 && (
+          <button
+            className="margin-center option-button"
+            onClick={() => {
+              if (!result && flip >= 0) {
+                if (!result && flip) {
+                  setResult("Win");
+                  if (level < 1) {
+                    experienceUp(10);
+                  }
+                } else setResult("Loss");
+              }
+            }}
+          >
+            Heads
+          </button>
+        )}
 
         <button
           className="margin-center block"
@@ -71,21 +73,23 @@ export default function CoinFlip({ experienceUp, level }) {
           Flip
         </button>
 
-        {flip >= 0 && <button
-          className="margin-center option-button"
-          onClick={() => {
-            if (!result && flip >= 0) {
-              if (!flip) {
-                setResult("win");
-                if (level < 1) {
-                  experienceUp(10);
-                }
-              } else setResult("loss");
-            }
-          }}
-        >
-          Tails
-        </button>}
+        {flip >= 0 && (
+          <button
+            className="margin-center option-button"
+            onClick={() => {
+              if (!result && flip >= 0) {
+                if (!flip) {
+                  setResult("win");
+                  if (level < 1) {
+                    experienceUp(10);
+                  }
+                } else setResult("loss");
+              }
+            }}
+          >
+            Tails
+          </button>
+        )}
       </div>
     </div>
   );

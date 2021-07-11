@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import coin from "./CoinFlip/images/heads.png";
 import rock from "./RockPaperScissors/images/rock.png";
-import x from "./TicTacToe/x.png"
+import x from "./TicTacToe/x.png";
 import comingSoon from "./help-sing.png";
 
 export default function Home({ username, setUsername, level, setLevel }) {
   const [usernameInput, setUsernameInput] = useState("");
   const [usernameValid, setUsernameValid] = useState(true);
+  let history = useHistory();
 
   return (
     <div>
@@ -43,9 +45,8 @@ export default function Home({ username, setUsername, level, setLevel }) {
               if (usernameInput.length >= 3) {
                 setUsername(usernameInput);
               }
-              if (usernameInput.toLowerCase() === "keith")
-              {
-                  setLevel(1000);
+              if (usernameInput.toLowerCase() === "keith") {
+                setLevel(1000);
               }
             }}
           >
@@ -57,9 +58,21 @@ export default function Home({ username, setUsername, level, setLevel }) {
       {username && (
         <div className="flex wrap space-evenly">
           <div className="home-option unlocked">
-            <img className="home-option" src={coin} alt="Coin Flip" />
+            <img
+              onClick={() => {
+                history.push("/coinflip");
+              }}
+              className="home-option"
+              src={coin}
+              alt="Coin Flip"
+            />
           </div>
           <div
+            onClick={() => {
+              if (level > 0) {
+                history.push("/rockpaperscissors");
+              }
+            }}
             className={`home-option border flex align-items-center circle justify-center ${
               level < 1 ? "locked" : "unlocked"
             }`}
@@ -68,6 +81,11 @@ export default function Home({ username, setUsername, level, setLevel }) {
           </div>
 
           <div
+            onClick={() => {
+              if (level > 1) {
+                history.push("/tictactoe");
+              }
+            }}
             className={`home-option border flex align-items-center circle justify-center ${
               level < 2 ? "locked" : "unlocked"
             }`}
@@ -75,7 +93,12 @@ export default function Home({ username, setUsername, level, setLevel }) {
             <img className="x-thumb" src={x} alt="Tic Tac Toe" />
           </div>
           <div className="home-option border flex align-items-center circle justify-center locked">
-            <img className="rock-thumb" src={comingSoon} alt="Coin Flip" title="Coming Soon"/>
+            <img
+              className="rock-thumb"
+              src={comingSoon}
+              alt="Coin Flip"
+              title="Coming Soon"
+            />
           </div>
         </div>
       )}

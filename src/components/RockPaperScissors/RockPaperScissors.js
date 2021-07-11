@@ -26,7 +26,7 @@ export default function RockPaperScissors({ experienceUp, level }) {
       default:
         break;
     }
-  },[computerGuess]);
+  }, [computerGuess]);
 
   return (
     <div>
@@ -68,7 +68,11 @@ export default function RockPaperScissors({ experienceUp, level }) {
           {result && (
             <div>
               <div>Computer:</div>
-              <img className="rps-img" src={computerImage} alt={computerGuess} />
+              <img
+                className="rps-img"
+                src={computerImage}
+                alt={computerGuess}
+              />
             </div>
           )}
         </div>
