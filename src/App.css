@@ -1,3 +1,17 @@
+/* Shared Styling */
+
+.game-board {
+  width: 300px;
+  height: 300px;
+  margin: 10px;
+}
+
+.game-options {
+  width: 300px;
+}
+
+/* App Styling */
+
 .exp-bar {
   display: inline;
   width: 250px;
@@ -16,6 +30,33 @@
   margin-left: 215px;
 }
 
+.middle-container {
+  height: 400px;
+}
+
+.nav-start {
+  border-radius: 10px 0px 0px 10px;
+}
+
+.nav-end {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.nav-option {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-option:hover:not(.active) {
+  background-color: #cce4fd;
+}
+
+.heart {
+  opacity: 0%;
+  animation: Float 3s linear;
+}
+/* Home Styling */
+
 .username-box {
   width: 260px;
   height: 60px;
@@ -27,10 +68,6 @@
   height: 100px;
   border-radius: 50%;
   margin: 5px;
-}
-
-.middle-container {
-  height: 400px;
 }
 
 .rock-thumb {
@@ -50,16 +87,87 @@
   opacity: 60%;
 }
 
+
+/* TicTacToe Styling */
 .ttt-endgame {
   opacity: 50%;
 }
 
-.game-board {
-  width: 300px;
-  height: 300px;
-  margin: 10px;
+.ttt-spot {
+  height: 98px;
+  flex-basis: calc(100% / 3 - 3px);
 }
 
+.ttt-spot:hover {
+  background-color: #a4cefc;
+}
+
+.ttt-token {
+  height: 90px;
+  width: 90px;
+}
+
+.ttt-modal {
+  height: 53px;
+  width: 150px;
+  top: 275px;
+  left: 42%;
+}
+
+.ttt-loss {
+  background-color: red;
+}
+
+.ttt-player {
+  animation: Drop-Player 0.5s ease-in;
+}
+
+.ttt-computer {
+  animation: Drop-Comp 1s ease-in;
+}
+
+/* Buddy Styling */
+
+.buddy-form {
+  width: 316px;
+}
+
+.buddy-img {
+  max-height: 80px;
+  max-width: 100px;
+}
+
+.buddy-display-container {
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+/* CoinFlip Styling*/
+
+.coin {
+  animation: Flip 2s ease-in-out;
+}
+
+.option-button {
+  flex-basis: calc(40%);
+}
+
+/* RockPaperScissors Styline */
+
+.rps-shoot {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.rps-img {
+  animation: Drop 0.5s ease-in;
+}
+
+/* General */
 .font-10 {
   font-size: 10px;
 }
@@ -77,18 +185,6 @@
 
 .z1 {
   z-index: 1;
-}
-
-.game-options {
-  width: 300px;
-}
-
-.buddy-form {
-  width: 316px;
-}
-
-.option-button {
-  flex-basis: calc(40%);
 }
 
 .border {
@@ -120,29 +216,12 @@
   overflow: hidden;
 }
 
-.nav-start {
-  border-radius: 10px 0px 0px 10px;
-}
-
-.nav-end {
-  border-radius: 0px 10px 10px 0px;
-}
-
-.nav-option {
-  text-decoration: none;
-  color: black;
-}
-
 .line-height-0 {
   line-height: 0px;
 }
 
 .line-height-10 {
   line-height: 10px;
-}
-
-.nav-option:hover:not(.active) {
-  background-color: #cce4fd;
 }
 
 .text-center {
@@ -234,6 +313,12 @@
   display: inline-block;
 }
 
+.block {
+  display: block;
+}
+
+/* Flex */
+
 .flex {
   display: flex;
 }
@@ -258,10 +343,6 @@
   justify-content: center;
 }
 
-.block {
-  display: block;
-}
-
 .col {
   flex-direction: column;
 }
@@ -282,70 +363,7 @@
   align-items: center;
 }
 
-.coin {
-  animation: Flip 2s ease-in-out;
-}
-
-.rps-shoot {
-  height: 64px;
-  width: 64px;
-  border-radius: 50%;
-  background-color: black;
-}
-
-.rps-img {
-  animation: Drop 0.5s ease-in;
-}
-
-.ttt-spot {
-  height: 98px;
-  flex-basis: calc(100% / 3 - 3px);
-}
-
-.ttt-spot:hover {
-  background-color: #a4cefc;
-}
-
-.ttt-token {
-  height: 90px;
-  width: 90px;
-}
-
-.ttt-modal {
-  height: 53px;
-  width: 150px;
-  top: 275px;
-  left: 42%;
-}
-
-.ttt-loss {
-  background-color: red;
-}
-
-.ttt-player {
-  animation: Drop-Player 0.5s ease-in;
-}
-
-.ttt-computer {
-  animation: Drop-Comp 1s ease-in;
-}
-
-.buddy-img {
-  max-height: 80px;
-  max-width: 100px;
-}
-
-.buddy-display-container {
-  max-height: 100px;
-  max-width: 100px;
-  border-radius: 25px;
-  overflow: hidden;
-}
-
-.heart {
-  opacity: 0%;
-  animation: Float 3s linear;
-}
+/* Animations */
 
 @keyframes Flip {
   0% {
@@ -492,6 +510,8 @@
     opacity: 0%;
   }
 }
+
+/* Breakpoints */
 
 @media (max-width: 380px) {
   .absolute {

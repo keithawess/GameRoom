@@ -25,7 +25,7 @@ function App() {
     }
   }, [experience, level]);
 
-  // Function adds specified amount of experience.
+  // Function adds specified amount of experience. Params: int
   const experienceUp = useCallback((exp) => {
     setExperience((curr) => curr + exp);
   }, []);
