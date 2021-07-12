@@ -11,11 +11,13 @@ import heart from "./heart.png";
 import "./App.css";
 
 function App() {
+  // States
   const [username, setUsername] = useState("");
   const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
 
+  // Adds 1 to level when experience reaches 100 and resets experience.
   useEffect(() => {
     if (experience >= 100) {
       setLevel(level + 1);
@@ -23,12 +25,14 @@ function App() {
     }
   }, [experience, level]);
 
+  // Function adds specified amount of experience.
   const experienceUp = useCallback((exp) => {
     setExperience((curr) => curr + exp);
   }, []);
 
   return (
     <Router>
+      {/* Nav Bar | Shows links as level requirements are met. */}
       <nav className="flex width-100 space-evenly bg-white text-black text-center border-rad-10">
         <NavLink
           activeClassName="active bg-blue-9 text-white"
@@ -72,7 +76,10 @@ function App() {
         </NavLink>
       </nav>
 
+      {/* Body of Page */}
       <div className="flex justify-center">
+        {/* Stats Aside | Shows only if player decides to enter username. 
+        Plan to include stats based off of games played, wins, and losses. */}
         {username && (
           <aside className="aside third flex align-items-center justify-center col">
             <h3>Stats:</h3>
@@ -80,18 +87,22 @@ function App() {
           </aside>
         )}
 
+        {/* Keeps spacing when buddy aside exists, but stats does not. */}
         {!username && <div className="aside third">&nbsp;</div>}
 
+        {/* Middle Section of Body. */}
         <div className="third middle-container">
+
+          {/* Displays level and experience */}
           <header>
             <div className="text-center">Level: {level} </div>
             <div className="flex align-items-center justify-center">
-              {" "}
               <div className="margin-10 line-height-0">Exp:</div>
               <div className="exp-bar text-center border">
                 <div className="font-10 exp-text z1 absolute line-height-10">
                   {experience} / 100
                 </div>
+                {/* Fills experience bar with a div. */}
                 <div
                   className="exp-filler"
                   style={{ width: `calc(${experience}% - 4px)` }}
@@ -101,6 +112,9 @@ function App() {
               </div>
             </div>
           </header>
+
+          {/* Components switched out based off Route Path
+          If level requirement is not met, redirects to home */}
           <main>
             <Switch>
               <ProtectedRoute exact path="/" reqLevel={0} level={level}>
@@ -131,8 +145,10 @@ function App() {
           </main>
         </div>
 
+        {/* Displays buddy if buddy exists */}
         {buddy && (
           <aside className="aside third flex align-items-center justify-center col">
+            {/* Heart animation plays every time the user gets experience */}
             <img
               className="z1 absolute heart"
               key={experience}
@@ -143,6 +159,8 @@ function App() {
             <BuddyDisplay experience={experience} buddy={buddy} />
           </aside>
         )}
+
+        {/* Keeps spacing when stats aside exists without a buddy */}
         {!buddy && <div className="aside third">&nbsp;</div>}
       </div>
     </Router>
