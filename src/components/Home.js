@@ -6,6 +6,7 @@ import x from "./TicTacToe/x.png";
 import comingSoon from "./help-sing.png";
 
 export default function Home({ username, setUsername, level, setLevel }) {
+  // States
   const [usernameInput, setUsernameInput] = useState("");
   const [usernameValid, setUsernameValid] = useState(true);
   let history = useHistory();
@@ -13,6 +14,8 @@ export default function Home({ username, setUsername, level, setLevel }) {
   return (
     <div>
       <h1 className="text-center">Home</h1>
+
+      {/* If a username hasn't been submitted, Shows input form */}
       {!username && (
         <div className="username-box margin-center">
           <div className="margin-center">
@@ -38,6 +41,8 @@ export default function Home({ username, setUsername, level, setLevel }) {
           <div className={"font-small " + (usernameValid ? "" : "text-red")}>
             Must be at least 3 characters
           </div>
+
+          {/* Username Must be at least 3 characters. "Keith" will set level to 1000 */}
           <button
             type="button"
             className="margin-center margin-top-5 block"
@@ -55,6 +60,8 @@ export default function Home({ username, setUsername, level, setLevel }) {
         </div>
       )}
 
+      {/* If username has been provided, Displays home page
+        Shows clickable icons for each game*/}
       {username && (
         <div className="flex wrap space-evenly">
           <div className="home-option unlocked">
