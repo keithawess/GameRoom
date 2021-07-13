@@ -4,11 +4,13 @@ import tailsImg from "./images/tails.png";
 import unknownImg from "./images/unknown.png";
 
 export default function CoinFlip({ experienceUp, level }) {
+  // States
   const [flip, setFlip] = useState(-1);
   const [img, setImg] = useState(unknownImg);
   const [result, setResult] = useState(null);
   const [animationReload, setAnimationReload] = useState(1);
 
+  // Image of coin changes when result is decided.
   useEffect(() => {
     if (!result) {
       setImg(unknownImg);
@@ -20,8 +22,10 @@ export default function CoinFlip({ experienceUp, level }) {
   return (
     <div>
       <h1 className="text-center">Heads or Tails?</h1>
+      {/* Game Board */}
       <div className="game-board margin-center flex col justify-center">
         <div className="half">
+          {/* Displays Image for coin only after the first flip. */}
           {flip >= 0 && (
             <img
               key={animationReload}
@@ -32,8 +36,7 @@ export default function CoinFlip({ experienceUp, level }) {
           )}
         </div>
 
-        {/* {flip >= 0 && !result && <img className="block margin-center" src={img} alt="Coin" />}
-        {result && <img src={img} alt="Coin" />} */}
+        {/* Displays Results when determined */}
         <div className="half">
           {result && (
             <div className="text-center">
@@ -43,6 +46,8 @@ export default function CoinFlip({ experienceUp, level }) {
           )}
         </div>
       </div>
+
+      {/* Shows choices after coin is flipped for the first time. */}
       <div className="margin-center flex justify-center game-options">
         {flip >= 0 && (
           <button
