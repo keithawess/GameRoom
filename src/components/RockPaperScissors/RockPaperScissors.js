@@ -4,14 +4,16 @@ import scissors from "./images/scissors.png";
 import paper from "./images/paper.png";
 
 export default function RockPaperScissors({ experienceUp, level }) {
+  //State
   const [playerGuess, setPlayerGuess] = useState(null);
   const [playerImage, setPlayerImage] = useState(null);
   const [computerGuess, setComputerGuess] = useState(null);
   const [computerImage, setComputerImage] = useState(null);
   const [result, setResult] = useState(null);
-
+  //Array for computer guesses
   let options = ["rock", "paper", "scissors"];
 
+  //Sets computer's image to correct image every time it changes.
   useEffect(() => {
     switch (computerGuess) {
       case "rock":
@@ -31,8 +33,11 @@ export default function RockPaperScissors({ experienceUp, level }) {
   return (
     <div>
       <h1 className="text-center">Rock Paper Scissors</h1>
+
       {/* Game Board */}
       <div className="game-board margin-center flex space-evenly align-items-center">
+
+        {/* Players Side */}
         <div className="rps-player text-center third">
           {result && (
             <div>
@@ -41,6 +46,8 @@ export default function RockPaperScissors({ experienceUp, level }) {
             </div>
           )}
         </div>
+
+        {/* Button to check guesses. Displays result after checks. */}
         <button
           className="rps-shoot text-white"
           onClick={() => {
@@ -62,8 +69,12 @@ export default function RockPaperScissors({ experienceUp, level }) {
             }
           }}
         >
+
+          {/* Displays Shoot when game is reset */}
           {!result ? "Shoot" : result}
         </button>
+
+        {/* Computer's Side */}
         <div className="rps-computer text-center third">
           {result && (
             <div>
@@ -77,7 +88,8 @@ export default function RockPaperScissors({ experienceUp, level }) {
           )}
         </div>
       </div>
-      {/* Player Choices */}
+
+      {/* Buttons for Player Choices. Highlights blue when selected*/}
       <div className="margin-center flex game-options">
         <button
           className={`margin-center option-button ${
