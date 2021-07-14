@@ -3,6 +3,8 @@ import x from "./x.png";
 import o from "./o.png";
 
 export default function TicTacToe({ experienceUp, level }) {
+
+  // State
   const [playerToken, setPlayerToken] = useState("");
   const [computerToken, setComputerToken] = useState("");
   const [gameRunning, setGameRunning] = useState(false);
@@ -10,6 +12,7 @@ export default function TicTacToe({ experienceUp, level }) {
   const [result, setResult] = useState("");
   const [winningSet, setWinningSet] = useState("");
 
+  // Checks if winning move has been made. Returns who won.
   const winner = useCallback(() => {
     for (let i = 0; i < 3; i++) {
       if (gameGrid[i] + gameGrid[i + 3] + gameGrid[i + 6] === 3) {
@@ -97,11 +100,13 @@ export default function TicTacToe({ experienceUp, level }) {
     }
   }, [gameGrid]);
 
+  // Ends game. Shows who won.
   const endGame = useCallback(() => {
     setGameRunning(false);
     setResult(winner());
   }, [winner]);
 
+  // Checks to see if computer can make a move.
   const availableMove = useCallback(() => {
     let moveAvailable = false;
     for (let i = 0; i < 9; i++) {
@@ -112,6 +117,7 @@ export default function TicTacToe({ experienceUp, level }) {
     return moveAvailable;
   }, [gameGrid]);
 
+  // Computer makes move. Currently prioritizes center spot, then random.
   const computerMove = useCallback(() => {
     if (availableMove()) {
       if (gameGrid[4] === 0) {
@@ -133,6 +139,7 @@ export default function TicTacToe({ experienceUp, level }) {
     }
   }, [gameGrid, endGame, winner, availableMove]);
 
+  // Displays player move, then has computer make a move.
   const playerMove = useCallback(
     (spot) => {
       gameGrid[spot] = 1;
@@ -152,6 +159,7 @@ export default function TicTacToe({ experienceUp, level }) {
   return (
     <div>
       <h1 className="text-center">Tic Tac Toe</h1>
+      {/* Gives player option to choose X or O */}
       {!playerToken && (
         <div className="text-center game-board margin-center">
           <h3>Pick One:</h3>
@@ -180,6 +188,9 @@ export default function TicTacToe({ experienceUp, level }) {
           </div>
         </div>
       )}
+
+      {/* Displays game board after player chooses tokens. Each div has a designated set (for highlighting)
+        When div is clicked, player move is made if spot is not already taken*/}
       {playerToken && (
         <div
           className={`game-board margin-center flex wrap ${
@@ -461,6 +472,7 @@ export default function TicTacToe({ experienceUp, level }) {
         </div>
       )}
 
+      {/* Displays modal allowing player to restart game. */}
       {result && (
         <div className="flex justify-center align-items-center absolute absolute-center z1">
           <div className="ttt-modal z1 text-center border-blue border-rad-10 bg-white">

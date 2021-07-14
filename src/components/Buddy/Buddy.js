@@ -4,12 +4,14 @@ import placeholder from "./images/placeholder.png";
 import BuddyDisplay from "./components/BuddyDisplay";
 
 export default function Buddy({ username, buddy, setBuddy }) {
+  // States
   const [appNameInput, setAppNameInput] = useState("");
   const [nameValid, setNameValid] = useState(true);
   const [reasonInput, setReasonInput] = useState("");
   const [reasonValid, setReasonValid] = useState(true);
   const [buddyNameInput, setBuddyNameInput] = useState("");
   const [buddyColor, setBuddyColor] = useState("#000000");
+  // Name and buddy image are both chosen as page starts.
   const { data: name, error } = useFetch("https://randomuser.me/api/");
   const { data: buddyImg, imgError } = useFetch(
     "https://thatcopy.pw/catapi/rest/"
@@ -17,33 +19,40 @@ export default function Buddy({ username, buddy, setBuddy }) {
 
   return (
     <>
+      {/* Displays form for buddy if one doesn't exist */}
       {!buddy && (
         <div>
           <h1 className="text-center">Request Buddy</h1>
 
           <div className="buddy-form border-blue border-rad-10 margin-center">
             <div className="margin-10">
+              {/* Applicant name requires at least 3 characters, and needs to match username if provided */}
               <label htmlFor="name">Applicant Name: </label>
               <br></br>
               <input
                 id="name"
                 value={appNameInput}
                 onChange={(e) => setAppNameInput(e.target.value)}
-                onBlur={() =>{
-                  if (appNameInput.length < 3 || (username && appNameInput.toLowerCase() !== username.toLowerCase()))
-                  {
-                    setNameValid(false)
-                  } else{
-                    setNameValid(true)
+                onBlur={() => {
+                  if (
+                    appNameInput.length < 3 ||
+                    (username &&
+                      appNameInput.toLowerCase() !== username.toLowerCase())
+                  ) {
+                    setNameValid(false);
+                  } else {
+                    setNameValid(true);
                   }
                 }}
               />
+              {/* Displays error Messages */}
               {!nameValid && appNameInput.length < 3 && (
                 <div className="text-red font-small">
                   Must be at least 3 characters long
                 </div>
               )}
-              {!nameValid && appNameInput.length > 2 &&
+              {!nameValid &&
+                appNameInput.length > 2 &&
                 username.toLowerCase() !== appNameInput.toLowerCase() && (
                   <div className="text-red font-small">
                     Identity theft is not joke, {username}!
@@ -52,6 +61,7 @@ export default function Buddy({ username, buddy, setBuddy }) {
             </div>
             <div></div>
             <div className="margin-10">
+              {/* Cannot be last option */}
               <label htmlFor="reason">Reason for Application: </label>
               <br></br>
               <select
@@ -75,6 +85,7 @@ export default function Buddy({ username, buddy, setBuddy }) {
             </div>
 
             <div className="margin-10">
+              {/* If this field is left blank, pulls random name using an API */}
               <label htmlFor="buddyname">Buddy Name: </label>
               <br></br>
               <input
@@ -85,7 +96,7 @@ export default function Buddy({ username, buddy, setBuddy }) {
                 onChange={(e) => setBuddyNameInput(e.target.value)}
               />
             </div>
-
+            {/* Color input for BuddyDisplay border */}
             <div className="margin-10">
               <label htmlFor="color">Favorite Color: </label>
               <br></br>
@@ -96,6 +107,7 @@ export default function Buddy({ username, buddy, setBuddy }) {
               />
             </div>
 
+            {/* Submits data if data is valid */}
             <button
               className="margin-10"
               type="button"
@@ -123,11 +135,15 @@ export default function Buddy({ username, buddy, setBuddy }) {
         </div>
       )}
 
+      {/* Displays buddy if buddy exists */}
       {buddy && (
         <div className="text-center">
-          <div className="margin-center margin-top-130" title="Here is your buddy! You cannot trade them in for
-          another, cus that's not what buddies do.">
-            <BuddyDisplay buddy={buddy}/>
+          <div
+            className="margin-center margin-top-130"
+            title="Here is your buddy! You cannot trade them in for
+          another, cus that's not what buddies do."
+          >
+            <BuddyDisplay buddy={buddy} />
           </div>
         </div>
       )}
