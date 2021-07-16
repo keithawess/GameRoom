@@ -4,6 +4,7 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
 import TicTacToe from "./components/TicTacToe/TicTacToe";
+import Mastermind from "./components/Mastermind";
 import Buddy from "./components/Buddy/Buddy";
 import BuddyDisplay from "./components/Buddy/components/BuddyDisplay";
 import Home from "./components/Home";
@@ -12,8 +13,8 @@ import "./App.css";
 
 function App() {
   // States
-  const [username, setUsername] = useState("");
-  const [level, setLevel] = useState(0);
+  const [username, setUsername] = useState();
+  const [level, setLevel] = useState(100);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
 
@@ -137,6 +138,9 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path="/tictactoe" reqLevel={2} level={level}>
                 <TicTacToe experienceUp={experienceUp} level={level} />
+              </ProtectedRoute>
+              <ProtectedRoute path="/mastermind" reqLevel={3} level={level}>
+                <Mastermind experienceUp={experienceUp} level={level} />
               </ProtectedRoute>
               <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
                 <Buddy username={username} buddy={buddy} setBuddy={setBuddy} />
