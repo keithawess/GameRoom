@@ -53,7 +53,8 @@ async function changePassword(res, userId, password, newPassword) {
       const users = await query("SELECT * FROM users WHERE id = ?", [
           userId,
       ]);
-      const matches = await bcrypt.compare(password, users.password);
+      const user = users[0] || { password: "Salt" };
+      const matches = await bcrypt.compare(password, user.password);
       if (matches) {
         const hash = await bcrypt.hash(newPassword, 10);
         await query("UPDATE users SET password = ? WHERE id = ?", [hash, userId]);
@@ -70,6 +71,29 @@ async function changePassword(res, userId, password, newPassword) {
   }
 }
 
-async function deleteAccount() {}
+async function deleteAccount(res, userId, password) {
+    let json = {
+        success: false, data: null, error: null,
+    }
+    try {
+        const users = await query("SELECT * FROM users WHERE id = ?", [
+            userId,
+        ]);
+        const user = users[0] || { password: "Salt" };
+        const matches = await bcrypt.compare(password, user.password);
+        if (matches) {
+          await query("DELETE FROM users WHERE id = ?", [userId]);
+          json = {...json, success: true, data: "Account successfully deleted! Hope to see you again someday!"}
+        } else {
+          json.error =
+            "Password invalid.";
+        }
+    } catch (err) {
+        console.log(err);
+        json.error = "User deletion change failed."
+    } finally {
+      return res.send(json);
+    }
+}
 
-module.exports = { signup, login, changePassword };
+module.exports = { signup, login, changePassword, deleteAccount };
