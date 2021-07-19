@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import useFetchDB  from "../hooks/useFetchDB";
 import coin from "./CoinFlip/images/heads.png";
 import rock from "./RockPaperScissors/images/rock.png";
 import x from "./TicTacToe/x.png";
 import comingSoon from "./help-sing.png";
 
-export default function Home({ username, setUsername, level, setLevel }) {
+export default function Home({ username, setUsername, level, setLevel, setUserId, setExperience }) {
   // States
   const [passwordInput, setPasswordInput] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
   const [usernameValid, setUsernameValid] = useState(true);
+  const [error, setError] = useState(null);
+  const { callAPI: loginCall } = useFetchDB("POST");
   let history = useHistory();
 
   return (
@@ -46,6 +49,7 @@ export default function Home({ username, setUsername, level, setLevel }) {
               <input
                 id="passwordInput"
                 placeholder="Enter Password"
+                type="password"
                 value={passwordInput}
                 onChange={(e) => {
                   setPasswordInput(e.target.value);
@@ -65,9 +69,16 @@ export default function Home({ username, setUsername, level, setLevel }) {
           <button
             type="button"
             className="margin-center margin-top-5 block"
-            onClick={() => {
+            onClick={async () => {
               if (usernameValid) {
-                setUsername(usernameInput);
+                let res = await loginCall("/api/users/login", {username: usernameInput, password: passwordInput});
+                if (res.error) {
+                  return setError(res.error);
+                }
+                setUserId(res.data.id);
+                setUsername(res.data.id);
+                setLevel(res.data.level);
+                setExperience(res.data.experience);
               }
               if (usernameInput.toLowerCase() === "keith") {
                 setLevel(1000);
@@ -76,6 +87,7 @@ export default function Home({ username, setUsername, level, setLevel }) {
           >
             Submit
           </button>
+          {error && <div>{error}</div>}
         </div>
       )}
 

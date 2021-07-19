@@ -13,6 +13,7 @@ import "./App.css";
 function App() {
   // States
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
   const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
@@ -123,6 +124,9 @@ function App() {
                   setLevel={setLevel}
                   username={username}
                   setUsername={setUsername}
+                  userId={userId}
+                  setUserId={setUserId}
+                  setExperience={setExperience}
                 />
               </ProtectedRoute>
               <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
