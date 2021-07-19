@@ -78,10 +78,10 @@ export default function Home({ username, setUsername, level, setLevel, setUserId
                   return setError(res.error);
                 }
                 setUserId(res.data.id);
-                setUsername(res.data.username);
                 setLevel(res.data.level);
                 setExperience(res.data.experience);
-                let buddyRes = await buddyCall(`/api/buddies/${res.data.id}`);
+                let buddyRes = await buddyCall(`/api/buddies/user/${res.data.id}`);
+                setUsername(res.data.username);
                 if (buddyRes.error) {
                   return setError(res.error);
                 }
