@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { BrowserRouter as Router, NavLink, Switch } from "react-router-dom";
+import useFetchDB from "./hooks/useFetchDB";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
@@ -127,6 +128,7 @@ function App() {
                   userId={userId}
                   setUserId={setUserId}
                   setExperience={setExperience}
+                  setBuddy={setBuddy}
                 />
               </ProtectedRoute>
               <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
@@ -143,7 +145,7 @@ function App() {
                 <TicTacToe experienceUp={experienceUp} level={level} />
               </ProtectedRoute>
               <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
-                <Buddy username={username} buddy={buddy} setBuddy={setBuddy} />
+                <Buddy username={username} userId={userId} buddy={buddy} setBuddy={setBuddy} />
               </ProtectedRoute>
             </Switch>
           </main>

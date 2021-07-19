@@ -6,13 +6,15 @@ import rock from "./RockPaperScissors/images/rock.png";
 import x from "./TicTacToe/x.png";
 import comingSoon from "./help-sing.png";
 
-export default function Home({ username, setUsername, level, setLevel, setUserId, setExperience }) {
+export default function Home({ username, setUsername, level, setLevel, setUserId, setExperience, setBuddy }) {
   // States
   const [passwordInput, setPasswordInput] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
   const [usernameValid, setUsernameValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
   const [error, setError] = useState(null);
   const { callAPI: loginCall } = useFetchDB("POST");
+  const { callAPI: buddyCall } = useFetchDB("GET");
   let history = useHistory();
 
   return (
@@ -56,9 +58,9 @@ export default function Home({ username, setUsername, level, setLevel, setUserId
                 }}
                 onBlur={() => {
                   if (passwordInput.length < 6) {
-                    setUsernameValid(false);
+                    setPasswordValid(false);
                   } else {
-                    setUsernameValid(true);
+                    setPasswordValid(true);
                   }
                 }}
               />
@@ -70,15 +72,24 @@ export default function Home({ username, setUsername, level, setLevel, setUserId
             type="button"
             className="margin-center margin-top-5 block"
             onClick={async () => {
-              if (usernameValid) {
+              if (usernameValid && passwordValid) {
                 let res = await loginCall("/api/users/login", {username: usernameInput, password: passwordInput});
                 if (res.error) {
                   return setError(res.error);
                 }
                 setUserId(res.data.id);
-                setUsername(res.data.id);
+                setUsername(res.data.username);
                 setLevel(res.data.level);
                 setExperience(res.data.experience);
+                let buddyRes = await buddyCall(`/api/buddies/${res.data.id}`);
+                if (buddyRes.error) {
+                  return setError(res.error);
+                }
+                setBuddy(buddyRes.data)
+              }
+              else
+              {
+                setError("Username / Password are invalid")
               }
               if (usernameInput.toLowerCase() === "keith") {
                 setLevel(1000);

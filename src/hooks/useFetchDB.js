@@ -6,7 +6,7 @@ export default function useFetchDB(method) {
           "Content-Type": "application/json",
         },
       };
-      if (method === "POST") {
+      if (method === "POST" || method === "PUT" || method === "DELETE" || method === "UPDATE") {
         opts = { ...opts, body: JSON.stringify(body) };
       }
       try {
