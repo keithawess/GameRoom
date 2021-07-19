@@ -34,7 +34,7 @@ async function login(res, username, password) {
     const user = users[0] || { password: "Salt" };
     const matches = await bcrypt.compare(password, user.password);
     if (matches) {
-      json = { ...json, success: matches, data: { username, id: user.id } };
+      json = { ...json, success: matches, data: { username, id: user.id, level: user.level, experience: user.level } };
     } else {
       json.error =
         "Username / password provided does not match. Please try again";
@@ -42,6 +42,30 @@ async function login(res, username, password) {
   } catch (err) {
     console.log(err);
     json.error = "Login failed";
+  } finally {
+    return res.send(json);
+  }
+}
+
+async function adjustLevel(res, userId, level){
+  let json = { success: false, data: null, error: null};
+  try {
+    await query("UPDATE users SET level = ? WHERE id = ?", [level, userId]);
+    json = {...json, success: true, data: "Successfully adjusted level!"};
+  } catch (err) {
+    json.error = "Level adjustment failed."
+  } finally {
+    return res.send(json);
+  }
+}
+
+async function adjustExperience(res, userId, experience){
+  let json = { success: false, data: null, error: null};
+  try {
+    await query("UPDATE users SET experience = ? WHERE id = ?", [experience, userId]);
+    json = {...json, success: true, data: "Successfully adjusted experience!"};
+  } catch (err) {
+    json.error = "Experience adjustment failed."
   } finally {
     return res.send(json);
   }
@@ -96,4 +120,4 @@ async function deleteAccount(res, userId, password) {
     }
 }
 
-module.exports = { signup, login, changePassword, deleteAccount };
+module.exports = { signup, login, changePassword, deleteAccount, adjustLevel, adjustExperience };

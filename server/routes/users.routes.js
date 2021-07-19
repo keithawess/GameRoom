@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { signup, login, changePassword, deleteAccount } = require("../models/users.model");
+const { signup, login, adjustLevel, adjustExperience, changePassword, deleteAccount } = require("../models/users.model");
 
 router.post("/signup", (req, res) => {
   const { username, password } = req.body;
@@ -32,6 +32,31 @@ router.post("/login", (req, res) => {
     error: "Invalid data provided",
   });
 });
+
+router.patch("/level", (req, res) => {
+  const {userId, level} = req.body;
+  if (userId && level && !isNaN(level) && level > -1){
+    return adjustLevel(res, userId, level);
+  }
+  return res.send({
+    success: false,
+    data: null,
+    error: "Invalid data provided"
+  });
+});
+
+router.patch("/experience", (req, res) => {
+  const {userId, experience} = req.body;
+  if (userId && experience && !isNaN(experience))
+  {
+    return adjustExperience(res, userId, experience);
+  }
+  return res.send({
+    success: false,
+    data: null,
+    error: "Invalid data provided"
+  })
+})
 
 router.patch("/change-password", (req, res) => {
   const { userId, password, newPassword } = req.body;
