@@ -12,4 +12,8 @@ app.use("/api/buddies", buddyRoutes);
 
 app.use(express.static(__dirname + "/build"));
 
+app.get("*", (req,res) => {
+    return res.sendFile("/build/index.html", {root: __dirname + "/"});
+})
+
 app.listen(PORT, () => console.log("Connected"));

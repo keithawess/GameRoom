@@ -7,6 +7,7 @@ import comingSoon from "./help-sing.png";
 
 export default function Home({ username, setUsername, level, setLevel }) {
   // States
+  const [passwordInput, setPasswordInput] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
   const [usernameValid, setUsernameValid] = useState(true);
   let history = useHistory();
@@ -38,8 +39,26 @@ export default function Home({ username, setUsername, level, setLevel }) {
               />
             </div>
           </div>
-          <div className={"font-small " + (usernameValid ? "" : "text-red")}>
-            Must be at least 3 characters
+
+          <div className="margin-center">
+            <label htmlFor="passwordInput">Password: </label>
+            <div className="inline-block">
+              <input
+                id="passwordInput"
+                placeholder="Enter Password"
+                value={passwordInput}
+                onChange={(e) => {
+                  setPasswordInput(e.target.value);
+                }}
+                onBlur={() => {
+                  if (passwordInput.length < 6) {
+                    setUsernameValid(false);
+                  } else {
+                    setUsernameValid(true);
+                  }
+                }}
+              />
+            </div>
           </div>
 
           {/* Username Must be at least 3 characters. "Keith" will set level to 1000 */}
@@ -47,7 +66,7 @@ export default function Home({ username, setUsername, level, setLevel }) {
             type="button"
             className="margin-center margin-top-5 block"
             onClick={() => {
-              if (usernameInput.length >= 3) {
+              if (usernameValid) {
                 setUsername(usernameInput);
               }
               if (usernameInput.toLowerCase() === "keith") {
