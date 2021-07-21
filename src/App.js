@@ -80,15 +80,21 @@ function App() {
         >
           Home
         </NavLink>
-        <div className="border-blue nav-option mobile-specific" onClick={()=>{
-          if (navScroll > 0)
-          {
-            setNavScroll(navScroll => navScroll - 1);
-          }
-        }}>&lt;</div>
+        {level > 0 && <div
+          className="border-blue nav-option mobile-specific"
+          onClick={() => {
+            if (navScroll > 0) {
+              setNavScroll((navScroll) => navScroll - 1);
+            }
+          }}
+        >
+          &lt;
+        </div>}
         <NavLink
           activeClassName="active bg-blue-9 text-white"
-          className={`border-blue grow nav-option ${navScroll === 0 ? "" : "mobile-hidden"}`}
+          className={`border-blue grow nav-option ${
+            navScroll === 0 ? "" : "mobile-hidden"
+          }`}
           to="/coinflip"
         >
           Coin Flip
@@ -96,7 +102,9 @@ function App() {
         {level > 0 && (
           <NavLink
             activeClassName="active bg-blue-9 text-white"
-            className={`border-blue grow nav-option ${navScroll === 1 ? "" : "mobile-hidden"}`}
+            className={`border-blue grow nav-option ${
+              navScroll === 1 ? "" : "mobile-hidden"
+            }`}
             to="/rockpaperscissors"
           >
             RPS
@@ -105,17 +113,24 @@ function App() {
         {level > 1 && (
           <NavLink
             activeClassName="active bg-blue-9 text-white"
-            className={`border-blue grow nav-option ${navScroll === 2 ? "" : "mobile-hidden"}`}
+            className={`border-blue grow nav-option ${
+              navScroll === 2 ? "" : "mobile-hidden"
+            }`}
             to="/tictactoe"
           >
             Tic Tac Toe
           </NavLink>
         )}
-        <div className="border-blue nav-option mobile-specific" onClick={()=>{
-          if (navScroll < 2)
-          {
-            setNavScroll(navScroll => navScroll + 1);
-          }}}>&gt;</div>
+        {level > 0 && <div
+          className="border-blue nav-option mobile-specific"
+          onClick={() => {
+            if (navScroll < level && navScroll < 2) {
+              setNavScroll((navScroll) => navScroll + 1);
+            }
+          }}
+        >
+          &gt;
+        </div>}
         <NavLink
           activeClassName="active bg-blue-9 text-white"
           className={`border-blue grow ${userId ? "" : "nav-end"} nav-option `}
