@@ -21,7 +21,7 @@ function App() {
   const [buddy, setBuddy] = useState(null);
   const { callAPI: levelCall } = useFetchDB("PATCH");
   const { callAPI: expCall } = useFetchDB("PATCH");
-  const [navScroll, setNavScroll] = useState(1);
+  const [navScroll, setNavScroll] = useState(0);
 
   // Adds 1 to level when experience reaches 100 and resets experience.
   useEffect(() => {
@@ -148,6 +148,7 @@ function App() {
               setLevel(0);
               setExperience(0);
               setBuddy(null);
+              setNavScroll(0);
             }}
           >
             Logout
