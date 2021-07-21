@@ -318,6 +318,10 @@
   display: block;
 }
 
+.mobile-specific{
+  display: none;
+}
+
 /* Flex */
 
 .flex {
@@ -517,6 +521,10 @@
 @media (max-width: 380px) {
   .mobile-hidden{
     display: none;    
+  }
+
+  .mobile-specific{
+    display: block;
   }
 }
 

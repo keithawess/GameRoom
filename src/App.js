@@ -21,6 +21,7 @@ function App() {
   const [buddy, setBuddy] = useState(null);
   const { callAPI: levelCall } = useFetchDB("PATCH");
   const { callAPI: expCall } = useFetchDB("PATCH");
+  const [navScroll, setNavScroll] = useState(1);
 
   // Adds 1 to level when experience reaches 100 and resets experience.
   useEffect(() => {
@@ -47,14 +48,14 @@ function App() {
       //     console.log(resExp.error);
       // }
     }
-  },[level])
+  }, [level]);
 
   // Function adds specified amount of experience. Params: int
   const experienceUp = useCallback((exp) => {
     setExperience((curr) => curr + exp);
   }, []);
 
-  useEffect(async ()=>{
+  useEffect(async () => {
     if (userId) {
       let res = await expCall("/api/users/experience", {
         userId: userId,
@@ -65,7 +66,7 @@ function App() {
         console.log(res.error);
       }
     }
-  },[experience])
+  }, [experience]);
 
   return (
     <Router>
@@ -79,9 +80,15 @@ function App() {
         >
           Home
         </NavLink>
+        <div className="border-blue nav-option mobile-specific" onClick={()=>{
+          if (navScroll > 0)
+          {
+            setNavScroll(navScroll => navScroll - 1);
+          }
+        }}>&lt;</div>
         <NavLink
           activeClassName="active bg-blue-9 text-white"
-          className="border-blue grow nav-option"
+          className={`border-blue grow nav-option ${navScroll === 0 ? "" : "mobile-hidden"}`}
           to="/coinflip"
         >
           Coin Flip
@@ -89,21 +96,26 @@ function App() {
         {level > 0 && (
           <NavLink
             activeClassName="active bg-blue-9 text-white"
-            className="border-blue grow nav-option"
+            className={`border-blue grow nav-option ${navScroll === 1 ? "" : "mobile-hidden"}`}
             to="/rockpaperscissors"
           >
-            Rock Paper Scissors
+            RPS
           </NavLink>
         )}
         {level > 1 && (
           <NavLink
             activeClassName="active bg-blue-9 text-white"
-            className="border-blue grow nav-option"
+            className={`border-blue grow nav-option ${navScroll === 2 ? "" : "mobile-hidden"}`}
             to="/tictactoe"
           >
             Tic Tac Toe
           </NavLink>
         )}
+        <div className="border-blue nav-option mobile-specific" onClick={()=>{
+          if (navScroll < 2)
+          {
+            setNavScroll(navScroll => navScroll + 1);
+          }}}>&gt;</div>
         <NavLink
           activeClassName="active bg-blue-9 text-white"
           className={`border-blue grow ${userId ? "" : "nav-end"} nav-option `}
@@ -111,20 +123,21 @@ function App() {
         >
           Buddy
         </NavLink>
-        {userId && <NavLink
-        className="border-blue grow nav-option nav-end"
-        to="/"
-        onClick={()=>{
-          setUserId("");
-          setUsername("")
-          setLevel(0);
-          setExperience(0);
-          setBuddy(null);
-        }
-        }>
-          Logout
-        </NavLink>}
-        
+        {userId && (
+          <NavLink
+            className="border-blue grow nav-option nav-end"
+            to="/"
+            onClick={() => {
+              setUserId("");
+              setUsername("");
+              setLevel(0);
+              setExperience(0);
+              setBuddy(null);
+            }}
+          >
+            Logout
+          </NavLink>
+        )}
       </nav>
 
       {/* Body of Page */}
