@@ -35,7 +35,7 @@ router.post("/login", (req, res) => {
 
 router.patch("/level", (req, res) => {
   const {userId, level} = req.body;
-  if (userId && level && !isNaN(level) && level > -1){
+  if (userId && !isNaN(level) && level > -1){
     return adjustLevel(res, userId, level);
   }
   return res.send({
@@ -46,8 +46,9 @@ router.patch("/level", (req, res) => {
 });
 
 router.patch("/experience", (req, res) => {
+  console.log(req.body)
   const {userId, experience} = req.body;
-  if (userId && experience && !isNaN(experience))
+  if (userId && !isNaN(experience))
   {
     return adjustExperience(res, userId, experience);
   }

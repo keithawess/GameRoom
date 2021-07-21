@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import useFetchDB from "../../hooks/useFetchDB";
 
 export default function Signup({
@@ -16,7 +15,6 @@ export default function Signup({
   const [passwordValid, setPasswordValid] = useState(true);
   const [error, setError] = useState(null);
   const {callAPI: signupCall} = useFetchDB("POST");
-  let history = useHistory();
 
   return (
     <div className="username-box margin-center">

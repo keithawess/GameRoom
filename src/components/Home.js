@@ -88,6 +88,7 @@ export default function Home({
                 if (res.error) {
                   return setError(res.error);
                 }
+                console.log(res);
                 setUserId(res.data.id);
                 setLevel(res.data.level);
                 setExperience(res.data.experience);

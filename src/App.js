@@ -19,6 +19,8 @@ function App() {
   const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [buddy, setBuddy] = useState(null);
+  const { callAPI: levelCall } = useFetchDB("PATCH");
+  const { callAPI: expCall } = useFetchDB("PATCH");
 
   // Adds 1 to level when experience reaches 100 and resets experience.
   useEffect(() => {
@@ -28,10 +30,42 @@ function App() {
     }
   }, [experience, level]);
 
+  useEffect(async () => {
+    if (userId) {
+      let res = await levelCall("/api/users/level", {
+        userId: userId,
+        level: level,
+      });
+      if (res.error) {
+        console.log(res.error);
+      }
+      //   let resExp = await expCall("/api/users/experience", {
+      //     userId: userId,
+      //     experience: 0,
+      //   });
+      //   if (resExp.error) {
+      //     console.log(resExp.error);
+      // }
+    }
+  },[level])
+
   // Function adds specified amount of experience. Params: int
   const experienceUp = useCallback((exp) => {
     setExperience((curr) => curr + exp);
   }, []);
+
+  useEffect(async ()=>{
+    if (userId) {
+      let res = await expCall("/api/users/experience", {
+        userId: userId,
+        experience: experience,
+      });
+      console.log(res);
+      if (res.error) {
+        console.log(res.error);
+      }
+    }
+  },[experience])
 
   return (
     <Router>
@@ -95,7 +129,6 @@ function App() {
 
         {/* Middle Section of Body. */}
         <div className="third middle-container">
-
           {/* Displays level and experience */}
           <header>
             <div className="text-center">Level: {level} </div>
@@ -146,7 +179,12 @@ function App() {
                 <TicTacToe experienceUp={experienceUp} level={level} />
               </ProtectedRoute>
               <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
-                <Buddy username={username} userId={userId} buddy={buddy} setBuddy={setBuddy} />
+                <Buddy
+                  username={username}
+                  userId={userId}
+                  buddy={buddy}
+                  setBuddy={setBuddy}
+                />
               </ProtectedRoute>
               <ProtectedRoute path="/signup" reqLevel={0} level={level}>
                 <Signup />

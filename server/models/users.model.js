@@ -32,9 +32,10 @@ async function login(res, username, password) {
       username,
     ]);
     const user = users[0] || { password: "Salt" };
+    console.log(user);
     const matches = await bcrypt.compare(password, user.password);
     if (matches) {
-      json = { ...json, success: matches, data: { username, id: user.id, level: user.level, experience: user.level } };
+      json = { ...json, success: matches, data: { username, id: user.id, level: user.level, experience: user.experience } };
     } else {
       json.error =
         "Username / password provided does not match. Please try again";
