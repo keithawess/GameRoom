@@ -7,9 +7,10 @@ const buddyRoutes = require("./server/routes/buddies.routes");
 
 app.use(express.json());
 
-app.get("*", (req,res) => {
-    res.redirect('https://' + req.headers.host + req.url);
-});
+app.enable('trust proxy')
+app.use((req, res, next) => {
+    req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+})
 
 app.use("/api/users", userRoutes);
 app.use("/api/buddies", buddyRoutes);
