@@ -135,6 +135,7 @@
 .buddy-img {
   max-height: 80px;
   max-width: 100px;
+  object-fit: cover;
 }
 
 .buddy-display-container {

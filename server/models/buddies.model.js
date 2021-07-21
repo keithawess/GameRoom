@@ -32,7 +32,6 @@ async function getBuddyByUser(res, userId) {
     if (buddy.length === 0) {
       json.error = "This user has no buddies or does not exist.";
     } else {
-        console.log(buddy);
       json = {
         ...json,
         success: true,

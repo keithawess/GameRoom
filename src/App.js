@@ -8,6 +8,7 @@ import TicTacToe from "./components/TicTacToe/TicTacToe";
 import Buddy from "./components/Buddy/Buddy";
 import BuddyDisplay from "./components/Buddy/components/BuddyDisplay";
 import Home from "./components/Home";
+import Signup from "./components/Signup/Signup";
 import heart from "./heart.png";
 import "./App.css";
 
@@ -146,6 +147,9 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
                 <Buddy username={username} userId={userId} buddy={buddy} setBuddy={setBuddy} />
+              </ProtectedRoute>
+              <ProtectedRoute path="/signup" reqLevel={0} level={level}>
+                <Signup />
               </ProtectedRoute>
             </Switch>
           </main>

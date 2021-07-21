@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import useFetchDB  from "../hooks/useFetchDB";
+import useFetchDB from "../hooks/useFetchDB";
 import coin from "./CoinFlip/images/heads.png";
 import rock from "./RockPaperScissors/images/rock.png";
 import x from "./TicTacToe/x.png";
 import comingSoon from "./help-sing.png";
 
-export default function Home({ username, setUsername, level, setLevel, setUserId, setExperience, setBuddy }) {
+export default function Home({
+  username,
+  setUsername,
+  level,
+  setLevel,
+  setUserId,
+  setExperience,
+  setBuddy,
+}) {
   // States
   const [passwordInput, setPasswordInput] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
@@ -73,23 +81,26 @@ export default function Home({ username, setUsername, level, setLevel, setUserId
             className="margin-center margin-top-5 block"
             onClick={async () => {
               if (usernameValid && passwordValid) {
-                let res = await loginCall("/api/users/login", {username: usernameInput, password: passwordInput});
+                let res = await loginCall("/api/users/login", {
+                  username: usernameInput,
+                  password: passwordInput,
+                });
                 if (res.error) {
                   return setError(res.error);
                 }
                 setUserId(res.data.id);
                 setLevel(res.data.level);
                 setExperience(res.data.experience);
-                let buddyRes = await buddyCall(`/api/buddies/user/${res.data.id}`);
+                let buddyRes = await buddyCall(
+                  `/api/buddies/user/${res.data.id}`
+                );
                 setUsername(res.data.username);
                 if (buddyRes.error) {
                   return setError(res.error);
                 }
-                setBuddy(buddyRes.data)
-              }
-              else
-              {
-                setError("Username / Password are invalid")
+                setBuddy(buddyRes.data);
+              } else {
+                setError("Username / Password are invalid");
               }
               if (usernameInput.toLowerCase() === "keith") {
                 setLevel(1000);
@@ -99,6 +110,15 @@ export default function Home({ username, setUsername, level, setLevel, setUserId
             Submit
           </button>
           {error && <div>{error}</div>}
+
+          <div className="font-small text-center margin-10">
+            Don't have an account?{" "}
+            <div>
+              <button onClick={()=> {
+                history.push("/signup");
+              }} className="font-small">Sign Up!</button>
+            </div>
+          </div>
         </div>
       )}
 

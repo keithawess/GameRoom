@@ -156,7 +156,7 @@ export default function Buddy({ username, userId, buddy, setBuddy }) {
       {buddy && (
         <div className="text-center">
           <div
-            className="margin-center margin-top-130"
+            className=" margin-top-130"
             title="Here is your buddy! You cannot trade them in for
           another, cus that's not what buddies do."
           >
