@@ -106,11 +106,25 @@ function App() {
         )}
         <NavLink
           activeClassName="active bg-blue-9 text-white"
-          className="border-blue grow nav-end nav-option"
+          className={`border-blue grow ${userId ? "" : "nav-end"} nav-option `}
           to="/buddy"
         >
           Buddy
         </NavLink>
+        {userId && <NavLink
+        className="border-blue grow nav-option nav-end"
+        to="/"
+        onClick={()=>{
+          setUserId("");
+          setUsername("")
+          setLevel(0);
+          setExperience(0);
+          setBuddy(null);
+        }
+        }>
+          Logout
+        </NavLink>}
+        
       </nav>
 
       {/* Body of Page */}
