@@ -318,6 +318,10 @@
   display: block;
 }
 
+.mobile-specific{
+  display: none;
+}
+
 /* Flex */
 
 .flex {
@@ -515,12 +519,12 @@
 /* Breakpoints */
 
 @media (max-width: 380px) {
-  .absolute {
-    top: 70px;
+  .mobile-hidden{
+    display: none;    
   }
 
-  .line-height-10 {
-    line-height: 17px;
+  .mobile-specific{
+    display: block;
   }
 }
 
