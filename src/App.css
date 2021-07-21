@@ -515,12 +515,8 @@
 /* Breakpoints */
 
 @media (max-width: 380px) {
-  .absolute {
-    top: 70px;
-  }
-
-  .line-height-10 {
-    line-height: 17px;
+  .mobile-hidden{
+    display: none;    
   }
 }
 
