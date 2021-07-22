@@ -19,6 +19,11 @@ router.get("/validate", auth, (req, res) => {
   });
 });
 
+router.get("/logout", (req,res) => {
+  res.clearCookie("jwt");
+  return res.send({ success: true, error: null, body: null});
+})
+
 router.post("/signup", (req, res) => {
   const { username, password } = req.body;
   if (
