@@ -1,5 +1,6 @@
 const query = require("../config/mysql.conf");
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
 
 async function signup(res, username, password) {
   let json = { success: false, data: null, error: null };
@@ -11,9 +12,10 @@ async function signup(res, username, password) {
       json.error = "Username not available. Please choose another";
     } else {
       const hashed = await bcrypt.hash(password, 10);
+      const uuid = uuidv4();
       await query(
-        "INSERT INTO users (password, username, level, experience) VALUES (?,?,?,?)",
-        [hashed, username, 0, 0]
+        "INSERT INTO users (password, username, uuid, level, experience) VALUES (?,?,?,?,?)",
+        [hashed, username, uuid, 0, 0]
       );
       json = { ...json, success: true, data: "Signup was successful!"};
     }
@@ -25,26 +27,42 @@ async function signup(res, username, password) {
   }
 }
 
-async function login(res, username, password) {
-  let json = { success: false, data: null, error: null };
+async function login(username, password) {
+  let json = { data: null, error: null };
   try {
     const users = await query("SELECT * FROM users WHERE username = ?", [
       username,
     ]);
     const user = users[0] || { password: "Salt" };
-    console.log(user);
     const matches = await bcrypt.compare(password, user.password);
     if (matches) {
-      json = { ...json, success: matches, data: { username, id: user.id, level: user.level, experience: user.experience } };
+      json = { ...json, success: matches, data: { username, uuid: user.uuid, id: user.id, level: user.level, experience: user.experience } };
     } else {
       json.error =
         "Username / password provided does not match. Please try again";
     }
   } catch (err) {
-    console.log(err);
     json.error = "Login failed";
   } finally {
-    return res.send(json);
+    return json;
+  }
+}
+
+async function getByUuid(uuid) {
+  let json = {data: null, error: null}
+  try {
+    const users = await query("SELECT id, username, uuid, level, experience FROM users WHERE uuid = ?", [uuid]);
+    if (users.length === 0)
+    {
+      json.error = "User does not exist"
+    }
+    else {
+      json = {...json, data: users[0]}
+    }
+  } catch (err) {
+    json.error = "Failed to get user by username"
+  } finally {
+    return json;
   }
 }
 
@@ -121,4 +139,4 @@ async function deleteAccount(res, userId, password) {
     }
 }
 
-module.exports = { signup, login, changePassword, deleteAccount, adjustLevel, adjustExperience };
+module.exports = { signup, login, changePassword, deleteAccount, adjustLevel, adjustExperience, getByUuid };

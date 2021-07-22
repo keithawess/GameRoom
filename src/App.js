@@ -21,7 +21,33 @@ function App() {
   const [buddy, setBuddy] = useState(null);
   const { callAPI: levelCall } = useFetchDB("PATCH");
   const { callAPI: expCall } = useFetchDB("PATCH");
+  const { callAPI: logoutCall } = useFetchDB("GET");
+  const { callAPI: validateCall } = useFetchDB("GET");
+  const { callAPI: buddyCall } = useFetchDB("GET");
   const [navScroll, setNavScroll] = useState(0);
+
+
+  useEffect(() => {
+    async function validate() {
+      const res = await validateCall("/api/users/validate");
+      if (res.success) {
+        setUsername(res.data.username);
+        setLevel(res.data.level);
+        setExperience(res.data.experience);
+        setUserId(res.data.id);
+
+        let buddyRes = await buddyCall(
+          `/api/buddies/user/${res.data.id}`
+        );
+        setUsername(res.data.username);
+        if (buddyRes.error) {
+          return;
+        }
+        setBuddy(buddyRes.data);
+      }
+    }
+    validate();
+  }, []);
 
   // Adds 1 to level when experience reaches 100 and resets experience.
   useEffect(() => {
@@ -61,7 +87,6 @@ function App() {
         userId: userId,
         experience: experience,
       });
-      console.log(res);
       if (res.error) {
         console.log(res.error);
       }
@@ -142,13 +167,14 @@ function App() {
           <NavLink
             className="border-blue grow nav-option nav-end"
             to="/"
-            onClick={() => {
+            onClick={async () => {
               setUserId("");
               setUsername("");
               setLevel(0);
               setExperience(0);
               setBuddy(null);
               setNavScroll(0);
+              await logoutCall("/api/users/logout");
             }}
           >
             Logout

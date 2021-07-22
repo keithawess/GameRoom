@@ -127,8 +127,6 @@ export default function Buddy({ username, userId, buddy, setBuddy }) {
                       color: buddyColor,
                       url: !imgError ? buddyImg.url : placeholder
                     });
-                    console.log(userId, name.results[0].name.first, buddyColor, buddyImg.url, buddyImg.url.length);
-                    console.log(res);
                   } else if (buddyNameInput.length > 0) {
                     setBuddy({
                       name: buddyNameInput,
@@ -141,7 +139,6 @@ export default function Buddy({ username, userId, buddy, setBuddy }) {
                       color: buddyColor,
                       url: !imgError ? buddyImg.url : placeholder
                     });
-                    console.log(res)
                   }
                 }
               }}
