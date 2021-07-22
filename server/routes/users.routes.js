@@ -12,7 +12,6 @@ const {
 } = require("../models/users.model");
 
 router.get("/validate", auth, (req, res) => {
-  console.log(req.user)
   return res.send({
     success: true,
     error: null,
@@ -74,7 +73,6 @@ router.patch("/level", (req, res) => {
 });
 
 router.patch("/experience", (req, res) => {
-  console.log(req.body);
   const { userId, experience } = req.body;
   if (userId && !isNaN(experience)) {
     return adjustExperience(res, userId, experience);

@@ -31,7 +31,6 @@ function App() {
     async function validate() {
       const res = await validateCall("/api/users/validate");
       if (res.success) {
-        console.log(res.data);
         setUsername(res.data.username);
         setLevel(res.data.level);
         setExperience(res.data.experience);
@@ -88,7 +87,6 @@ function App() {
         userId: userId,
         experience: experience,
       });
-      console.log(res);
       if (res.error) {
         console.log(res.error);
       }
