@@ -1,7 +1,6 @@
 import React, {
   useState,
   createContext,
-  useCallback,
   useEffect,
   useContext,
 } from "react";
@@ -15,13 +14,17 @@ export function BuddyProvider(props) {
   const { callAPI: buddyCall } = useFetchDB("GET");
   const { userId } = useContext(UserContext);
 
-  useEffect(async () => {
-    let buddyRes = await buddyCall(`/api/buddies/user/${userId}`);
+  useEffect(() => {
+    async function fetchData(){
+          let buddyRes = await buddyCall(`/api/buddies/user/${userId}`);
     if (buddyRes.error) {
       return;
     }
     setBuddy(buddyRes.data);
-  }, [userId]);
+    }
+    fetchData();
+
+  }, [userId, buddyCall]);
 
   return (
     <BuddyContext.Provider value={{ buddy, setBuddy }}>

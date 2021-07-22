@@ -132,6 +132,9 @@ export default function Buddy() {
                       color: buddyColor,
                       url: !imgError ? buddyImg.url : placeholder,
                     });
+                    if (res.error) {
+                      console.log(res.error);
+                    }
                   } else if (buddyNameInput.length > 0) {
                     setBuddy({
                       name: buddyNameInput,
@@ -144,6 +147,10 @@ export default function Buddy() {
                       color: buddyColor,
                       url: !imgError ? buddyImg.url : placeholder,
                     });
+                    if (res.error)
+                    {
+                      console.log(res.error);
+                    }
                   }
                 }
               }}

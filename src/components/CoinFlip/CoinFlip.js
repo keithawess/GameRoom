@@ -4,7 +4,7 @@ import tailsImg from "./images/tails.png";
 import unknownImg from "./images/unknown.png";
 import { UserContext } from "../../context";
 
-export default function CoinFlip({}) {
+export default function CoinFlip() {
   // States
   const [flip, setFlip] = useState(-1);
   const [img, setImg] = useState(unknownImg);
