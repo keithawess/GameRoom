@@ -32,7 +32,7 @@ export function UserProvider(props) {
       }
     }
     fetchData();
-  }, [logoutCall]);
+  }, []);
 
   const experienceUp = useCallback((exp) => {
     setExperience((curr) => curr + exp);
@@ -46,7 +46,7 @@ export function UserProvider(props) {
       }
     }
     validate();
-  }, [login, validateCall]);
+  }, []);
 
   useEffect(() => {
     if (experience >= 100) {

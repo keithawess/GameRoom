@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  createContext,
-  useEffect,
-  useContext,
-} from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
 import { UserContext } from ".";
 import useFetchDB from "../hooks/useFetchDB";
 
@@ -15,16 +10,15 @@ export function BuddyProvider(props) {
   const { userId } = useContext(UserContext);
 
   useEffect(() => {
-    async function fetchData(){
-          let buddyRes = await buddyCall(`/api/buddies/user/${userId}`);
-    if (buddyRes.error) {
-      return;
-    }
-    setBuddy(buddyRes.data);
+    async function fetchData() {
+      let buddyRes = await buddyCall(`/api/buddies/user/${userId}`);
+      if (buddyRes.error) {
+        return;
+      }
+      setBuddy(buddyRes.data);
     }
     fetchData();
-
-  }, [userId, buddyCall]);
+  }, [userId]);
 
   return (
     <BuddyContext.Provider value={{ buddy, setBuddy }}>
