@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import headsImg from "./images/heads.png";
 import tailsImg from "./images/tails.png";
 import unknownImg from "./images/unknown.png";
+import { UserContext } from "../../context";
 
-export default function CoinFlip({ experienceUp, level }) {
+export default function CoinFlip({}) {
   // States
   const [flip, setFlip] = useState(-1);
   const [img, setImg] = useState(unknownImg);
   const [result, setResult] = useState(null);
   const [animationReload, setAnimationReload] = useState(1);
+
+  const {experienceUp,level} = useContext(UserContext);
 
   // Image of coin changes when result is decided.
   useEffect(() => {

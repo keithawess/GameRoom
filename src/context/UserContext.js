@@ -13,6 +13,8 @@ export function UserProvider(props){
     const { callAPI: expCall } = useFetchDB("PATCH");
     const { callAPI: logoutCall } = useFetchDB("GET");
     const { callAPI: validateCall } = useFetchDB("GET");
+    const {callAPI: signupCall} = useFetchDB("POST");
+
 
     const login = useCallback ((user)=>{
         setUsername(user.username);
@@ -20,7 +22,7 @@ export function UserProvider(props){
         setExperience(user.experience);
         setUserId(user.id);
     },[]);
-
+    
     const logout = useCallback (async () => {
         const res = await logoutCall("/api/users/logout");
         if(res.success) {
@@ -28,27 +30,67 @@ export function UserProvider(props){
             setUsername("");
             setLevel(0);
             setExperience(0);
-            setBuddy(null);
-            setNavScroll(0);
         }
+    }, []);
+    
+    const experienceUp = useCallback((exp) => {
+      setExperience((curr) => curr + exp);
     }, []);
 
     useEffect(() => {
         async function validate() {
-          const res = await validateCall("/api/users/validate");
-          if (res.success) {
+            const res = await validateCall("/api/users/validate");
+            if (res.success) {
             login(res.data);
     
-            let buddyRes = await buddyCall(
-              `/api/buddies/user/${res.data.id}`
-            );
-            setUsername(res.data.username);
-            if (buddyRes.error) {
-              return;
-            }
-            setBuddy(buddyRes.data);
+            // let buddyRes = await buddyCall(
+            //   `/api/buddies/user/${res.data.id}`
+            // );
+            // setUsername(res.data.username);
+            // if (buddyRes.error) {
+            //   return;
+            // }
+            // setBuddy(buddyRes.data);
           }
         }
         validate();
       }, []);
+
+      useEffect(() => {
+        if (experience >= 100) {
+          setLevel(level + 1);
+          setExperience(experience - 100);
+        }
+      }, [experience, level]);
+
+      useEffect(async () => {
+        if (userId) {
+          let res = await levelCall("/api/users/level", {
+            userId: userId,
+            level: level,
+          });
+          if (res.error) {
+            console.log(res.error);
+          }
+        }
+      }, [level]);
+
+      useEffect(async () => {
+        if (userId) {
+          let res = await expCall("/api/users/experience", {
+            userId: userId,
+            experience: experience,
+          });
+          if (res.error) {
+            console.log(res.error);
+          }
+        }
+      }, [experience]);
+
+
+      return (
+          <UserContext.Provider value={{ login, logout, experienceUp, userId, level, experience}}>
+              {props.children}
+          </UserContext.Provider>
+      )
 }

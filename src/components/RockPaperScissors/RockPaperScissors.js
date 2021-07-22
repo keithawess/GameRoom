@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import rock from "./images/rock.png";
 import scissors from "./images/scissors.png";
 import paper from "./images/paper.png";
+import { UserContext } from "../../context";
 
-export default function RockPaperScissors({ experienceUp, level }) {
+export default function RockPaperScissors(props) {
   //State
   const [playerGuess, setPlayerGuess] = useState(null);
   const [playerImage, setPlayerImage] = useState(null);
   const [computerGuess, setComputerGuess] = useState(null);
   const [computerImage, setComputerImage] = useState(null);
   const [result, setResult] = useState(null);
+
+  const {experienceUp, level} = useContext(UserContext);
+
   //Array for computer guesses
   let options = ["rock", "paper", "scissors"];
 
