@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import rock from "./images/rock.png";
 import scissors from "./images/scissors.png";
 import paper from "./images/paper.png";
+import { UserContext } from "../../context";
 
-export default function RockPaperScissors({ experienceUp, level }) {
+export default function RockPaperScissors() {
   //State
   const [playerGuess, setPlayerGuess] = useState(null);
   const [playerImage, setPlayerImage] = useState(null);
   const [computerGuess, setComputerGuess] = useState(null);
   const [computerImage, setComputerImage] = useState(null);
   const [result, setResult] = useState(null);
+
+  const { experienceUp, level } = useContext(UserContext);
+
   //Array for computer guesses
   let options = ["rock", "paper", "scissors"];
 
@@ -36,7 +40,6 @@ export default function RockPaperScissors({ experienceUp, level }) {
 
       {/* Game Board */}
       <div className="game-board margin-center flex space-evenly align-items-center">
-
         {/* Players Side */}
         <div className="rps-player text-center third">
           {result && (
@@ -69,7 +72,6 @@ export default function RockPaperScissors({ experienceUp, level }) {
             }
           }}
         >
-
           {/* Displays Shoot when game is reset */}
           {!result ? "Shoot" : result}
         </button>

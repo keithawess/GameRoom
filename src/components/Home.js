@@ -1,28 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../context";
 import useFetchDB from "../hooks/useFetchDB";
 import coin from "./CoinFlip/images/heads.png";
 import rock from "./RockPaperScissors/images/rock.png";
 import x from "./TicTacToe/x.png";
 import comingSoon from "./help-sing.png";
 
-export default function Home({
-  username,
-  setUsername,
-  level,
-  setLevel,
-  setUserId,
-  setExperience,
-  setBuddy,
-}) {
+export default function Home() {
   // States
   const [passwordInput, setPasswordInput] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
   const [usernameValid, setUsernameValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [error, setError] = useState(null);
+  const { userId, level, login } = useContext(UserContext);
   const { callAPI: loginCall } = useFetchDB("POST");
-  const { callAPI: buddyCall } = useFetchDB("GET");
   let history = useHistory();
 
   return (
@@ -30,7 +23,7 @@ export default function Home({
       <h1 className="text-center">Home</h1>
 
       {/* If a username hasn't been submitted, Shows input form */}
-      {!username && (
+      {!userId && (
         <div className="username-box margin-center">
           <div className="margin-center">
             <label htmlFor="usernameInput">Username: </label>
@@ -88,22 +81,9 @@ export default function Home({
                 if (res.error) {
                   return setError(res.error);
                 }
-                setUserId(res.data.id);
-                setLevel(res.data.level);
-                setExperience(res.data.experience);
-                let buddyRes = await buddyCall(
-                  `/api/buddies/user/${res.data.id}`
-                );
-                setUsername(res.data.username);
-                if (buddyRes.error) {
-                  return setError(res.error);
-                }
-                setBuddy(buddyRes.data);
+                login(res.data);
               } else {
                 setError("Username / Password are invalid");
-              }
-              if (usernameInput.toLowerCase() === "keith") {
-                setLevel(1000);
               }
             }}
           >
@@ -114,9 +94,14 @@ export default function Home({
           <div className="font-small text-center margin-10">
             Don't have an account?{" "}
             <div>
-              <button onClick={()=> {
-                history.push("/signup");
-              }} className="font-small">Sign Up!</button>
+              <button
+                onClick={() => {
+                  history.push("/signup");
+                }}
+                className="font-small"
+              >
+                Sign Up!
+              </button>
             </div>
           </div>
         </div>
@@ -124,7 +109,7 @@ export default function Home({
 
       {/* If username has been provided, Displays home page
         Shows clickable icons for each game*/}
-      {username && (
+      {userId && (
         <div className="flex wrap space-evenly">
           <div className="home-option unlocked">
             <img

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import useFetchDB from "../../hooks/useFetchDB";
 import placeholder from "./images/placeholder.png";
 import BuddyDisplay from "./components/BuddyDisplay";
+import { UserContext, BuddyContext } from "../../context";
 
-export default function Buddy({ username, userId, buddy, setBuddy }) {
+export default function Buddy() {
   // States
   const [appNameInput, setAppNameInput] = useState("");
   const [nameValid, setNameValid] = useState(true);
@@ -12,6 +13,10 @@ export default function Buddy({ username, userId, buddy, setBuddy }) {
   const [reasonValid, setReasonValid] = useState(true);
   const [buddyNameInput, setBuddyNameInput] = useState("");
   const [buddyColor, setBuddyColor] = useState("#000000");
+
+  const { username, userId } = useContext(UserContext);
+  const { buddy, setBuddy } = useContext(BuddyContext);
+
   const { callAPI: buddyCall } = useFetchDB("PUT");
   // Name and buddy image are both chosen as page starts.
   const { data: name, error } = useFetch("https://randomuser.me/api/");
@@ -121,12 +126,15 @@ export default function Buddy({ username, userId, buddy, setBuddy }) {
                       color: buddyColor,
                       url: !imgError ? buddyImg.url : placeholder,
                     });
-                  let res = await buddyCall("/api/buddies/add", {
+                    let res = await buddyCall("/api/buddies/add", {
                       userId: userId,
                       name: name.results[0].name.first,
                       color: buddyColor,
-                      url: !imgError ? buddyImg.url : placeholder
+                      url: !imgError ? buddyImg.url : placeholder,
                     });
+                    if (res.error) {
+                      console.log(res.error);
+                    }
                   } else if (buddyNameInput.length > 0) {
                     setBuddy({
                       name: buddyNameInput,
@@ -137,8 +145,12 @@ export default function Buddy({ username, userId, buddy, setBuddy }) {
                       userId: userId,
                       name: buddyNameInput,
                       color: buddyColor,
-                      url: !imgError ? buddyImg.url : placeholder
+                      url: !imgError ? buddyImg.url : placeholder,
                     });
+                    if (res.error)
+                    {
+                      console.log(res.error);
+                    }
                   }
                 }
               }}
