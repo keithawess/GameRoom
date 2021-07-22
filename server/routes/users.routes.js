@@ -12,10 +12,11 @@ const {
 } = require("../models/users.model");
 
 router.get("/validate", auth, (req, res) => {
+  console.log(req.user)
   return res.send({
     success: true,
     error: null,
-    data: { username: req.user.username },
+    data: { username: req.user.username, id: req.user.id, uuid: req.user.uuid, level: req.user.level, experience: req.user.experience },
   });
 });
 

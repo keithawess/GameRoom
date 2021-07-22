@@ -16,7 +16,7 @@ function configPassport(passport) {
         expiresIn: "24h",
       });
 
-      return done(null, { username: data.username }, { token });
+      return done(null, { username: data.username, level: data.level, experience: data.experience, id: data.id  }, { token });
     })
   );
 
