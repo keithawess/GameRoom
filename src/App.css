@@ -80,17 +80,17 @@
 }
 
 .locked {
-  opacity: 40%;
+  opacity: 65%;
 }
 
 .unlocked:hover {
-  opacity: 60%;
+  opacity: 85%;
 }
 
 
 /* TicTacToe Styling */
 .ttt-endgame {
-  opacity: 50%;
+  opacity: 65%;
 }
 
 .ttt-spot {
@@ -410,7 +410,7 @@
 @keyframes Drop-Player {
   0% {
     transform: translate(0px, -50px);
-    opacity: 0%;
+    opacity: 50%;
   }
 
   90% {
