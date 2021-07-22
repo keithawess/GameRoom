@@ -11,7 +11,7 @@ export default function CoinFlip({}) {
   const [result, setResult] = useState(null);
   const [animationReload, setAnimationReload] = useState(1);
 
-  const {experienceUp,level} = useContext(UserContext);
+  const { experienceUp, level } = useContext(UserContext);
 
   // Image of coin changes when result is decided.
   useEffect(() => {

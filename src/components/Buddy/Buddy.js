@@ -5,7 +5,7 @@ import placeholder from "./images/placeholder.png";
 import BuddyDisplay from "./components/BuddyDisplay";
 import { UserContext, BuddyContext } from "../../context";
 
-export default function Buddy({ buddy, setBuddy }) {
+export default function Buddy() {
   // States
   const [appNameInput, setAppNameInput] = useState("");
   const [nameValid, setNameValid] = useState(true);
@@ -14,7 +14,8 @@ export default function Buddy({ buddy, setBuddy }) {
   const [buddyNameInput, setBuddyNameInput] = useState("");
   const [buddyColor, setBuddyColor] = useState("#000000");
 
-  const {username, userId} = useContext(UserContext);
+  const { username, userId } = useContext(UserContext);
+  const { buddy, setBuddy } = useContext(BuddyContext);
 
   const { callAPI: buddyCall } = useFetchDB("PUT");
   // Name and buddy image are both chosen as page starts.
@@ -125,11 +126,11 @@ export default function Buddy({ buddy, setBuddy }) {
                       color: buddyColor,
                       url: !imgError ? buddyImg.url : placeholder,
                     });
-                  let res = await buddyCall("/api/buddies/add", {
+                    let res = await buddyCall("/api/buddies/add", {
                       userId: userId,
                       name: name.results[0].name.first,
                       color: buddyColor,
-                      url: !imgError ? buddyImg.url : placeholder
+                      url: !imgError ? buddyImg.url : placeholder,
                     });
                   } else if (buddyNameInput.length > 0) {
                     setBuddy({
@@ -141,7 +142,7 @@ export default function Buddy({ buddy, setBuddy }) {
                       userId: userId,
                       name: buddyNameInput,
                       color: buddyColor,
-                      url: !imgError ? buddyImg.url : placeholder
+                      url: !imgError ? buddyImg.url : placeholder,
                     });
                   }
                 }

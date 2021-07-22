@@ -3,8 +3,7 @@ import { UserContext } from "../../context";
 import x from "./x.png";
 import o from "./o.png";
 
-export default function TicTacToe({ }) {
-
+export default function TicTacToe() {
   // State
   const [playerToken, setPlayerToken] = useState("");
   const [computerToken, setComputerToken] = useState("");
@@ -12,7 +11,7 @@ export default function TicTacToe({ }) {
   const [gameGrid, setGameGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [result, setResult] = useState("");
   const [winningSet, setWinningSet] = useState("");
-  const {experienceUp, level}= useContext(UserContext);
+  const { experienceUp, level } = useContext(UserContext);
 
   // Checks if winning move has been made. Returns who won.
   const winner = useCallback(() => {

@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { BrowserRouter as Router, NavLink, Switch } from "react-router-dom";
-import useFetchDB from "./hooks/useFetchDB";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
@@ -15,10 +14,9 @@ import "./App.css";
 
 function App() {
   // States
-  const [buddy, setBuddy] = useState(null);
-  const { callAPI: buddyCall } = useFetchDB("GET");
   const [navScroll, setNavScroll] = useState(0);
-  const {level, experience, logout, userId} = useContext(UserContext);
+  const { level, experience, logout, userId } = useContext(UserContext);
+  const { buddy, setBuddy } = useContext(BuddyContext);
 
   return (
     <Router>
@@ -32,16 +30,18 @@ function App() {
         >
           Home
         </NavLink>
-        {level > 0 && <div
-          className="border-blue nav-option mobile-specific"
-          onClick={() => {
-            if (navScroll > 0) {
-              setNavScroll((navScroll) => navScroll - 1);
-            }
-          }}
-        >
-          &lt;
-        </div>}
+        {level > 0 && (
+          <div
+            className="border-blue nav-option mobile-specific"
+            onClick={() => {
+              if (navScroll > 0) {
+                setNavScroll((navScroll) => navScroll - 1);
+              }
+            }}
+          >
+            &lt;
+          </div>
+        )}
         <NavLink
           activeClassName="active bg-blue-9 text-white"
           className={`border-blue grow nav-option ${
@@ -73,16 +73,18 @@ function App() {
             Tic Tac Toe
           </NavLink>
         )}
-        {level > 0 && <div
-          className="border-blue nav-option mobile-specific"
-          onClick={() => {
-            if (navScroll < level && navScroll < 2) {
-              setNavScroll((navScroll) => navScroll + 1);
-            }
-          }}
-        >
-          &gt;
-        </div>}
+        {level > 0 && (
+          <div
+            className="border-blue nav-option mobile-specific"
+            onClick={() => {
+              if (navScroll < level && navScroll < 2) {
+                setNavScroll((navScroll) => navScroll + 1);
+              }
+            }}
+          >
+            &gt;
+          </div>
+        )}
         <NavLink
           activeClassName="active bg-blue-9 text-white"
           className={`border-blue grow ${userId ? "" : "nav-end"} nav-option `}
@@ -146,12 +148,10 @@ function App() {
           <main>
             <Switch>
               <ProtectedRoute exact path="/" reqLevel={0} level={level}>
-                <Home
-                  setBuddy={setBuddy}
-                />
+                <Home setBuddy={setBuddy} />
               </ProtectedRoute>
               <ProtectedRoute path="/coinflip" reqLevel={0} level={level}>
-                <CoinFlip level={level} />
+                <CoinFlip />
               </ProtectedRoute>
               <ProtectedRoute
                 path="/rockpaperscissors"
@@ -161,14 +161,10 @@ function App() {
                 <RockPaperScissors level={level} />
               </ProtectedRoute>
               <ProtectedRoute path="/tictactoe" reqLevel={2} level={level}>
-                <TicTacToe level={level} />
+                <TicTacToe />
               </ProtectedRoute>
               <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
-                <Buddy
-                  userId={userId}
-                  buddy={buddy}
-                  setBuddy={setBuddy}
-                />
+                <Buddy />
               </ProtectedRoute>
               <ProtectedRoute path="/signup" reqLevel={0} level={level}>
                 <Signup />

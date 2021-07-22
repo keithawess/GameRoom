@@ -6,11 +6,11 @@ import reportWebVitals from "./reportWebVitals";
 import { BuddyProvider, UserProvider } from "./context";
 
 ReactDOM.render(
-  <BuddyProvider>
-    <UserProvider>
+  <UserProvider>
+    <BuddyProvider>
       <App />
-    </UserProvider>
-  </BuddyProvider>,
+    </BuddyProvider>
+  </UserProvider>,
   document.getElementById("root")
 );
 

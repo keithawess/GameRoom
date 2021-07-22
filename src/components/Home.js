@@ -7,18 +7,15 @@ import rock from "./RockPaperScissors/images/rock.png";
 import x from "./TicTacToe/x.png";
 import comingSoon from "./help-sing.png";
 
-export default function Home({
-  setBuddy,
-}) {
+export default function Home() {
   // States
   const [passwordInput, setPasswordInput] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
   const [usernameValid, setUsernameValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [error, setError] = useState(null);
-  const {userId, level, login} = useContext(UserContext);
+  const { userId, level, login } = useContext(UserContext);
   const { callAPI: loginCall } = useFetchDB("POST");
-  const { callAPI: buddyCall } = useFetchDB("GET");
   let history = useHistory();
 
   return (
@@ -85,13 +82,6 @@ export default function Home({
                   return setError(res.error);
                 }
                 login(res.data);
-                let buddyRes = await buddyCall(
-                  `/api/buddies/user/${res.data.id}`
-                );
-                if (buddyRes.error) {
-                  return setError(res.error);
-                }
-                setBuddy(buddyRes.data);
               } else {
                 setError("Username / Password are invalid");
               }
@@ -104,9 +94,14 @@ export default function Home({
           <div className="font-small text-center margin-10">
             Don't have an account?{" "}
             <div>
-              <button onClick={()=> {
-                history.push("/signup");
-              }} className="font-small">Sign Up!</button>
+              <button
+                onClick={() => {
+                  history.push("/signup");
+                }}
+                className="font-small"
+              >
+                Sign Up!
+              </button>
             </div>
           </div>
         </div>
