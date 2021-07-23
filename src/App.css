@@ -173,7 +173,6 @@
 .mm-input{
   height: 15px;
   width: 15px;
-  border-radius: 50%;
 }
 
 /* General */
@@ -223,6 +222,10 @@
 .border-rad-10 {
   border-radius: 10px;
   overflow: hidden;
+}
+
+.circle {
+  border-radius: 50%;
 }
 
 .line-height-0 {

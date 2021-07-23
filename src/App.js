@@ -4,7 +4,7 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
 import TicTacToe from "./components/TicTacToe/TicTacToe";
-import Mastermind from "./components/Mastermind";
+import Mastermind from "./components/Mastermind/Mastermind";
 import Buddy from "./components/Buddy/Buddy";
 import BuddyDisplay from "./components/Buddy/components/BuddyDisplay";
 import { UserContext, BuddyContext } from "./context";
