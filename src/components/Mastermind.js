@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export default function Mastermind() {
   //State
@@ -7,10 +7,26 @@ export default function Mastermind() {
   const [pastGuesses, setPastGuesses] = useState(
     Array(4).fill(Array(4).fill(0))
   );
+  const [code, setCode] = useState([]);
   const [gameRunning, setGameRunning] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(true);
   //Colors Options
   const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
+
+  const generateCode = useCallback(()=>{
+    let temp = [];
+    for(let i = 0; i < 4; i++)
+    {
+      temp[i] = Math.floor(Math.random() * 6);
+    }
+    console.log(temp);
+    return temp;
+  }, []);
+
+  const startGame = useCallback(()=>{
+    setGameRunning(true);
+    setCode(generateCode());
+  }, [])
 
   useEffect(() => {
     console.log(playerGuesses);
@@ -22,7 +38,11 @@ export default function Mastermind() {
 
   return (
     <div>
-      <h1 className="text-center">Mastermind</h1>
+      <h1 className="text-center" onClick={()=>{
+        if(gameRunning === false){
+          startGame();
+        }
+      }}>Mastermind</h1>
 
       {/* Game Board */}
       <div className="game-board margin-center flex wrap space-evenly align-items-center">
@@ -32,16 +52,16 @@ export default function Mastermind() {
           }`}
         >
           <div
-            className={`mm-input border margin-10 ${result ? "" : "bg-black"}`}
+            className={`mm-input border margin-10 ${result ? `bg-${colors[code[0]]}` : "bg-black"}`}
           ></div>
           <div
-            className={`mm-input border margin-10 ${result ? "" : "bg-black"}`}
+            className={`mm-input border margin-10 ${result ? `bg-${colors[code[1]]}` : "bg-black"}`}
           ></div>
           <div
-            className={`mm-input border margin-10 ${result ? "" : "bg-black"}`}
+            className={`mm-input border margin-10 ${result ? `bg-${colors[code[2]]}` : "bg-black"}`}
           ></div>
           <div
-            className={`mm-input border margin-10 ${result ? "" : "bg-black"}`}
+            className={`mm-input border margin-10 ${result ? `bg-${colors[code[3]]}` : "bg-black"}`}
           ></div>
         </div>
         <div className={`margin-center flex game-options justify-center`}>
