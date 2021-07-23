@@ -9,7 +9,7 @@ export default function BuddyDisplay({ buddy }) {
       {/* Displays image of Buddy */}
       <img
         className="buddy-img"
-        src={buddy.img}
+        src={buddy.url}
         alt="Here's your buddy. Aren't they cute?"
       />
 

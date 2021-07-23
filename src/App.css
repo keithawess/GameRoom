@@ -80,17 +80,17 @@
 }
 
 .locked {
-  opacity: 40%;
+  opacity: 65%;
 }
 
 .unlocked:hover {
-  opacity: 60%;
+  opacity: 85%;
 }
 
 
 /* TicTacToe Styling */
 .ttt-endgame {
-  opacity: 50%;
+  opacity: 65%;
 }
 
 .ttt-spot {
@@ -135,6 +135,7 @@
 .buddy-img {
   max-height: 80px;
   max-width: 100px;
+  object-fit: cover;
 }
 
 .buddy-display-container {
@@ -324,6 +325,10 @@
   display: block;
 }
 
+.mobile-specific{
+  display: none;
+}
+
 /* Flex */
 
 .flex {
@@ -412,7 +417,7 @@
 @keyframes Drop-Player {
   0% {
     transform: translate(0px, -50px);
-    opacity: 0%;
+    opacity: 50%;
   }
 
   90% {
@@ -521,12 +526,12 @@
 /* Breakpoints */
 
 @media (max-width: 380px) {
-  .absolute {
-    top: 70px;
+  .mobile-hidden{
+    display: none;    
   }
 
-  .line-height-10 {
-    line-height: 17px;
+  .mobile-specific{
+    display: block;
   }
 }
 

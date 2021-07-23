@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useFetch from "../../hooks/useFetch";
+import useFetchDB from "../../hooks/useFetchDB";
 import placeholder from "./images/placeholder.png";
 import BuddyDisplay from "./components/BuddyDisplay";
+import { UserContext, BuddyContext } from "../../context";
 
-export default function Buddy({ username, buddy, setBuddy }) {
+export default function Buddy() {
   // States
   const [appNameInput, setAppNameInput] = useState("");
   const [nameValid, setNameValid] = useState(true);
@@ -11,6 +13,11 @@ export default function Buddy({ username, buddy, setBuddy }) {
   const [reasonValid, setReasonValid] = useState(true);
   const [buddyNameInput, setBuddyNameInput] = useState("");
   const [buddyColor, setBuddyColor] = useState("#000000");
+
+  const { username, userId } = useContext(UserContext);
+  const { buddy, setBuddy } = useContext(BuddyContext);
+
+  const { callAPI: buddyCall } = useFetchDB("PUT");
   // Name and buddy image are both chosen as page starts.
   const { data: name, error } = useFetch("https://randomuser.me/api/");
   const { data: buddyImg, imgError } = useFetch(
@@ -111,20 +118,39 @@ export default function Buddy({ username, buddy, setBuddy }) {
             <button
               className="margin-10"
               type="button"
-              onClick={() => {
+              onClick={async () => {
                 if (nameValid && reasonValid && appNameInput.length > 2) {
                   if (buddyNameInput.length === 0 && !error) {
                     setBuddy({
                       name: name.results[0].name.first,
                       color: buddyColor,
-                      img: !imgError ? buddyImg.url : placeholder,
+                      url: !imgError ? buddyImg.url : placeholder,
                     });
+                    let res = await buddyCall("/api/buddies/add", {
+                      userId: userId,
+                      name: name.results[0].name.first,
+                      color: buddyColor,
+                      url: !imgError ? buddyImg.url : placeholder,
+                    });
+                    if (res.error) {
+                      console.log(res.error);
+                    }
                   } else if (buddyNameInput.length > 0) {
                     setBuddy({
                       name: buddyNameInput,
                       color: buddyColor,
-                      img: !imgError ? buddyImg.url : placeholder,
+                      url: !imgError ? buddyImg.url : placeholder,
                     });
+                    let res = await buddyCall("/api/buddies/add", {
+                      userId: userId,
+                      name: buddyNameInput,
+                      color: buddyColor,
+                      url: !imgError ? buddyImg.url : placeholder,
+                    });
+                    if (res.error)
+                    {
+                      console.log(res.error);
+                    }
                   }
                 }
               }}
@@ -139,7 +165,7 @@ export default function Buddy({ username, buddy, setBuddy }) {
       {buddy && (
         <div className="text-center">
           <div
-            className="margin-center margin-top-130"
+            className=" margin-top-130"
             title="Here is your buddy! You cannot trade them in for
           another, cus that's not what buddies do."
           >
