@@ -30,7 +30,7 @@ export default function Home() {
             <div className="inline-block">
               <input
                 id="usernameInput"
-                placeholder="Enter Username"
+                placeholder="'Keith' for shortcut"
                 value={usernameInput}
                 onChange={(e) => {
                   setUsernameInput(e.target.value);
@@ -51,7 +51,7 @@ export default function Home() {
             <div className="inline-block">
               <input
                 id="passwordInput"
-                placeholder="Enter Password"
+                placeholder="'password' for shortcut"
                 type="password"
                 value={passwordInput}
                 onChange={(e) => {
