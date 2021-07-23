@@ -6,10 +6,10 @@ export default function Mastermind() {
   const [guesses, setGuesses] = useState(0);
   const [playerGuess, setPlayerGuess] = useState([0, 0, 0, 0]);
   const [pastGuesses, setPastGuesses] = useState(
-    Array(4).fill(Array(4).fill(0))
+    Array(6).fill(Array(4).fill(0))
   );
   const [code, setCode] = useState([]);
-  const [feedback, setFeedback] = useState([0, 0]);
+  const [feedback, setFeedback] = useState(Array(6).fill(Array(2).fill(0)));
   const [gameRunning, setGameRunning] = useState(false);
   const [result, setResult] = useState(null);
   //Colors Options
@@ -27,7 +27,7 @@ export default function Mastermind() {
   const startGame = useCallback(() => {
     setResult(null);
     setGuesses(0);
-    setPastGuesses(Array(4).fill(Array(4).fill(0)));
+    setPastGuesses(Array(6).fill(Array(4).fill(0)));
     setGameRunning(true);
     setCode(generateCode());
   }, []);
@@ -59,16 +59,17 @@ export default function Mastermind() {
     console.log(reds, whites);
     if (reds === 4) {
       endGame("win");
-    } else if (guesses >= 4) {
+    } else if (guesses >= 6) {
       endGame("loss");
     } else {
-      setFeedback([reds, whites]);
+      feedback[guesses] = [reds, whites];
+      setFeedback((feedback) => feedback);
     }
   });
 
   useEffect(() => {
-    console.log(playerGuess);
-  }, [playerGuess]);
+    console.log(feedback);
+  }, [feedback]);
 
   useEffect(() => {
     console.log(pastGuesses);
@@ -91,7 +92,7 @@ export default function Mastermind() {
       </h1>
 
       {/* Game Board */}
-      <div className="game-board margin-center flex wrap space-evenly align-items-center">
+      <div className="game-board margin-center flex wrap flex-start">
         <div
           className={`margin-center flex game-options justify-center ${
             guesses >= 0 ? "" : "hidden"
@@ -125,6 +126,7 @@ export default function Mastermind() {
             color2={colors[pastGuesses[0][1]]}
             color3={colors[pastGuesses[0][2]]}
             color4={colors[pastGuesses[0][3]]}
+            feedback={feedback[0]}
           />
         )}
 
@@ -134,6 +136,7 @@ export default function Mastermind() {
             color2={colors[pastGuesses[1][1]]}
             color3={colors[pastGuesses[1][2]]}
             color4={colors[pastGuesses[1][3]]}
+            feedback={feedback[1]}
           />
         )}
 
@@ -143,6 +146,7 @@ export default function Mastermind() {
             color2={colors[pastGuesses[2][1]]}
             color3={colors[pastGuesses[2][2]]}
             color4={colors[pastGuesses[2][3]]}
+            feedback={feedback[2]}
           />
         )}
 
@@ -152,8 +156,30 @@ export default function Mastermind() {
             color2={colors[pastGuesses[3][1]]}
             color3={colors[pastGuesses[3][2]]}
             color4={colors[pastGuesses[3][3]]}
+            feedback={feedback[3]}
           />
         )}
+
+        {guesses >= 5 && (
+          <MastermindCodeDisplay
+            color1={colors[pastGuesses[3][0]]}
+            color2={colors[pastGuesses[3][1]]}
+            color3={colors[pastGuesses[3][2]]}
+            color4={colors[pastGuesses[3][3]]}
+            feedback={feedback[3]}
+          />
+        )}
+
+        {guesses >= 6 && (
+          <MastermindCodeDisplay
+            color1={colors[pastGuesses[3][0]]}
+            color2={colors[pastGuesses[3][1]]}
+            color3={colors[pastGuesses[3][2]]}
+            color4={colors[pastGuesses[3][3]]}
+            feedback={feedback[3]}
+          />
+        )}
+
       </div>
 
       {/* Player input */}
@@ -226,8 +252,8 @@ export default function Mastermind() {
           onClick={async () => {
             if (gameRunning) {
               pastGuesses[guesses] = playerGuess;
-              await setGuesses(guesses + 1);
               checkCode();
+              await setGuesses(guesses + 1);
             }
           }}
         >
