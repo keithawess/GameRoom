@@ -3,34 +3,72 @@ import React, { useCallback, useEffect, useState } from "react";
 export default function Mastermind() {
   //State
   const [guesses, setGuesses] = useState(0);
-  const [playerGuesses, setPlayerGuesses] = useState([0, 0, 0, 0]);
+  const [playerGuess, setPlayerGuess] = useState([0, 0, 0, 0]);
   const [pastGuesses, setPastGuesses] = useState(
     Array(4).fill(Array(4).fill(0))
   );
   const [code, setCode] = useState([]);
   const [gameRunning, setGameRunning] = useState(false);
-  const [result, setResult] = useState(true);
+  const [result, setResult] = useState(null);
   //Colors Options
   const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
 
-  const generateCode = useCallback(()=>{
+  const generateCode = useCallback(() => {
     let temp = [];
-    for(let i = 0; i < 4; i++)
-    {
+    for (let i = 0; i < 4; i++) {
       temp[i] = Math.floor(Math.random() * 6);
     }
     console.log(temp);
     return temp;
   }, []);
 
-  const startGame = useCallback(()=>{
+  const startGame = useCallback(() => {
+    setGuesses(0);
+    setPastGuesses(Array(4).fill(Array(4).fill(0)));
     setGameRunning(true);
     setCode(generateCode());
-  }, [])
+  }, []);
+  
+  const endGame = useCallback((result) => {
+    setGameRunning(false);
+    setResult(result);
+  }, []);
+  
+  const checkCode = useCallback(()=> {
+    let reds = 0;
+    let whites = 0;
+    let taken = [];
+
+    for (let i = 0; i < 4; i++)
+    {
+      if(playerGuess[i] === code[i])
+      {
+        reds++;
+        taken.push(i);
+      } else {
+        for(let j = 0; j < 4; j++)
+        {
+          if (playerGuess[i] === code[j] && !taken.includes(j))
+          {
+            whites++;
+            taken.push(j);
+            break;
+          }
+        }
+      }
+    }
+    console.log(reds, whites)
+    if (reds === 4)
+    {
+      endGame("win");
+    }
+
+    
+  })
 
   useEffect(() => {
-    console.log(playerGuesses);
-  }, [playerGuesses]);
+    console.log(playerGuess);
+  }, [playerGuess]);
 
   useEffect(() => {
     console.log(pastGuesses);
@@ -38,11 +76,19 @@ export default function Mastermind() {
 
   return (
     <div>
-      <h1 className="text-center" onClick={()=>{
-        if(gameRunning === false){
-          startGame();
-        }
-      }}>Mastermind</h1>
+      <h1
+        className="text-center"
+        onClick={() => {
+          if (gameRunning === false) {
+            startGame();
+          }
+          if (gameRunning === true) {
+            endGame();
+          }
+        }}
+      >
+        Mastermind
+      </h1>
 
       {/* Game Board */}
       <div className="game-board margin-center flex wrap space-evenly align-items-center">
@@ -52,16 +98,24 @@ export default function Mastermind() {
           }`}
         >
           <div
-            className={`mm-input border margin-10 ${result ? `bg-${colors[code[0]]}` : "bg-black"}`}
+            className={`mm-input border margin-10 ${
+              result ? `bg-${colors[code[0]]}` : "bg-black"
+            }`}
           ></div>
           <div
-            className={`mm-input border margin-10 ${result ? `bg-${colors[code[1]]}` : "bg-black"}`}
+            className={`mm-input border margin-10 ${
+              result ? `bg-${colors[code[1]]}` : "bg-black"
+            }`}
           ></div>
           <div
-            className={`mm-input border margin-10 ${result ? `bg-${colors[code[2]]}` : "bg-black"}`}
+            className={`mm-input border margin-10 ${
+              result ? `bg-${colors[code[2]]}` : "bg-black"
+            }`}
           ></div>
           <div
-            className={`mm-input border margin-10 ${result ? `bg-${colors[code[3]]}` : "bg-black"}`}
+            className={`mm-input border margin-10 ${
+              result ? `bg-${colors[code[3]]}` : "bg-black"
+            }`}
           ></div>
         </div>
         <div className={`margin-center flex game-options justify-center`}>
@@ -169,47 +223,55 @@ export default function Mastermind() {
       {/* Player input */}
       <div className="margin-center flex game-options justify-center">
         <div
-          className={`mm-input border margin-10 bg-${colors[playerGuesses[0]]}`}
+          className={`mm-input border margin-10 bg-${colors[playerGuess[0]]}`}
           onClick={() => {
-            setPlayerGuesses([
-              (playerGuesses[0] + 1) % 6,
-              playerGuesses[1],
-              playerGuesses[2],
-              playerGuesses[3],
-            ]);
+            if (gameRunning) {
+              setPlayerGuess([
+                (playerGuess[0] + 1) % 6,
+                playerGuess[1],
+                playerGuess[2],
+                playerGuess[3],
+              ]);
+            }
           }}
         ></div>
         <div
-          className={`mm-input border margin-10 bg-${colors[playerGuesses[1]]}`}
+          className={`mm-input border margin-10 bg-${colors[playerGuess[1]]}`}
           onClick={() => {
-            setPlayerGuesses([
-              playerGuesses[0],
-              (playerGuesses[1] + 1) % 6,
-              playerGuesses[2],
-              playerGuesses[3],
-            ]);
+            if (gameRunning) {
+              setPlayerGuess([
+                playerGuess[0],
+                (playerGuess[1] + 1) % 6,
+                playerGuess[2],
+                playerGuess[3],
+              ]);
+            }
           }}
         ></div>
         <div
-          className={`mm-input border margin-10 bg-${colors[playerGuesses[2]]}`}
+          className={`mm-input border margin-10 bg-${colors[playerGuess[2]]}`}
           onClick={() => {
-            setPlayerGuesses([
-              playerGuesses[0],
-              playerGuesses[1],
-              (playerGuesses[2] + 1) % 6,
-              playerGuesses[3],
-            ]);
+            if (gameRunning) {
+              setPlayerGuess([
+                playerGuess[0],
+                playerGuess[1],
+                (playerGuess[2] + 1) % 6,
+                playerGuess[3],
+              ]);
+            }
           }}
         ></div>
         <div
-          className={`mm-input border margin-10 bg-${colors[playerGuesses[3]]}`}
+          className={`mm-input border margin-10 bg-${colors[playerGuess[3]]}`}
           onClick={() => {
-            setPlayerGuesses([
-              playerGuesses[0],
-              playerGuesses[1],
-              playerGuesses[2],
-              (playerGuesses[3] + 1) % 6,
-            ]);
+            if (gameRunning) {
+              setPlayerGuess([
+                playerGuess[0],
+                playerGuess[1],
+                playerGuess[2],
+                (playerGuess[3] + 1) % 6,
+              ]);
+            }
           }}
         ></div>
       </div>
@@ -218,8 +280,11 @@ export default function Mastermind() {
           type="button"
           className="margin-center block"
           onClick={async () => {
-            pastGuesses[guesses] = playerGuesses;
-            await setGuesses(guesses + 1);
+            if(gameRunning){
+              pastGuesses[guesses] = playerGuess;
+              await setGuesses(guesses + 1);
+              checkCode();
+            }
           }}
         >
           Submit
