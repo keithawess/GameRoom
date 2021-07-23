@@ -16,7 +16,7 @@ export default function Mastermind() {
   const {level, experienceUp} = useContext(UserContext);
 
   //Colors Options
-  const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
+  const colors = ["red", "orange", "yellow", "green", "blue", "purple" ];
 
   const generateCode = useCallback(() => {
     let temp = [];
