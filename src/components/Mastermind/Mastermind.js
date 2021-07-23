@@ -13,10 +13,10 @@ export default function Mastermind() {
   const [feedback, setFeedback] = useState(Array(6).fill(Array(2).fill(0)));
   const [gameRunning, setGameRunning] = useState(false);
   const [result, setResult] = useState("New Game?");
-  const {level, experienceUp} = useContext(UserContext);
+  const { level, experienceUp } = useContext(UserContext);
 
   //Colors Options
-  const colors = ["red", "orange", "yellow", "green", "blue", "purple" ];
+  const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 
   const generateCode = useCallback(() => {
     let temp = [];
@@ -38,8 +38,9 @@ export default function Mastermind() {
 
   const endGame = useCallback((endResult) => {
     setGameRunning(false);
-    if(endResult === "Win!" && level === 3)
-    {experienceUp(25);}
+    if (endResult === "Win!" && level === 3) {
+      experienceUp(25);
+    }
     setResult(endResult);
   }, []);
 
@@ -54,7 +55,11 @@ export default function Mastermind() {
         taken.push(i);
       } else {
         for (let j = 0; j < 4; j++) {
-          if (playerGuess[i] === code[j] && !taken.includes(j) && (playerGuess[j] !== code[j])) {
+          if (
+            playerGuess[i] === code[j] &&
+            !taken.includes(j) &&
+            playerGuess[j] !== code[j]
+          ) {
             whites++;
             taken.push(j);
             break;
@@ -187,7 +192,6 @@ export default function Mastermind() {
             feedback={feedback[5]}
           />
         )}
-
       </div>
 
       {/* Player input */}
