@@ -87,7 +87,6 @@
   opacity: 85%;
 }
 
-
 /* TicTacToe Styling */
 .ttt-endgame {
   opacity: 65%;
@@ -170,14 +169,20 @@
 
 /* Mastermind Syling */
 
-.mm-input{
+.mm-input {
   height: 20px;
   width: 20px;
 }
 
-.mm-clue{
+.mm-clue {
   height: 3px;
   width: 3px;
+}
+
+.mm-modal {
+  height: 53px;
+  width: 150px;
+  transform: translateY(-60px);
 }
 
 /* General */
@@ -254,7 +259,7 @@
   margin: 10px;
 }
 
-.margin-1{
+.margin-1 {
   margin: 1px;
 }
 
@@ -318,23 +323,23 @@
   background-color: black;
 }
 
-.bg-yellow{
+.bg-yellow {
   background-color: yellow;
 }
 
-.bg-purple{
+.bg-purple {
   background-color: purple;
 }
 
-.bg-orange{
+.bg-orange {
   background-color: orange;
 }
 
-.bg-red{
+.bg-red {
   background-color: red;
 }
 
-.bg-green{
+.bg-green {
   background-color: green;
 }
 
@@ -362,11 +367,11 @@
   display: block;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.mobile-specific{
+.mobile-specific {
   display: none;
 }
 
@@ -412,7 +417,7 @@
   justify-content: space-around;
 }
 
-.flex-start{
+.flex-start {
   align-content: flex-start;
 }
 
@@ -571,11 +576,11 @@
 /* Breakpoints */
 
 @media (max-width: 380px) {
-  .mobile-hidden{
-    display: none;    
+  .mobile-hidden {
+    display: none;
   }
 
-  .mobile-specific{
+  .mobile-specific {
     display: block;
   }
 }

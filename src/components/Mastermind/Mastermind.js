@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import MastermindCodeDisplay from "./components/MastermindCodeDisplay";
+import { UserContext } from "../../context";
 
 export default function Mastermind() {
   //State
@@ -11,7 +12,9 @@ export default function Mastermind() {
   const [code, setCode] = useState([]);
   const [feedback, setFeedback] = useState(Array(6).fill(Array(2).fill(0)));
   const [gameRunning, setGameRunning] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState("New Game?");
+  const {level, experienceUp} = useContext(UserContext);
+
   //Colors Options
   const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
 
@@ -28,13 +31,16 @@ export default function Mastermind() {
     setResult(null);
     setGuesses(0);
     setPastGuesses(Array(6).fill(Array(4).fill(0)));
+    setFeedback(Array(6).fill(Array(2).fill(0)));
     setGameRunning(true);
     setCode(generateCode());
   }, []);
 
-  const endGame = useCallback((result) => {
+  const endGame = useCallback((endResult) => {
     setGameRunning(false);
-    setResult(result);
+    if(endResult === "Win!" && level === 3)
+    {experienceUp(25);}
+    setResult(endResult);
   }, []);
 
   const checkCode = useCallback(() => {
@@ -48,7 +54,7 @@ export default function Mastermind() {
         taken.push(i);
       } else {
         for (let j = 0; j < 4; j++) {
-          if (playerGuess[i] === code[j] && !taken.includes(j)) {
+          if (playerGuess[i] === code[j] && !taken.includes(j) && (playerGuess[j] !== code[j])) {
             whites++;
             taken.push(j);
             break;
@@ -58,9 +64,11 @@ export default function Mastermind() {
     }
     console.log(reds, whites);
     if (reds === 4) {
-      endGame("win");
+      feedback[guesses] = [reds, whites];
+      setFeedback((feedback) => feedback);
+      endGame("Win!");
     } else if (guesses >= 6) {
-      endGame("loss");
+      endGame("Loss...");
     } else {
       feedback[guesses] = [reds, whites];
       setFeedback((feedback) => feedback);
@@ -162,21 +170,21 @@ export default function Mastermind() {
 
         {guesses >= 5 && (
           <MastermindCodeDisplay
-            color1={colors[pastGuesses[3][0]]}
-            color2={colors[pastGuesses[3][1]]}
-            color3={colors[pastGuesses[3][2]]}
-            color4={colors[pastGuesses[3][3]]}
-            feedback={feedback[3]}
+            color1={colors[pastGuesses[4][0]]}
+            color2={colors[pastGuesses[4][1]]}
+            color3={colors[pastGuesses[4][2]]}
+            color4={colors[pastGuesses[4][3]]}
+            feedback={feedback[4]}
           />
         )}
 
         {guesses >= 6 && (
           <MastermindCodeDisplay
-            color1={colors[pastGuesses[3][0]]}
-            color2={colors[pastGuesses[3][1]]}
-            color3={colors[pastGuesses[3][2]]}
-            color4={colors[pastGuesses[3][3]]}
-            feedback={feedback[3]}
+            color1={colors[pastGuesses[5][0]]}
+            color2={colors[pastGuesses[5][1]]}
+            color3={colors[pastGuesses[5][2]]}
+            color4={colors[pastGuesses[5][3]]}
+            feedback={feedback[5]}
           />
         )}
 
@@ -260,6 +268,23 @@ export default function Mastermind() {
           Submit
         </button>
       </div>
+
+      {result && (
+        <div className="flex justify-center align-items-center absolute absolute-center z1">
+          <div className="mm-modal z1 text-center border-blue border-rad-10 bg-white">
+            {result}
+            <div className="margin-center">
+              <button
+                onClick={() => {
+                  startGame();
+                }}
+              >
+                Play Again
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
