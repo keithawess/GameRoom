@@ -171,8 +171,9 @@
 /* Mastermind Syling */
 
 .mm-input{
-  height: 30px;
-  width: 30px;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
 }
 
 /* General */
@@ -265,7 +266,7 @@
   background-color: #0f3375;
 }
 
-.bg-blue-9 {
+.bg-blue {
   background-color: #13459c;
 }
 
@@ -301,6 +302,30 @@
   background-color: #e8f3fe;
 }
 
+.bg-black {
+  background-color: black;
+}
+
+.bg-yellow{
+  background-color: yellow;
+}
+
+.bg-purple{
+  background-color: purple;
+}
+
+.bg-orange{
+  background-color: orange;
+}
+
+.bg-red{
+  background-color: red;
+}
+
+.bg-green{
+  background-color: green;
+}
+
 .border-red {
   border: solid 1px red;
 }
@@ -323,6 +348,10 @@
 
 .block {
   display: block;
+}
+
+.hidden{
+  display: none;
 }
 
 .mobile-specific{
