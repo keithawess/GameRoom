@@ -4,6 +4,7 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
 import TicTacToe from "./components/TicTacToe/TicTacToe";
+import Mastermind from "./components/Mastermind/Mastermind";
 import Buddy from "./components/Buddy/Buddy";
 import BuddyDisplay from "./components/Buddy/components/BuddyDisplay";
 import { UserContext, BuddyContext } from "./context";
@@ -23,7 +24,7 @@ function App() {
       {/* Nav Bar | Shows links as level requirements are met. */}
       <nav className="flex width-100 space-evenly bg-white text-black text-center border-rad-10">
         <NavLink
-          activeClassName="active bg-blue-9 text-white"
+          activeClassName="active bg-blue text-white"
           className="border-blue grow nav-start nav-option"
           exact
           to="/"
@@ -43,7 +44,7 @@ function App() {
           </div>
         )}
         <NavLink
-          activeClassName="active bg-blue-9 text-white"
+          activeClassName="active bg-blue text-white"
           className={`border-blue grow nav-option ${
             navScroll === 0 ? "" : "mobile-hidden"
           }`}
@@ -53,7 +54,7 @@ function App() {
         </NavLink>
         {level > 0 && (
           <NavLink
-            activeClassName="active bg-blue-9 text-white"
+            activeClassName="active bg-blue text-white"
             className={`border-blue grow nav-option ${
               navScroll === 1 ? "" : "mobile-hidden"
             }`}
@@ -64,7 +65,7 @@ function App() {
         )}
         {level > 1 && (
           <NavLink
-            activeClassName="active bg-blue-9 text-white"
+            activeClassName="active bg-blue text-white"
             className={`border-blue grow nav-option ${
               navScroll === 2 ? "" : "mobile-hidden"
             }`}
@@ -73,11 +74,22 @@ function App() {
             Tic Tac Toe
           </NavLink>
         )}
+        {level > 2 && (
+          <NavLink
+            activeClassName="active bg-blue text-white"
+            className={`border-blue grow nav-option ${
+              navScroll === 3 ? "" : "mobile-hidden"
+            }`}
+            to="/mastermind"
+          >
+            Mastermind
+          </NavLink>
+        )}
         {level > 0 && (
           <div
             className="border-blue nav-option mobile-specific"
             onClick={() => {
-              if (navScroll < level && navScroll < 2) {
+              if (navScroll < level && navScroll < 3) {
                 setNavScroll((navScroll) => navScroll + 1);
               }
             }}
@@ -86,7 +98,7 @@ function App() {
           </div>
         )}
         <NavLink
-          activeClassName="active bg-blue-9 text-white"
+          activeClassName="active bg-blue text-white"
           className={`border-blue grow ${userId ? "" : "nav-end"} nav-option `}
           to="/buddy"
         >
@@ -162,6 +174,9 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path="/tictactoe" reqLevel={2} level={level}>
                 <TicTacToe />
+              </ProtectedRoute>
+              <ProtectedRoute path="/mastermind" reqLevel={3} level={level}>
+                <Mastermind />
               </ProtectedRoute>
               <ProtectedRoute path="/buddy" reqLevel={0} level={level}>
                 <Buddy />

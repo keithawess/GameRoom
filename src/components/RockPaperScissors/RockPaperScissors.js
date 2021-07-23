@@ -95,7 +95,7 @@ export default function RockPaperScissors() {
       <div className="margin-center flex game-options">
         <button
           className={`margin-center option-button ${
-            playerGuess === "rock" && !result ? "bg-blue-9 text-white" : ""
+            playerGuess === "rock" && !result ? "bg-blue text-white" : ""
           }`}
           onClick={() => {
             setPlayerGuess("rock");
@@ -108,7 +108,7 @@ export default function RockPaperScissors() {
         </button>
         <button
           className={`margin-center option-button ${
-            playerGuess === "paper" && !result ? "bg-blue-9 text-white" : ""
+            playerGuess === "paper" && !result ? "bg-blue text-white" : ""
           }`}
           onClick={() => {
             setPlayerGuess("paper");
@@ -121,7 +121,7 @@ export default function RockPaperScissors() {
         </button>
         <button
           className={`margin-center option-button ${
-            playerGuess === "scissors" && !result ? "bg-blue-9 text-white" : ""
+            playerGuess === "scissors" && !result ? "bg-blue text-white" : ""
           }`}
           onClick={() => {
             setPlayerGuess("scissors");
