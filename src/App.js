@@ -1,5 +1,10 @@
 import React, { useState, useContext } from "react";
-import { BrowserRouter as Router, NavLink, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  NavLink,
+  Switch,
+  useLocation,
+} from "react-router-dom";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
@@ -17,13 +22,16 @@ function App() {
   // States
   const [navScroll, setNavScroll] = useState(0);
   const { level, experience, logout, userId } = useContext(UserContext);
-  const { buddy, setBuddy } = useContext(BuddyContext);
+  const { buddy, setBuddy, buddyPage, setBuddyPage } = useContext(BuddyContext);
 
   return (
     <Router>
       {/* Nav Bar | Shows links as level requirements are met. */}
       <nav className="flex width-100 space-evenly bg-white text-black text-center border-rad-10">
         <NavLink
+          onClick={() => {
+            setBuddyPage(false);
+          }}
           activeClassName="active bg-blue text-white"
           className="border-blue grow nav-start nav-option"
           exact
@@ -44,6 +52,9 @@ function App() {
           </div>
         )}
         <NavLink
+          onClick={() => {
+            setBuddyPage(false);
+          }}
           activeClassName="active bg-blue text-white"
           className={`border-blue grow nav-option ${
             navScroll === 0 ? "" : "mobile-hidden"
@@ -54,6 +65,9 @@ function App() {
         </NavLink>
         {level > 0 && (
           <NavLink
+            onClick={() => {
+              setBuddyPage(false);
+            }}
             activeClassName="active bg-blue text-white"
             className={`border-blue grow nav-option ${
               navScroll === 1 ? "" : "mobile-hidden"
@@ -65,6 +79,9 @@ function App() {
         )}
         {level > 1 && (
           <NavLink
+            onClick={() => {
+              setBuddyPage(false);
+            }}
             activeClassName="active bg-blue text-white"
             className={`border-blue grow nav-option ${
               navScroll === 2 ? "" : "mobile-hidden"
@@ -76,6 +93,9 @@ function App() {
         )}
         {level > 2 && (
           <NavLink
+            onClick={() => {
+              setBuddyPage(false);
+            }}
             activeClassName="active bg-blue text-white"
             className={`border-blue grow nav-option ${
               navScroll === 3 ? "" : "mobile-hidden"
@@ -98,6 +118,9 @@ function App() {
           </div>
         )}
         <NavLink
+          onClick={() => {
+            setBuddyPage(true);
+          }}
           activeClassName="active bg-blue text-white"
           className={`border-blue grow ${userId ? "" : "nav-end"} nav-option `}
           to="/buddy"
@@ -112,6 +135,7 @@ function App() {
               logout();
               setBuddy(null);
               setNavScroll(0);
+              setBuddyPage(false);
             }}
           >
             Logout
@@ -189,7 +213,7 @@ function App() {
         </div>
 
         {/* Displays buddy if buddy exists */}
-        {buddy && (
+        {buddy && !buddyPage && (
           <aside className="aside third flex align-items-center justify-center col">
             {/* Heart animation plays every time the user gets experience */}
             <img
@@ -204,7 +228,7 @@ function App() {
         )}
 
         {/* Keeps spacing when stats aside exists without a buddy */}
-        {!buddy && <div className="aside third">&nbsp;</div>}
+        {(!buddy || buddyPage) && <div className="aside third">&nbsp;</div>}
       </div>
     </Router>
   );

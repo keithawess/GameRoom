@@ -13,7 +13,6 @@ export default function Buddy() {
   const [reasonValid, setReasonValid] = useState(true);
   const [buddyNameInput, setBuddyNameInput] = useState("");
   const [buddyColor, setBuddyColor] = useState("#000000");
-
   const { username, userId } = useContext(UserContext);
   const { buddy, setBuddy } = useContext(BuddyContext);
 

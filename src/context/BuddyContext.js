@@ -8,6 +8,7 @@ export function BuddyProvider(props) {
   const [buddy, setBuddy] = useState(null);
   const { callAPI: buddyCall } = useFetchDB("GET");
   const { userId } = useContext(UserContext);
+  const [buddyPage, setBuddyPage] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,7 +22,7 @@ export function BuddyProvider(props) {
   }, [userId]);
 
   return (
-    <BuddyContext.Provider value={{ buddy, setBuddy }}>
+    <BuddyContext.Provider value={{ buddy, setBuddy, setBuddyPage, buddyPage }}>
       {props.children}
     </BuddyContext.Provider>
   );
