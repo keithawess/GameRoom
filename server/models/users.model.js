@@ -17,9 +17,14 @@ async function signup(res, username, password) {
         "INSERT INTO users (password, username, uuid, level, experience) VALUES (?,?,?,?,?)",
         [hashed, username, uuid, 0, 0]
       );
-      const id = await query("SELECT id FROM users WHERE username = ?", [username]);
-      await query("INSERT INTO stats (user_id, wins, losses, ties, games_played) values (?,?,?,?,?)", [id[0].id,0,0,0,0]);
-      json = { ...json, success: true, data: "Signup was successful!"};
+      const id = await query("SELECT id FROM users WHERE username = ?", [
+        username,
+      ]);
+      await query(
+        "INSERT INTO stats (user_id, wins, losses, ties, games_played) values (?,?,?,?,?)",
+        [id[0].id, 0, 0, 0, 0]
+      );
+      json = { ...json, success: true, data: "Signup was successful!" };
     }
   } catch (err) {
     console.log(err);
@@ -38,7 +43,17 @@ async function login(username, password) {
     const user = users[0] || { password: "Salt" };
     const matches = await bcrypt.compare(password, user.password);
     if (matches) {
-      json = { ...json, success: matches, data: { username, uuid: user.uuid, id: user.id, level: user.level, experience: user.experience } };
+      json = {
+        ...json,
+        success: matches,
+        data: {
+          username,
+          uuid: user.uuid,
+          id: user.id,
+          level: user.level,
+          experience: user.experience,
+        },
+      };
     } else {
       json.error =
         "Username / password provided does not match. Please try again";
@@ -51,42 +66,50 @@ async function login(username, password) {
 }
 
 async function getByUuid(uuid) {
-  let json = {data: null, error: null}
+  let json = { data: null, error: null };
   try {
-    const users = await query("SELECT id, username, uuid, level, experience FROM users WHERE uuid = ?", [uuid]);
-    if (users.length === 0)
-    {
-      json.error = "User does not exist"
-    }
-    else {
-      json = {...json, data: users[0]}
+    const users = await query(
+      "SELECT id, username, uuid, level, experience FROM users WHERE uuid = ?",
+      [uuid]
+    );
+    if (users.length === 0) {
+      json.error = "User does not exist";
+    } else {
+      json = { ...json, data: users[0] };
     }
   } catch (err) {
-    json.error = "Failed to get user by username"
+    json.error = "Failed to get user by username";
   } finally {
     return json;
   }
 }
 
-async function adjustLevel(res, userId, level){
-  let json = { success: false, data: null, error: null};
+async function adjustLevel(res, userId, level) {
+  let json = { success: false, data: null, error: null };
   try {
     await query("UPDATE users SET level = ? WHERE id = ?", [level, userId]);
-    json = {...json, success: true, data: "Successfully adjusted level!"};
+    json = { ...json, success: true, data: "Successfully adjusted level!" };
   } catch (err) {
-    json.error = "Level adjustment failed."
+    json.error = "Level adjustment failed.";
   } finally {
     return res.send(json);
   }
 }
 
-async function adjustExperience(res, userId, experience){
-  let json = { success: false, data: null, error: null};
+async function adjustExperience(res, userId, experience) {
+  let json = { success: false, data: null, error: null };
   try {
-    await query("UPDATE users SET experience = ? WHERE id = ?", [experience, userId]);
-    json = {...json, success: true, data: "Successfully adjusted experience!"};
+    await query("UPDATE users SET experience = ? WHERE id = ?", [
+      experience,
+      userId,
+    ]);
+    json = {
+      ...json,
+      success: true,
+      data: "Successfully adjusted experience!",
+    };
   } catch (err) {
-    json.error = "Experience adjustment failed."
+    json.error = "Experience adjustment failed.";
   } finally {
     return res.send(json);
   }
@@ -95,50 +118,58 @@ async function adjustExperience(res, userId, experience){
 async function changePassword(res, userId, password, newPassword) {
   let json = { success: false, data: null, error: null };
   try {
-      const users = await query("SELECT * FROM users WHERE id = ?", [
-          userId,
-      ]);
-      const user = users[0] || { password: "Salt" };
-      const matches = await bcrypt.compare(password, user.password);
-      if (matches) {
-        const hash = await bcrypt.hash(newPassword, 10);
-        await query("UPDATE users SET password = ? WHERE id = ?", [hash, userId]);
-        json = {...json, success: true, data: "Password successfully changed!"}
-      } else {
-        json.error =
-          "Password invalid.";
-      }
+    const users = await query("SELECT * FROM users WHERE id = ?", [userId]);
+    const user = users[0] || { password: "Salt" };
+    const matches = await bcrypt.compare(password, user.password);
+    if (matches) {
+      const hash = await bcrypt.hash(newPassword, 10);
+      await query("UPDATE users SET password = ? WHERE id = ?", [hash, userId]);
+      json = { ...json, success: true, data: "Password successfully changed!" };
+    } else {
+      json.error = "Password invalid.";
+    }
   } catch (err) {
-      console.log(err);
-      json.error = "Password change failed."
+    console.log(err);
+    json.error = "Password change failed.";
   } finally {
     return res.send(json);
   }
 }
 
 async function deleteAccount(res, userId, password) {
-    let json = {
-        success: false, data: null, error: null,
+  let json = {
+    success: false,
+    data: null,
+    error: null,
+  };
+  try {
+    const users = await query("SELECT * FROM users WHERE id = ?", [userId]);
+    const user = users[0] || { password: "Salt" };
+    const matches = await bcrypt.compare(password, user.password);
+    if (matches) {
+      await query("DELETE FROM users WHERE id = ?", [userId]);
+      json = {
+        ...json,
+        success: true,
+        data: "Account successfully deleted! Hope to see you again someday!",
+      };
+    } else {
+      json.error = "Password invalid.";
     }
-    try {
-        const users = await query("SELECT * FROM users WHERE id = ?", [
-            userId,
-        ]);
-        const user = users[0] || { password: "Salt" };
-        const matches = await bcrypt.compare(password, user.password);
-        if (matches) {
-          await query("DELETE FROM users WHERE id = ?", [userId]);
-          json = {...json, success: true, data: "Account successfully deleted! Hope to see you again someday!"}
-        } else {
-          json.error =
-            "Password invalid.";
-        }
-    } catch (err) {
-        console.log(err);
-        json.error = "User deletion change failed."
-    } finally {
-      return res.send(json);
-    }
+  } catch (err) {
+    console.log(err);
+    json.error = "User deletion change failed.";
+  } finally {
+    return res.send(json);
+  }
 }
 
-module.exports = { signup, login, changePassword, deleteAccount, adjustLevel, adjustExperience, getByUuid };
+module.exports = {
+  signup,
+  login,
+  changePassword,
+  deleteAccount,
+  adjustLevel,
+  adjustExperience,
+  getByUuid,
+};

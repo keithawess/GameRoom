@@ -16,7 +16,7 @@ async function addBuddy(res, userId, name, url, color) {
       json = { ...json, success: true, data: "Buddy successfully added!" };
     }
   } catch (err) {
-      console.log(err);
+    console.log(err);
     json.error = "Failed to add buddy.";
   } finally {
     res.send(json);
