@@ -13,7 +13,6 @@ export default function Buddy() {
   const [reasonValid, setReasonValid] = useState(true);
   const [buddyNameInput, setBuddyNameInput] = useState("");
   const [buddyColor, setBuddyColor] = useState("#000000");
-
   const { username, userId } = useContext(UserContext);
   const { buddy, setBuddy } = useContext(BuddyContext);
 
@@ -39,6 +38,44 @@ export default function Buddy() {
               <input
                 id="name"
                 value={appNameInput}
+                onKeyPress={async (e) => {
+                  if (e.key === 'Enter') {
+                    if (nameValid && reasonValid && appNameInput.length > 2) {
+                      if (buddyNameInput.length === 0 && !error) {
+                        setBuddy({
+                          name: name.results[0].name.first,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        let res = await buddyCall("/api/buddies/add", {
+                          userId: userId,
+                          name: name.results[0].name.first,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        if (res.error) {
+                          console.log(res.error);
+                        }
+                      } else if (buddyNameInput.length > 0) {
+                        setBuddy({
+                          name: buddyNameInput,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        let res = await buddyCall("/api/buddies/add", {
+                          userId: userId,
+                          name: buddyNameInput,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        if (res.error)
+                        {
+                          console.log(res.error);
+                        }
+                      }
+                    }
+                  }
+                }}
                 onChange={(e) => setAppNameInput(e.target.value)}
                 onBlur={() => {
                   if (
@@ -100,6 +137,44 @@ export default function Buddy() {
                 placeholder={`${
                   !error ? "Random name if blank" : "Must enter buddy name"
                 }`}
+                onKeyPress={async (e) => {
+                  if (e.key === 'Enter') {
+                    if (nameValid && reasonValid && appNameInput.length > 2) {
+                      if (buddyNameInput.length === 0 && !error) {
+                        setBuddy({
+                          name: name.results[0].name.first,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        let res = await buddyCall("/api/buddies/add", {
+                          userId: userId,
+                          name: name.results[0].name.first,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        if (res.error) {
+                          console.log(res.error);
+                        }
+                      } else if (buddyNameInput.length > 0) {
+                        setBuddy({
+                          name: buddyNameInput,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        let res = await buddyCall("/api/buddies/add", {
+                          userId: userId,
+                          name: buddyNameInput,
+                          color: buddyColor,
+                          url: !imgError ? buddyImg.url : placeholder,
+                        });
+                        if (res.error)
+                        {
+                          console.log(res.error);
+                        }
+                      }
+                    }
+                  }
+                }}
                 onChange={(e) => setBuddyNameInput(e.target.value)}
               />
             </div>

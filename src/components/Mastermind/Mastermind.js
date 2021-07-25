@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import MastermindCodeDisplay from "./components/MastermindCodeDisplay";
 import { UserContext } from "../../context";
 
@@ -23,7 +23,6 @@ export default function Mastermind() {
     for (let i = 0; i < 4; i++) {
       temp[i] = Math.floor(Math.random() * 6);
     }
-    console.log(temp);
     return temp;
   }, []);
 
@@ -67,7 +66,6 @@ export default function Mastermind() {
         }
       }
     }
-    console.log(reds, whites);
     if (reds === 4) {
       feedback[guesses] = [reds, whites];
       setFeedback((feedback) => feedback);
@@ -79,14 +77,6 @@ export default function Mastermind() {
       setFeedback((feedback) => feedback);
     }
   });
-
-  useEffect(() => {
-    console.log(feedback);
-  }, [feedback]);
-
-  useEffect(() => {
-    console.log(pastGuesses);
-  }, [pastGuesses]);
 
   return (
     <div>

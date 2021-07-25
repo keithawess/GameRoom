@@ -10,17 +10,17 @@ export default function MastermindCodeDisplay({
   let feedbackList = [];
   for (let i = 0; i < feedback[0]; i++) {
     feedbackList.push(
-      <div className="mm-clue circle margin-1 border bg-red"></div>
+      <div key={Math.random()} className="mm-clue circle margin-1 border bg-red"></div>
     );
   }
   for (let i = 0; i < feedback[1]; i++) {
     feedbackList.push(
-      <div className="mm-clue circle margin-1 border bg-white"></div>
+      <div key={Math.random()} className="mm-clue circle margin-1 border bg-white"></div>
     );
   }
   while (feedbackList.length < 4) {
     feedbackList.push(
-      <div className="mm-clue circle margin-1 border bg-black"></div>
+      <div key={Math.random()} className="mm-clue circle margin-1 border bg-black"></div>
     );
   }
 

@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context";
 import useFetchDB from "../hooks/useFetchDB";
 import coin from "./CoinFlip/images/heads.png";
 import rock from "./RockPaperScissors/images/rock.png";
 import x from "./TicTacToe/x.png";
+import mastermind from "./mastermind.png"
 import comingSoon from "./help-sing.png";
 
 export default function Home() {
@@ -30,8 +31,24 @@ export default function Home() {
             <div className="inline-block">
               <input
                 id="usernameInput"
-                placeholder="Enter Username"
+                placeholder="'Keith' for shortcut"
                 value={usernameInput}
+                onKeyPress={async (e) => {
+                  if (e.key === 'Enter') {
+                    if (usernameValid && passwordValid) {
+                      let res = await loginCall("/api/users/login", {
+                        username: usernameInput,
+                        password: passwordInput,
+                      });
+                      if (res.error) {
+                        return setError(res.error);
+                      }
+                      login(res.data);
+                    } else {
+                      setError("Username / Password are invalid");
+                    }
+                  }
+                }}
                 onChange={(e) => {
                   setUsernameInput(e.target.value);
                 }}
@@ -51,9 +68,25 @@ export default function Home() {
             <div className="inline-block">
               <input
                 id="passwordInput"
-                placeholder="Enter Password"
+                placeholder="'password' for shortcut"
                 type="password"
                 value={passwordInput}
+                onKeyPress={async (e) => {
+                  if (e.key === 'Enter') {
+                    if (usernameValid && passwordValid) {
+                      let res = await loginCall("/api/users/login", {
+                        username: usernameInput,
+                        password: passwordInput,
+                      });
+                      if (res.error) {
+                        return setError(res.error);
+                      }
+                      login(res.data);
+                    } else {
+                      setError("Username / Password are invalid");
+                    }
+                  }
+                }}
                 onChange={(e) => {
                   setPasswordInput(e.target.value);
                 }}
@@ -111,7 +144,7 @@ export default function Home() {
         Shows clickable icons for each game*/}
       {userId && (
         <div className="flex wrap space-evenly">
-          <div className="home-option unlocked">
+          <div className="home-option unlocked flex align-items-center justify-center">
             <img
               onClick={() => {
                 history.push("/coinflip");
@@ -119,6 +152,7 @@ export default function Home() {
               className="home-option"
               src={coin}
               alt="Coin Flip"
+              title="Coin Flip"
             />
           </div>
           <div
@@ -131,7 +165,7 @@ export default function Home() {
               level < 1 ? "locked" : "unlocked"
             }`}
           >
-            <img className="rock-thumb" src={rock} alt="Rock Paper Scissors" />
+            <img className="rock-thumb" src={rock} alt="Rock Paper Scissors" title="Rock Paper Scissors" />
           </div>
 
           <div
@@ -144,8 +178,22 @@ export default function Home() {
               level < 2 ? "locked" : "unlocked"
             }`}
           >
-            <img className="x-thumb" src={x} alt="Tic Tac Toe" />
+            <img className="x-thumb" src={x} alt="Tic Tac Toe" title="Tic Tac Toe" />
           </div>
+
+          <div
+            onClick={() => {
+              if (level > 1) {
+                history.push("/mastermind");
+              }
+            }}
+            className={`home-option border flex align-items-center circle justify-center ${
+              level < 3 ? "locked" : "unlocked"
+            }`}
+          >
+            <img className="x-thumb" src={mastermind} alt="Mastermind" title="Mastermind" />
+          </div>
+
           <div className="home-option border flex align-items-center circle justify-center locked">
             <img
               className="rock-thumb"
