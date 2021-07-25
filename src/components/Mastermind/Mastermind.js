@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import MastermindCodeDisplay from "./components/MastermindCodeDisplay";
 import { UserContext } from "../../context";
 

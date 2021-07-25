@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   NavLink,
   Switch,
-  useLocation,
 } from "react-router-dom";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";

@@ -80,17 +80,15 @@
 }
 
 .locked {
-  opacity: 65%;
+  border-color:rgba(0, 0, 0, 0.4);
 }
 
 .unlocked:hover {
-  opacity: 85%;
+  border-color:rgba(0, 0, 0, 0.4);
+  background-color: #13459c86;
 }
 
 /* TicTacToe Styling */
-.ttt-endgame {
-  opacity: 65%;
-}
 
 .ttt-spot {
   height: 98px;
