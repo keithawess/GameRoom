@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context";
 import useFetchDB from "../hooks/useFetchDB";
@@ -32,6 +32,22 @@ export default function Home() {
                 id="usernameInput"
                 placeholder="'Keith' for shortcut"
                 value={usernameInput}
+                onKeyPress={async (e) => {
+                  if (e.key === 'Enter') {
+                    if (usernameValid && passwordValid) {
+                      let res = await loginCall("/api/users/login", {
+                        username: usernameInput,
+                        password: passwordInput,
+                      });
+                      if (res.error) {
+                        return setError(res.error);
+                      }
+                      login(res.data);
+                    } else {
+                      setError("Username / Password are invalid");
+                    }
+                  }
+                }}
                 onChange={(e) => {
                   setUsernameInput(e.target.value);
                 }}
@@ -54,6 +70,22 @@ export default function Home() {
                 placeholder="'password' for shortcut"
                 type="password"
                 value={passwordInput}
+                onKeyPress={async (e) => {
+                  if (e.key === 'Enter') {
+                    if (usernameValid && passwordValid) {
+                      let res = await loginCall("/api/users/login", {
+                        username: usernameInput,
+                        password: passwordInput,
+                      });
+                      if (res.error) {
+                        return setError(res.error);
+                      }
+                      login(res.data);
+                    } else {
+                      setError("Username / Password are invalid");
+                    }
+                  }
+                }}
                 onChange={(e) => {
                   setPasswordInput(e.target.value);
                 }}
