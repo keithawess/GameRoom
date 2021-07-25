@@ -7,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const userRoutes = require("./server/routes/users.routes");
 const buddyRoutes = require("./server/routes/buddies.routes");
+const statsRoutes = require("./server/routes/stats.routes");
 
 app.use(express.json());
 
@@ -17,6 +18,7 @@ app.use(passport.initialize());
 
 app.use("/api/users", userRoutes);
 app.use("/api/buddies", buddyRoutes);
+app.use("/api/stats", statsRoutes);
 
 
 app.get("*", (req,res) => {

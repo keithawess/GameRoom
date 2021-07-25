@@ -17,6 +17,8 @@ async function signup(res, username, password) {
         "INSERT INTO users (password, username, uuid, level, experience) VALUES (?,?,?,?,?)",
         [hashed, username, uuid, 0, 0]
       );
+      const id = await query("SELECT id FROM users WHERE username = ?", [username]);
+      await query("INSERT INTO stats (user_id, wins, losses, ties, games_played) values (?,?,?,?,?)", [id[0].id,0,0,0,0]);
       json = { ...json, success: true, data: "Signup was successful!"};
     }
   } catch (err) {
