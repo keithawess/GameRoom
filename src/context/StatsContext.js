@@ -10,13 +10,28 @@ export function StatsProvider(props){
     const [gamesPlayed, setGamesPlayed] = useState(0);
     const [winRatio, setWinRatio] = useState(0);
 
+    const { callAPI: winsCall } = useFetchDB("PATCH");
+    const { callAPI: lossesCall } = useFetchDB("PATCH");
+    const { callAPI: tiesCall } = useFetchDB("PATCH");
+    const { callAPI: statsCall } = useFetchDB("GET");
+
+    const addWin = useCallback((userId) => {
+        async function fetchData(userId) {
+          const res = await winsCall("/api/stats/win", {userId: userId});
+          if (res.success) {
+              setWins(wins + 1);
+          }
+        }
+        fetchData();
+      }, []);
+
     useEffect(()=>
     {
         if (gamesPlayed > 0)
         {
             setWinRatio(wins / gamesPlayed);
         }
-    },[gamesPlayed, wins])
+    },[gamesPlayed, wins]);
 
 
     return (<StatsContext.Provider value={{wins, losses, ties, gamesPlayed, winRatio}}>

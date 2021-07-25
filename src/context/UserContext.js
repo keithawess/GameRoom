@@ -1,5 +1,6 @@
-import React, { useState, createContext, useCallback, useEffect } from "react";
+import React, { useState, createContext, useCallback, useEffect, useContext } from "react";
 import useFetchDB from "../hooks/useFetchDB";
+import { StatsContext } from ".";
 
 export const UserContext = createContext(null);
 
@@ -8,6 +9,8 @@ export function UserProvider(props) {
   const [userId, setUserId] = useState("");
   const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
+
+  const {  } = useContext(StatsContext)
 
   const { callAPI: levelCall } = useFetchDB("PATCH");
   const { callAPI: expCall } = useFetchDB("PATCH");

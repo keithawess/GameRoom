@@ -3,14 +3,16 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BuddyProvider, UserProvider } from "./context";
+import { BuddyProvider, StatsProvider, UserProvider } from "./context";
 
 ReactDOM.render(
-  <UserProvider>
-    <BuddyProvider>
-      <App />
-    </BuddyProvider>
-  </UserProvider>,
+  <StatsProvider>
+    <UserProvider>
+      <BuddyProvider>
+        <App />
+      </BuddyProvider>
+    </UserProvider>{" "}
+  </StatsProvider>,
   document.getElementById("root")
 );
 

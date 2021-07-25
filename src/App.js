@@ -11,7 +11,7 @@ import TicTacToe from "./components/TicTacToe/TicTacToe";
 import Mastermind from "./components/Mastermind/Mastermind";
 import Buddy from "./components/Buddy/Buddy";
 import BuddyDisplay from "./components/Buddy/components/BuddyDisplay";
-import { UserContext, BuddyContext } from "./context";
+import { UserContext, BuddyContext, StatsContext } from "./context";
 import Home from "./components/Home";
 import Signup from "./components/Signup/Signup";
 import heart from "./heart.png";
@@ -22,6 +22,7 @@ function App() {
   const [navScroll, setNavScroll] = useState(0);
   const { level, experience, logout, userId } = useContext(UserContext);
   const { buddy, setBuddy, buddyPage, setBuddyPage } = useContext(BuddyContext);
+  const { wins, losses, ties, gamesPlayed, winRatio } = useContext(StatsContext);
 
   return (
     <Router>
@@ -149,7 +150,12 @@ function App() {
         {userId && (
           <aside className="aside third flex align-items-center justify-center col">
             <h3>Stats:</h3>
-            <div>You're Awesome</div>
+            <div>Wins: {wins}</div>
+            <div>Ties: {ties}</div>
+            <div>Losses: {losses}</div>
+            <div>Total: {gamesPlayed}</div>
+            <div>Win Ratio: {winRatio}</div>
+
           </aside>
         )}
 
