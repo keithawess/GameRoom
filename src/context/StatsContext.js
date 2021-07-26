@@ -16,10 +16,12 @@ export function StatsProvider(props){
     const { callAPI: statsCall } = useFetchDB("GET");
 
     const addWin = useCallback((userId) => {
-        async function fetchData(userId) {
+        console.log("Ping")
+        async function fetchData() {
           const res = await winsCall("/api/stats/win", {userId: userId});
           if (res.success) {
               setWins(wins + 1);
+              setGamesPlayed(gamesPlayed + 1);
           }
         }
         fetchData();
@@ -34,7 +36,7 @@ export function StatsProvider(props){
     },[gamesPlayed, wins]);
 
 
-    return (<StatsContext.Provider value={{wins, losses, ties, gamesPlayed, winRatio}}>
+    return (<StatsContext.Provider value={{wins, losses, ties, gamesPlayed, winRatio, addWin}}>
         {props.children}
     </StatsContext.Provider>)
 }
