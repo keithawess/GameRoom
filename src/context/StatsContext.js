@@ -16,12 +16,34 @@ export function StatsProvider(props){
     const { callAPI: statsCall } = useFetchDB("GET");
 
     const addWin = useCallback((userId) => {
-        console.log("Ping")
         async function fetchData() {
           const res = await winsCall("/api/stats/win", {userId: userId});
           if (res.success) {
-              setWins(wins + 1);
-              setGamesPlayed(gamesPlayed + 1);
+              setWins((wins) => wins + 1);
+              setGamesPlayed((gamesPlayed) => gamesPlayed + 1);
+          }
+        }
+        fetchData();
+      }, []);
+
+      const addLoss = useCallback((userId) => {
+        async function fetchData() {
+          const res = await lossesCall("/api/stats/loss", {userId: userId});
+          if (res.success) {
+              setLosses((losses)=> losses + 1);
+              setGamesPlayed((gamesPlayed) => gamesPlayed + 1);
+          }
+        }
+        fetchData();
+      }, []);
+
+      const addTie = useCallback((userId) => {
+        console.log("Ping")
+        async function fetchData() {
+          const res = await tiesCall("/api/stats/tie", {userId: userId});
+          if (res.success) {
+              setTies(ties + 1);
+              setGamesPlayed((gamesPlayed) => gamesPlayed + 1);
           }
         }
         fetchData();
@@ -31,12 +53,12 @@ export function StatsProvider(props){
     {
         if (gamesPlayed > 0)
         {
-            setWinRatio(wins / gamesPlayed);
+            setWinRatio((wins / gamesPlayed).toFixed(2));
         }
     },[gamesPlayed, wins]);
 
 
-    return (<StatsContext.Provider value={{wins, losses, ties, gamesPlayed, winRatio, addWin}}>
+    return (<StatsContext.Provider value={{wins, losses, ties, gamesPlayed, winRatio, addWin, addLoss, addTie}}>
         {props.children}
     </StatsContext.Provider>)
 }
