@@ -5,7 +5,7 @@ import useFetchDB from "../hooks/useFetchDB";
 import coin from "./CoinFlip/images/heads.png";
 import rock from "./RockPaperScissors/images/rock.png";
 import x from "./TicTacToe/x.png";
-import mastermind from "./mastermind.png"
+import mastermind from "./mastermind.png";
 import comingSoon from "./help-sing.png";
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
                 placeholder="'Keith' for shortcut"
                 value={usernameInput}
                 onKeyPress={async (e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     if (usernameValid && passwordValid) {
                       let res = await loginCall("/api/users/login", {
                         username: usernameInput,
@@ -72,7 +72,7 @@ export default function Home() {
                 type="password"
                 value={passwordInput}
                 onKeyPress={async (e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     if (usernameValid && passwordValid) {
                       let res = await loginCall("/api/users/login", {
                         username: usernameInput,
@@ -165,7 +165,12 @@ export default function Home() {
               level < 1 ? "locked" : "unlocked"
             }`}
           >
-            <img className="rock-thumb" src={rock} alt="Rock Paper Scissors" title="Rock Paper Scissors" />
+            <img
+              className="rock-thumb"
+              src={rock}
+              alt="Rock Paper Scissors"
+              title="Rock Paper Scissors"
+            />
           </div>
 
           <div
@@ -178,7 +183,12 @@ export default function Home() {
               level < 2 ? "locked" : "unlocked"
             }`}
           >
-            <img className="x-thumb" src={x} alt="Tic Tac Toe" title="Tic Tac Toe" />
+            <img
+              className="x-thumb"
+              src={x}
+              alt="Tic Tac Toe"
+              title="Tic Tac Toe"
+            />
           </div>
 
           <div
@@ -191,7 +201,12 @@ export default function Home() {
               level < 3 ? "locked" : "unlocked"
             }`}
           >
-            <img className="x-thumb" src={mastermind} alt="Mastermind" title="Mastermind" />
+            <img
+              className="x-thumb"
+              src={mastermind}
+              alt="Mastermind"
+              title="Mastermind"
+            />
           </div>
 
           <div className="home-option border flex align-items-center circle justify-center locked">

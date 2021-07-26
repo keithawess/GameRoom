@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useContext } from "react";
-import { UserContext } from "../../context";
+import { UserContext, StatsContext } from "../../context";
 import x from "./x.png";
 import o from "./o.png";
 
@@ -11,7 +11,8 @@ export default function TicTacToe() {
   const [gameGrid, setGameGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [result, setResult] = useState("");
   const [winningSet, setWinningSet] = useState("");
-  const { experienceUp, level } = useContext(UserContext);
+  const { experienceUp, level, userId } = useContext(UserContext);
+  const { addWin, addLoss, addTie } = useContext(StatsContext);
 
   // Checks if winning move has been made. Returns who won.
   const winner = useCallback(() => {
@@ -132,10 +133,12 @@ export default function TicTacToe() {
       }
       setGameGrid((curr) => [...curr]);
     } else {
+      addTie(userId);
       endGame();
     }
 
     if (winner() !== "none") {
+      addLoss(userId);
       endGame();
     }
   }, [gameGrid, endGame, winner, availableMove]);
@@ -149,6 +152,7 @@ export default function TicTacToe() {
         computerMove();
       } else {
         endGame();
+        addWin(userId);
         if (level < 3) {
           experienceUp(10);
         }

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from "react";
 import MastermindCodeDisplay from "./components/MastermindCodeDisplay";
-import { UserContext } from "../../context";
+import { UserContext, StatsContext } from "../../context";
 
 export default function Mastermind() {
   //State
@@ -13,7 +13,8 @@ export default function Mastermind() {
   const [feedback, setFeedback] = useState(Array(6).fill(Array(2).fill(0)));
   const [gameRunning, setGameRunning] = useState(false);
   const [result, setResult] = useState("New Game?");
-  const { level, experienceUp } = useContext(UserContext);
+  const { level, experienceUp, userId } = useContext(UserContext);
+  const { addWin, addLoss } = useContext(StatsContext);
 
   //Colors Options
   const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
@@ -40,6 +41,7 @@ export default function Mastermind() {
     if (endResult === "Win!" && level === 3) {
       experienceUp(25);
     }
+    endResult === "Win!" ? addWin(userId) : addLoss(userId);
     setResult(endResult);
   }, []);
 
