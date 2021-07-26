@@ -52,7 +52,7 @@
 }
 
 .heart {
-  opacity: 0%;
+  opacity: 0;
   animation: Float 3s linear;
 }
 /* Home Styling */
@@ -80,15 +80,19 @@
 }
 
 .locked {
-  border-color:rgba(0, 0, 0, 0.4);
+  opacity: .4;
 }
 
 .unlocked:hover {
-  border-color:rgba(0, 0, 0, 0.4);
+  opacity: .4;
   background-color: #13459c86;
 }
 
 /* TicTacToe Styling */
+
+.ttt-endgame{
+  opacity: .5;
+}
 
 .ttt-spot {
   height: 98px;
@@ -465,12 +469,12 @@
 @keyframes Drop-Player {
   0% {
     transform: translate(0px, -50px);
-    opacity: 50%;
+    opacity: .5;
   }
 
   90% {
     transform: translate(0px, 0px);
-    opacity: 100%;
+    opacity: 1;
   }
   93% {
     transform: rotate(7deg);
@@ -486,17 +490,17 @@
 @keyframes Drop-Comp {
   0% {
     transform: translate(0px, -50px);
-    opacity: 0%;
+    opacity: 0;
   }
 
   10% {
     transfrom: translate(0px, -50px);
-    opacity: 0%;
+    opacity: 0;
   }
 
   90% {
     transform: translate(0px, 0px);
-    opacity: 100%;
+    opacity: 1;
   }
   93% {
     transform: rotate(7deg);
@@ -511,63 +515,63 @@
 
 @keyframes Float {
   10% {
-    opacity: 10%;
+    opacity: .1;
     transform: translate(-5px, -10px);
   }
 
   20% {
-    opacity: 100%;
+    opacity: 1;
     transform: translate(-20px, -20px);
   }
 
   30% {
-    opacity: 100%;
+    opacity: 1;
     transform: translate(0px, -30px);
   }
 
   40% {
-    opacity: 100%;
+    opacity: 1;
     transform: translate(20px, -40px);
   }
 
   50% {
-    opacity: 100%;
+    opacity: 1;
     transform: translate(0px, -50px);
   }
 
   55% {
-    opacity: 100%;
+    opacity: 1;
     transform: scale(50%);
   }
 
   58% {
-    opacity: 100%;
+    opacity: 1;
     transform: scale(150%);
   }
 
   60% {
-    opacity: 100%;
+    opacity: 1;
     transform: scale(100%);
   }
 
   62% {
-    opacity: 100%;
+    opacity: 1;
     transform: scale(150%);
   }
 
   64% {
-    opacity: 100%;
+    opacity: 1;
     transform: scale(100%);
   }
 
   90% {
-    opacity: 100%;
+    opacity: 1;
     transform: scale(100%);
   }
 
   98% {
     transform: scale(200%);
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
