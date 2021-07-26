@@ -52,7 +52,7 @@
 }
 
 .heart {
-  opacity: 0%;
+  opacity: 0;
   animation: Float 3s linear;
 }
 /* Home Styling */
@@ -80,11 +80,11 @@
 }
 
 .locked {
-  border-color:rgba(0, 0, 0, 0.4);
+  opacity: .4;
 }
 
 .unlocked:hover {
-  border-color:rgba(0, 0, 0, 0.4);
+  opacity: .4;
   background-color: #13459c86;
 }
 
