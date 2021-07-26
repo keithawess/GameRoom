@@ -49,6 +49,20 @@ export function StatsProvider(props){
         fetchData();
       }, []);
 
+      const getStats = useCallback((userId) => {
+          async function fetchData() {
+              const res = await statsCall(`/api/stats/user/${userId}`);
+              if (res.success)
+              {
+                  setWins(res.data.wins);
+                  setLosses(res.data.losses);
+                  setTies(res.data.ties);
+                  setGamesPlayed(res.data.games_played);
+              }
+          }
+          fetchData();
+      })
+
     useEffect(()=>
     {
         if (gamesPlayed > 0)
@@ -58,7 +72,7 @@ export function StatsProvider(props){
     },[gamesPlayed, wins]);
 
 
-    return (<StatsContext.Provider value={{wins, losses, ties, gamesPlayed, winRatio, addWin, addLoss, addTie}}>
+    return (<StatsContext.Provider value={{wins, losses, ties, gamesPlayed, winRatio, addWin, addLoss, addTie, getStats}}>
         {props.children}
     </StatsContext.Provider>)
 }

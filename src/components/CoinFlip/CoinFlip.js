@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import headsImg from "./images/heads.png";
 import tailsImg from "./images/tails.png";
 import unknownImg from "./images/unknown.png";
-import { UserContext } from "../../context";
+import { UserContext, StatsContext } from "../../context";
 
 export default function CoinFlip() {
   // States
@@ -11,7 +11,8 @@ export default function CoinFlip() {
   const [result, setResult] = useState(null);
   const [animationReload, setAnimationReload] = useState(1);
 
-  const { experienceUp, level } = useContext(UserContext);
+  const { experienceUp, level, userId } = useContext(UserContext);
+  const { addWin, addLoss } = useContext(StatsContext);
 
   // Image of coin changes when result is decided.
   useEffect(() => {
@@ -59,10 +60,15 @@ export default function CoinFlip() {
               if (!result && flip >= 0) {
                 if (!result && flip) {
                   setResult("Win");
+                  console.log(userId);
+                  addWin(userId);
                   if (level < 1) {
                     experienceUp(10);
                   }
-                } else setResult("Loss");
+                } else {
+                  addLoss(userId);
+                  setResult("Loss");
+                }
               }
             }}
           >
@@ -88,10 +94,15 @@ export default function CoinFlip() {
               if (!result && flip >= 0) {
                 if (!flip) {
                   setResult("win");
+                  console.log(userId);
+                  addWin(userId);
                   if (level < 1) {
                     experienceUp(10);
                   }
-                } else setResult("loss");
+                } else {
+                  addLoss(userId);
+                  setResult("Loss");
+                }
               }
             }}
           >
