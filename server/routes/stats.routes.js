@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { addWin, addLoss, addTie, getStatsByUser } = require("../models/stats.model");
+const {
+  addWin,
+  addLoss,
+  addTie,
+  getStatsByUser,
+} = require("../models/stats.model");
 
 router.patch("/win", (req, res) => {
   const { userId } = req.body;
@@ -39,7 +44,7 @@ router.patch("/tie", (req, res) => {
 });
 
 router.get("/user/:user_id", (req, res) => {
-        return getStatsByUser(res, req.params.user_id);
+  return getStatsByUser(res, req.params.user_id);
 });
 
 module.exports = router;

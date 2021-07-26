@@ -55,9 +55,17 @@ async function getStatsByUser(res, userId) {
       "SELECT wins, losses, ties, games_played FROM stats WHERE user_id = ?",
       [userId]
     );
-    console.log(stats);
     if (stats.length !== 0) {
-      json = { ...json, success: true, data: {wins: stats[0].wins, losses: stats[0].losses, ties: stats[0].ties, games_played: stats[0].games_played} };
+      json = {
+        ...json,
+        success: true,
+        data: {
+          wins: stats[0].wins,
+          losses: stats[0].losses,
+          ties: stats[0].ties,
+          games_played: stats[0].games_played,
+        },
+      };
     }
   } catch (err) {
     console.log(err);

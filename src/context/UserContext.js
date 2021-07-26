@@ -1,4 +1,10 @@
-import React, { useState, createContext, useCallback, useEffect, useContext } from "react";
+import React, {
+  useState,
+  createContext,
+  useCallback,
+  useEffect,
+  useContext,
+} from "react";
 import useFetchDB from "../hooks/useFetchDB";
 import { StatsContext } from ".";
 
@@ -10,7 +16,7 @@ export function UserProvider(props) {
   const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
 
-  const { getStats } = useContext(StatsContext)
+  const { getStats } = useContext(StatsContext);
 
   const { callAPI: levelCall } = useFetchDB("PATCH");
   const { callAPI: expCall } = useFetchDB("PATCH");
@@ -22,7 +28,7 @@ export function UserProvider(props) {
     setLevel(user.level);
     setExperience(user.experience);
     setUserId(user.id);
-    getStats(user.id)
+    getStats(user.id);
   }, []);
 
   const logout = useCallback(() => {

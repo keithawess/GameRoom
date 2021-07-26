@@ -1,9 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  BrowserRouter as Router,
-  NavLink,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Switch } from "react-router-dom";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import CoinFlip from "./components/CoinFlip/CoinFlip";
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
@@ -22,7 +18,8 @@ function App() {
   const [navScroll, setNavScroll] = useState(0);
   const { level, experience, logout, userId } = useContext(UserContext);
   const { buddy, setBuddy, buddyPage, setBuddyPage } = useContext(BuddyContext);
-  const { wins, losses, ties, gamesPlayed, winRatio } = useContext(StatsContext);
+  const { wins, losses, ties, gamesPlayed, winRatio } =
+    useContext(StatsContext);
 
   return (
     <Router>
@@ -155,7 +152,6 @@ function App() {
             <div>Losses: {losses}</div>
             <div>Total: {gamesPlayed}</div>
             <div>Win Ratio: {winRatio}</div>
-
           </aside>
         )}
 

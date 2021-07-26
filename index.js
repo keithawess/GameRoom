@@ -20,9 +20,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/buddies", buddyRoutes);
 app.use("/api/stats", statsRoutes);
 
-
-app.get("*", (req,res) => {
-    return res.sendFile("/build/index.html", {root: __dirname + "/"});
-})
+app.get("*", (req, res) => {
+  return res.sendFile("/build/index.html", { root: __dirname + "/" });
+});
 
 app.listen(PORT, () => console.log("Connected"));
