@@ -60,7 +60,6 @@ export default function CoinFlip() {
               if (!result && flip >= 0) {
                 if (!result && flip) {
                   setResult("Win");
-                  console.log(userId);
                   addWin(userId);
                   if (level < 1) {
                     experienceUp(10);
